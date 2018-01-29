@@ -2,23 +2,23 @@
 <html>
 
 <head>
-	<title>Photoprints</title>
+	<title>Login</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="/plugin/materialize-css/dist/css/materialize.min.css">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="/plugins/materialize/css/materialize.css">
+	<link href="/plugins/materialize/" rel="stylesheet">
 	<link rel="stylesheet" href="/common/css/login.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
-	<script src="/plugin/angular/angular.min.js"></script>
+	<link rel="stylesheet" href="/plugins/materialize/css/materialFont.css">
+	<script src="/plugins/angular/angular.min.js"></script>
 </head>
 
-<body ng-app="common">
+<body ng-app="app">
 	<main>
 		<div class="container">
 			<div class="row">
 				<div class="login" ng-controller="login">
 					<div class="login-card" ng-class="shake ? 'shake':''">
 						<div class="col s12">
-							<h1><img src="/common/images/logo.png" alt=""></h1>
+							<h1><img src="/common/images/logo.jpg" alt=""></h1>
 						</div>
 						<form ng-submit="validateAcess()">
 							<div class="input-field col s12">
@@ -39,11 +39,9 @@
 			</div>
 		</div>
 	</main>
-	<script src="/plugin/jquery/dist/jquery.min.js"></script>
-	<script src="/plugin/materialize-css/dist/js/materialize.min.js"></script>
-	<script src="/common/js/angularFiles/modules.js"></script>
-	<script src="/common/js/angularFiles/services.js"></script>
-	<script src="/common/js/angularFiles/loginController.js"></script>
+	<script src="/common/js/angular/modules.js"></script>
+	<script src="/common/js/angular/services.js"></script>
+	<script src="/common/js/angular/controllers.js"></script>
 
 </body>
 

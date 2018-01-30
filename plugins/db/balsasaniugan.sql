@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 30, 2018 at 10:26 AM
+-- Generation Time: Jan 30, 2018 at 10:44 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -63,7 +63,14 @@ CREATE TABLE IF NOT EXISTS `category_tbl` (
   `date_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_by_fk` int(11) DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `category_tbl`
+--
+
+INSERT INTO `category_tbl` (`id`, `name`, `category_code`, `description`, `date_modified`, `modified_by_fk`, `active`) VALUES
+(1, 'pasta', 'p01', 'pastaqwerqwerqwer', '2018-01-30 09:40:13', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -182,7 +189,14 @@ CREATE TABLE IF NOT EXISTS `product_tbl` (
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `price` decimal(11,2) DEFAULT NULL,
   `amount` int(11) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product_tbl`
+--
+
+INSERT INTO `product_tbl` (`id`, `name`, `description`, `picture`, `item_code`, `category_fk`, `date_modified`, `modified_by_fk`, `active`, `price`, `amount`) VALUES
+(1, 'carbonara', 'no desc', 'adfadf', '1312', 1, '2018-01-30 09:31:35', 1, 1, '123.00', 1);
 
 --
 -- Indexes for dumped tables
@@ -243,7 +257,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `category_tbl`
 --
 ALTER TABLE `category_tbl`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `employee_tbl`
 --
@@ -268,7 +282,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `product_tbl`
 --
 ALTER TABLE `product_tbl`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

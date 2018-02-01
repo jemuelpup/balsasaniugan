@@ -16,9 +16,7 @@ app.controller("employeeManagement",function($scope,dbOperations){
 			e.gender = parseInt(e.gender);
 			e.salary = parseFloat(e.salary);
 			e.birth_day = formatDate(e.birth_day);
-			// $scope.editemployeeFields = e;
 		});
-
 	}
 	function formatDate(inputDate) {
 		return  new Date(inputDate);

@@ -1,3 +1,8 @@
+input[type="text"] + label {
+  pointer-events: none; }
+  input[type="text"] + label * {
+    pointer-events: all; }
+
 .h4-design, .data-header h4 {
   color: #fff;
   margin: 0; }

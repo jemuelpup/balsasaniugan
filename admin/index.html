@@ -4,29 +4,29 @@
 <head>
 	<title>Admin</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="/plugins/materialize-src/css/materialize.css">
+	<link rel="stylesheet" href="/plugins/materialize/css/materialize.css">
 	<link rel="stylesheet" href="/common/css/common.css">
 	<link rel="stylesheet" href="/admin/css/style.css">
 	<link rel="stylesheet" href="/common/css/login.css">
-	<link rel="stylesheet" href="/plugins/materialize-src/css/materialFont.css">
+	<link rel="stylesheet" href="/plugins/materialize/css/materialFont.css">
 	<script src="/plugins/angular/angular.min.js"></script>
 </head>
 
-<body ng-app="balsasaniuganPointOfSale">
+<body ng-app="balsasaniuganPointOfSale" ng-controller="userInterface">
 	<header>
 		<div class="sidenav fixed" ng-class="sideNavActive ? 'active':''">
 			<h1><img src="/common/images/logo.jpg" alt=""></h1>
 			<ul class="navigation">
-				<li ng-controller="productManagement" ng-click="shadowClick()">
+				<li ng-controller="productManagement" ng-click="showproductManagement()">
 					<i class="small material-icons">note_add</i><span>Product management</span>
 				</li>
-				<li ng-controller="employeeManagement" ng-click="employeeManagementInit();shadowClick()">
+				<li ng-controller="employeeManagement" ng-click="employeeManagementInit();showemployeeManagement()">
 					<i class="small material-icons">person</i><span><span>Employee management</span>
 				</li>
-				<li ng-controller="buisnessManagement" ng-click="shadowClick()">
+				<li ng-controller="buisnessManagement" ng-click="showbuisnessManagement()">
 					<i class="small material-icons">business</i><span><span>Buisness management</span>
 				</li>
-				<li ng-controller="reports" ng-click="shadowClick()">
+				<li ng-controller="reports" ng-click="showreports()">
 					<i class="small material-icons">library_books</i><span><span>Reports</span>
 				</li>
 			</ul>
@@ -45,67 +45,76 @@
 				</div>	
 			</div>
 		</div>
-		<section class="employee-management" ng-controller="employeeManagement">
+		<section class="employee-management" ng-controller="employeeManagement" ng-class="employeeManagement ? 'active':''">
 			<div class="container">
 				<h2>Employee management</h2>
 				<div class="row">
 					<div class="col s12">
-						<div class="employee">
-						    <h3>employee_tbl</h3>
-						    <form ng-submit="addEmployee()">
+						<!-- <add-employee></add-employee> -->
+					</div>
+					<div class="col s12">
+						<update-employee></update-employee>
+						<button ng-click="editEmployee()">editTest</button>
+					</div>
+					<div class="col s12">
+						<div class="access">
+						    <h3>access_tbl</h3>
+						    <form action="#" ng-submit="addAccess()">
 						        <div class="input-field col s12">
-						            <input ng-model="employeeFields.name" name="name" value="" type="text" class="validate" maxlength="50" required>
-						            <label for="name">name</label>
+						            <input ng-model="accessFields.employee_id_fk" name="employee_id_fk" value="" type="number" class="validate" maxlength="50" required>
+						            <label for="employee_id_fk">employee_id_fk</label>
 						        </div>
 						        <div class="input-field col s12">
-						            <input ng-model="employeeFields.picture" name="picture" value="" type="text" class="validate" maxlength="50">
-						            <label for="picture">picture</label>
+						            <input ng-model="accessFields.username" name="username" value="" type="text" class="validate" maxlength="50" required>
+						            <label for="username">username</label>
 						        </div>
 						        <div class="input-field col s12">
-						            <input ng-model="employeeFields.address" name="address" value="" type="text" class="validate" maxlength="50">
-						            <label for="address">address</label>
-						        </div>
-						        <div class="input-field col s12">
-						            <input ng-model="employeeFields.contact_number" name="contact_number" value="" type="text" class="validate" maxlength="50">
-						            <label for="contact_number">contact_number</label>
-						        </div>
-						        <div class="input-field col s12">
-						            <input ng-model="employeeFields.email" name="email" value="" type="text" class="validate" maxlength="50">
-						            <label for="email">email</label>
-						        </div>
-						        <div class="input-field col s12">
-						            <input ng-model="employeeFields.position_fk" name="position_fk" value="" type="number" class="validate" maxlength="50">
-						            <label for="position_fk">position_fk</label>
-						        </div>
-						        <div class="input-field col s12">
-						            <input ng-model="employeeFields.branch_fk" name="branch_fk" value="" type="number" class="validate" maxlength="50">
-						            <label for="branch_fk">branch_fk</label>
-						        </div>
-						        <div class="input-field col s12">
-						            <input ng-model="employeeFields.salary" name="salary" value="" type="number" class="validate" maxlength="50" required>
-						            <label for="salary">salary</label>
-						        </div>
-						        <div class="input-field col s12">
-						            <input ng-model="employeeFields.modified_by_fk" name="modified_by_fk" value="" type="number" class="validate" maxlength="50" required>
-						            <label for="modified_by_fk">modified_by_fk</label>
-						        </div>
-						        <div class="input-field col s12">
-						            <input ng-model="employeeFields.birth_day" name="birth_day" value="" type="date" class="validate" maxlength="50">
-						            <label for="birth_day" class="active">birth_day</label>
-						        </div>
-						        <div class="input-field col s12">
-						            <input ng-model="employeeFields.gender" name="gender" value="" type="number" class="validate" maxlength="50" required>
-						            <label for="gender">gender</label>
+						            <input ng-model="accessFields.password" name="password" value="" type="text" class="validate" maxlength="50" required>
+						            <label for="password">password</label>
 						        </div>
 						        <button class="waves-effect waves-light btn" type="submit">Add</button>
 						        <button class="waves-effect waves-light btn">Clear</button>
 						    </form>
 						</div>
 					</div>
+					<div class="col s12">
+						<div class="data-table-container">
+						    <table class="data-clickable">
+						        <tbody>
+						            <tr>
+						                <th>name</th>
+						                <th>picture</th>
+						                <th>address</th>
+						                <th>contact_number</th>
+						                <th>email</th>
+						                <th>position_fk</th>
+						                <th>branch_fk</th>
+						                <th>salary</th>
+						                <th>modified_by_fk</th>
+						                <th>birth_day</th>
+						                <th>gender</th>
+						            </tr>
+						            <tr ng-repeat="x in employees"  ng-click="employeeIndex($index)">
+						                <td>{{x.name}}</td>
+						                <td>{{x.picture}}</td>
+						                <td>{{x.address}}</td>
+						                <td>{{x.contact_number}}</td>
+						                <td>{{x.email}}</td>
+						                <td>{{x.position_fk}}</td>
+						                <td>{{x.branch_fk}}</td>
+						                <td>{{x.salary}}</td>
+						                <td>{{x.modified_by_fk}}</td>
+						                <td>{{x.birth_day}}</td>
+						                <td>{{x.gender}}</td>
+						            </tr>
+						        </tbody>
+						    </table>
+						</div>
+					</div>
 				</div>
 			</div>
 		</section>
-		<section class="product-management" ng-controller="productManagement">
+		<section class="product-management" ng-controller="productManagement" ng-class="productManagement ? 'active':''">
 			<div class="container">
 				<h2>Product management</h2>
 				<div class="row">
@@ -152,36 +161,34 @@
 						</div>
 					</div>
 					<div class="col s12">
-
-<div class="category">
-	<h3>category_tbl</h3>
-	<form ng-submit="addCategory()">
-		
-	<div class="input-field col s12">
-	    <input ng-model="categoryFields.name" name="name" value="" type="text" class="validate" maxlength="50" required>
-	    <label for="name">name</label>
-	</div>
-	
-	<div class="input-field col s12">
-	    <input ng-model="categoryFields.category_code" name="category_code" value="" type="text" class="validate" maxlength="50">
-	    <label for="category_code">category_code</label>
-	</div>
-	
-	<div class="input-field col s12">
-	    <input ng-model="categoryFields.description" name="description" value="" type="text" class="validate" maxlength="50">
-	    <label for="description">description</label>
-	</div>
-	
-		<button class="waves-effect waves-light btn" type="submit">Add</button>
-		<button class="waves-effect waves-light btn">Clear</button>
-	</form>
-</div>
-
+						<div class="category">
+							<h3>category_tbl</h3>
+							<form ng-submit="addCategory()">
+								
+								<div class="input-field col s12">
+								    <input ng-model="categoryFields.name" name="name" value="" type="text" class="validate" maxlength="50" required>
+								    <label for="name">name</label>
+								</div>
+								
+								<div class="input-field col s12">
+								    <input ng-model="categoryFields.category_code" name="category_code" value="" type="text" class="validate" maxlength="50">
+								    <label for="category_code">category_code</label>
+								</div>
+								
+								<div class="input-field col s12">
+								    <input ng-model="categoryFields.description" name="description" value="" type="text" class="validate" maxlength="50">
+								    <label for="description">description</label>
+								</div>
+							
+								<button class="waves-effect waves-light btn" type="submit">Add</button>
+								<button class="waves-effect waves-light btn">Clear</button>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
 		</section>
-		<section class="buisness-management" ng-controller="buisnessManagement">
+		<section class="buisness-management" ng-controller="buisnessManagement" ng-class="buisnessManagement ? 'active':''">
 			<div class="container">
 				<h2>Buisness management</h2>
 				<div class="row">
@@ -207,7 +214,7 @@
 				</div>
 			</div>
 		</section>
-		<section class="reports" ng-controller="reports">
+		<section class="reports" ng-controller="reports" ng-class="reports ? 'active':''">
 			<div class="container">
 				<h2>Reports</h2>
 				<div class="row">
@@ -221,6 +228,7 @@
 
 	</main>
 	<script src="/admin/js/angular/modules.js"></script>
+	<script src="/admin/js/angular/directives.js"></script>
 	<script src="/admin/js/angular/services.js"></script>
 	<script src="/admin/js/angular/controllers.js"></script>
 

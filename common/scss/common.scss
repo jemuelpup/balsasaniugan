@@ -2,6 +2,13 @@ $themeColor: #4a148c;
 $themeColorLight: #7c43bd;
 $themeColorDark: #12005e;
 $menuPadding:  15px 10px;
+input[type="text"] + label {
+    pointer-events: none;
+
+    * {
+        pointer-events: all;
+    }
+}
 
 .h4-design{
 	color: #fff;

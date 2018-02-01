@@ -17,13 +17,15 @@ app.service('dbOperations',function($http){
 	    });
 	}
 	this.views = function(process,data){
+		console.log("Dumaan sa view");
 		return $http({
-			method:"GET",
-			url:"/admin/view.php",
+			method:"POST",
+			url:"/admin/views.php",
 			data: { 'process': process, 'data':data }
 		}).then(function success(res){
 			return res.data;
 		},function error(err) {
+			console.log("error");
 			console.log(err);
 	    });
 	}

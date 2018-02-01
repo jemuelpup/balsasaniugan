@@ -10,6 +10,7 @@ header {
   display: block; }
 
 .sidenav.fixed {
+  transform: translateX(0%);
   background-color: #fff;
   position: fixed;
   left: 0;
@@ -18,11 +19,11 @@ header {
   height: 100%;
   -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-  -webkit-transition: left 250ms ease;
-  -moz-transition: left 250ms ease;
-  -ms-transition: left 250ms ease;
-  -o-transition: left 250ms ease;
-  transition: left 250ms ease; }
+  -webkit-transition: transform 250ms ease;
+  -moz-transition: transform 250ms ease;
+  -ms-transition: transform 250ms ease;
+  -o-transition: transform 250ms ease;
+  transition: transform 250ms ease; }
 
 .container {
   width: 85%; }
@@ -118,6 +119,17 @@ h4 {
 .hasOrderNotes {
   background-color: #f9f9f9; }
 
+.employee-management,
+.product-management,
+.buisness-management,
+.reports {
+  display: none; }
+  .employee-management.active,
+  .product-management.active,
+  .buisness-management.active,
+  .reports.active {
+    display: block; }
+
 @media screen and (max-width: 900px) {
   h2 {
     font-size: 2.2rem; }
@@ -145,7 +157,7 @@ h4 {
     opacity: 0.5; }
 
   header .sidenav.fixed {
-    left: -320px;
+    transform: translateX(-105%);
     z-index: 2; }
     header .sidenav.fixed.active {
       left: 0; }

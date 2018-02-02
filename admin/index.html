@@ -49,34 +49,10 @@
 			<div class="container">
 				<h2>Employee management</h2>
 				<div class="row">
-					<div class="col s12">
-						<add-employee></add-employee>
-					</div>
-					<div class="col s12">
-						<update-employee></update-employee>
-						<button ng-click="editEmployee()">editTest</button>
-					</div>
-					<div class="col s12">
-						<div class="access">
-						    <h3>access_tbl</h3>
-						    <form action="#" ng-submit="addAccess()">
-						        <div class="input-field col s12">
-						            <input ng-model="accessFields.employee_id_fk" name="employee_id_fk" value="" type="number" class="validate" maxlength="50" required>
-						            <label for="employee_id_fk">employee_id_fk</label>
-						        </div>
-						        <div class="input-field col s12">
-						            <input ng-model="accessFields.username" name="username" value="" type="text" class="validate" maxlength="50" required>
-						            <label for="username">username</label>
-						        </div>
-						        <div class="input-field col s12">
-						            <input ng-model="accessFields.password" name="password" value="" type="text" class="validate" maxlength="50" required>
-						            <label for="password">password</label>
-						        </div>
-						        <button class="waves-effect waves-light btn" type="submit">Add</button>
-						        <button class="waves-effect waves-light btn">Clear</button>
-						    </form>
-						</div>
-					</div>
+					<!-- These are the employee modals from directive -->
+					<add-employee></add-employee>
+					<update-employee></update-employee>
+					<add-employee-access></add-employee-access>
 					<div class="col s12">
 						<div class="data-table-container">
 						    <table class="data-clickable">
@@ -94,7 +70,7 @@
 						                <th>birth_day</th>
 						                <th>gender</th>
 						            </tr>
-						            <tr ng-repeat="x in employees"  ng-click="employeeIndex($index)">
+						            <tr ng-repeat="x in employees"  ng-click="employeeIndex($index)" ng-class="{'active': x.selected}">
 						                <td>{{x.name}}</td>
 						                <td>{{x.picture}}</td>
 						                <td>{{x.address}}</td>
@@ -110,6 +86,9 @@
 						        </tbody>
 						    </table>
 						</div>
+						<button class="waves-effect waves-light btn" ng-click="openAddEmployeeModal()">ADD</button>
+						<button class="waves-effect waves-light btn" ng-click="openEditEmployee()">editTest</button>
+						<button class="waves-effect waves-light btn" ng-click="openAddEmployeeAccessModal()">ADD ACCESS</button>
 					</div>
 				</div>
 			</div>
@@ -119,45 +98,70 @@
 				<h2>Product management</h2>
 				<div class="row">
 					<div class="col s12">
-						<div class="product">
-							<h3>product_tbl</h3>
-							<form ng-submit="addProduct()">
-								<div class="input-field col s12">
-								    <input ng-model="productFields.name" name="name" value="" type="text" class="validate" maxlength="50" required>
-								    <label for="name">name</label>
+						<div class="row">
+							<div class="col m5 s12">
+								<div class="product">
+								    <h3>product_tbl</h3>
+								    <form ng-submit="addProduct()">
+								        <div class="input-field col s12">
+								            <input ng-model="productFields.name" name="name" value="" type="text" class="validate" maxlength="50" required>
+								            <label for="name">name</label>
+								        </div>
+								        <div class="input-field col s12">
+								            <input ng-model="productFields.description" name="description" value="" type="text" class="validate" maxlength="50" required>
+								            <label for="description">description</label>
+								        </div>
+								        <div class="input-field col s12">
+								            <input ng-model="productFields.picture" name="picture" value="" type="text" class="validate" maxlength="50">
+								            <label for="picture">picture</label>
+								        </div>
+								        <div class="input-field col s12">
+								            <input ng-model="productFields.item_code" name="item_code" value="" type="text" class="validate" maxlength="50">
+								            <label for="item_code">item_code</label>
+								        </div>
+								        <div class="input-field col s12">
+								            <input ng-model="productFields.category_fk" name="category_fk" value="" type="number" class="validate" maxlength="50">
+								            <label for="category_fk">category_fk</label>
+								        </div>
+								        <div class="input-field col s12">
+								            <input ng-model="productFields.date_modified" name="date_modified" value="" type="date" class="validate" maxlength="50" required>
+								            <label for="date_modified">date_modified</label>
+								        </div>
+								        <div class="input-field col s12">
+								            <input ng-model="productFields.amount" name="amount" value="" type="number" class="validate" maxlength="50" required>
+								            <label for="amount">amount</label>
+								        </div>
+								        <button class="waves-effect waves-light btn" type="submit">Add</button>
+								        <button class="waves-effect waves-light btn">Clear</button>
+								    </form>
 								</div>
-								
-								<div class="input-field col s12">
-								    <input ng-model="productFields.description" name="description" value="" type="text" class="validate" maxlength="50" required>
-								    <label for="description">description</label>
+							</div>
+							<div class="col m7 s12">
+								<div class="data-table-container">
+								    <table class="data-clickable">
+								        <tbody>
+								            <tr>
+								                <th>name</th>
+								                <th>description</th>
+								                <th>picture</th>
+								                <th>item_code</th>
+								                <th>category_fk</th>
+								                <th>date_modified</th>
+								                <th>amount</th>
+								            </tr>
+								            <tr ng-repeat="x in products" ng-click="productIndex($index)" ng-class="{'active': x.selected}">
+								                <td>{{x.name}}</td>
+								                <td>{{x.description}}</td>
+								                <td>{{x.picture}}</td>
+								                <td>{{x.item_code}}</td>
+								                <td>{{x.category_fk}}</td>
+								                <td>{{x.date_modified}}</td>
+								                <td>{{x.amount}}</td>
+								            </tr>
+								        </tbody>
+								    </table>
 								</div>
-								
-								<div class="input-field col s12">
-								    <input ng-model="productFields.picture" name="picture" value="" type="text" class="validate" maxlength="50">
-								    <label for="picture">picture</label>
-								</div>
-								
-								<div class="input-field col s12">
-								    <input ng-model="productFields.item_code" name="item_code" value="" type="text" class="validate" maxlength="50">
-								    <label for="item_code">item_code</label>
-								</div>
-								
-								<div class="input-field col s12">
-								    <input ng-model="productFields.category_fk" name="category_fk" value="" type="number" class="validate" maxlength="50">
-								    <label for="category_fk">category_fk</label>
-								</div>
-								
-								<div class="input-field col s12">
-								    <input ng-model="productFields.modified_by_fk" name="modified_by_fk" value="" type="number" class="validate" maxlength="50" required>
-								    <label for="modified_by_fk">modified_by_fk</label>
-								</div>
-								<div class="input-field col s12">
-								    <input ng-model="productFields.price" name="price" value="" type="number" class="validate" maxlength="50">
-								    <label for="price">price</label>
-								</div>
-								<button class="waves-effect waves-light btn" type="submit">Add</button>
-								<button class="waves-effect waves-light btn">Clear</button>
-							</form>
+							</div>
 						</div>
 					</div>
 					<div class="col s12">
@@ -191,24 +195,81 @@
 		<section class="buisness-management" ng-controller="buisnessManagement" ng-class="buisnessManagement ? 'active':''">
 			<div class="container">
 				<h2>Buisness management</h2>
+				<update-position></update-position>
+				<update-branch></update-branch>
 				<div class="row">
 					<div class="col s12">
-						<div class="position">
-							<h3>position_tbl</h3>
-							<form ng-submit="addPosition()">
-								<div class="input-field col s12">
-								    <input ng-model="positionFields.name" name="name" value="" type="text" class="validate" maxlength="50" required>
-								    <label for="name">name</label>
+						<div class="row">
+							<div class="col m5 s12">
+								<add-position></add-position>
+							</div>
+							<div class="col m7 s12">
+								<div class="data-table-container">
+								    <table class="data-clickable">
+								        <tbody>
+								            <tr>
+								                <th>name</th>
+								                <th>description</th>
+								            </tr>
+								            <tr ng-repeat="x in positions" ng-click="positionIndex($index)" ng-class="{'active': x.selected}">
+								                <td>{{x.name}}</td>
+								                <td>{{x.description}}</td>
+								            </tr>
+								        </tbody>
+								    </table>
 								</div>
-								
-								<div class="input-field col s12">
-								    <input ng-model="positionFields.description" name="description" value="" type="text" class="validate" maxlength="50">
-								    <label for="description">description</label>
+								<button class="waves-effect waves-light btn" ng-click="openEditPositionModal()">editTest</button>
+							</div>
+						</div>
+					</div>
+					<div class="col s12">
+						<div class="row">
+							<div class="col m5 s12">
+								<div class="branch">
+								    <h3>branch_tbl</h3>
+								    <form ng-submit="addBranch()">
+								        <div class="input-field col s12">
+								            <input ng-model="branchFields.name" name="name" value="" type="text" class="validate" maxlength="50" required>
+								            <label for="name">name</label>
+								        </div>
+								        <div class="input-field col s12">
+								            <input ng-model="branchFields.address" name="address" ng-init="" type="text" class="validate" maxlength="50">
+								            <label for="address">address</label>
+								        </div>
+								        <div class="input-field col s12">
+								            <input ng-model="branchFields.description" name="description" ng-init="" type="text" class="validate" maxlength="50">
+								            <label for="description">description</label>
+								        </div>
+								        <div class="input-field col s12">
+								            <input ng-model="branchFields.branch_code" name="branch_code" ng-init="" type="text" class="validate" maxlength="50">
+								            <label for="branch_code">branch_code</label>
+								        </div>
+								        <button class="waves-effect waves-light btn" type="submit">Add</button>
+								        <button class="waves-effect waves-light btn">Clear</button>
+								    </form>
 								</div>
-							
-								<button class="waves-effect waves-light btn" type="submit">Add</button>
-								<button class="waves-effect waves-light btn">Clear</button>
-							</form>
+							</div>
+							<div class="col m7 s12">
+								<div class="data-table-container">
+								    <table class="data-clickable">
+								        <tbody>
+								            <tr>
+								                <th>name</th>
+								                <th>address</th>
+								                <th>description</th>
+								                <th>branch_code</th>
+								            </tr>
+								            <tr ng-repeat="x in branches" ng-click="branchIndex($index)" ng-class="{'active': x.selected}">
+								                <td>{{x.name}}</td>
+								                <td>{{x.address}}</td>
+								                <td>{{x.description}}</td>
+								                <td>{{x.branch_code}}</td>
+								            </tr>
+								        </tbody>
+								    </table>
+								</div>
+								<button class="waves-effect waves-light btn" ng-click="openEditBranchModal()">editTest</button>
+							</div>
 						</div>
 					</div>
 				</div>

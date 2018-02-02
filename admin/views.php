@@ -18,14 +18,25 @@ else{
 
 switch($process){
 	case "GetEmployee":{selectEmployee($conn);}break;
+	case "GetPosition":{selectPosition($conn);}break;
+	case "GetBranch":{selectBranch($conn);}break;
 }
 
 
 // selectEmployee($conn);
 function selectEmployee($c){
-	$sql = "SELECT id,name,picture,address,contact_number,email,position_fk,branch_fk,salary,modified_by_fk,birth_day,gender FROM employee_tbl";
+	$sql = "SELECT id,name,picture,address,contact_number,email,position_fk,branch_fk,salary,modified_by_fk,birth_day,gender FROM employee_tbl WHERE active=1";
 	print_r(hasRows($c,$sql) ? json_encode(selectQuery($c,$sql)) : "");
 	// print_r(hasRows($c,$sql) ? json_encode(selectQuery($c,$sql)) : "");
+}
+
+function selectPosition($c){
+	$sql = "SELECT id,name,description FROM position_tbl WHERE active=1";
+	print_r(hasRows($c,$sql) ? json_encode(selectQuery($c,$sql)) : "");
+}
+function selectBranch($c){
+	$sql = "SELECT id,name,address,description,branch_code FROM branch_tbl WHERE active=1";
+	print_r(hasRows($c,$sql) ? json_encode(selectQuery($c,$sql)) : "");
 }
 
 

@@ -94,99 +94,69 @@
 			</div>
 		</section>
 		<section class="product-management" ng-controller="productManagement" ng-class="productManagement ? 'active':''">
+			<update-category></update-category>
+			<update-product></update-product>
 			<div class="container">
 				<h2>Product management</h2>
 				<div class="row">
 					<div class="col s12">
 						<div class="row">
 							<div class="col m5 s12">
-								<div class="product">
-								    <h3>product_tbl</h3>
-								    <form ng-submit="addProduct()">
-								        <div class="input-field col s12">
-								            <input ng-model="productFields.name" name="name" value="" type="text" class="validate" maxlength="50" required>
-								            <label for="name">name</label>
-								        </div>
-								        <div class="input-field col s12">
-								            <input ng-model="productFields.description" name="description" value="" type="text" class="validate" maxlength="50" required>
-								            <label for="description">description</label>
-								        </div>
-								        <div class="input-field col s12">
-								            <input ng-model="productFields.picture" name="picture" value="" type="text" class="validate" maxlength="50">
-								            <label for="picture">picture</label>
-								        </div>
-								        <div class="input-field col s12">
-								            <input ng-model="productFields.item_code" name="item_code" value="" type="text" class="validate" maxlength="50">
-								            <label for="item_code">item_code</label>
-								        </div>
-								        <div class="input-field col s12">
-								            <input ng-model="productFields.category_fk" name="category_fk" value="" type="number" class="validate" maxlength="50">
-								            <label for="category_fk">category_fk</label>
-								        </div>
-								        <div class="input-field col s12">
-								            <input ng-model="productFields.date_modified" name="date_modified" value="" type="date" class="validate" maxlength="50" required>
-								            <label for="date_modified">date_modified</label>
-								        </div>
-								        <div class="input-field col s12">
-								            <input ng-model="productFields.amount" name="amount" value="" type="number" class="validate" maxlength="50" required>
-								            <label for="amount">amount</label>
-								        </div>
-								        <button class="waves-effect waves-light btn" type="submit">Add</button>
-								        <button class="waves-effect waves-light btn">Clear</button>
-								    </form>
-								</div>
+								<add-product></add-product>
 							</div>
 							<div class="col m7 s12">
 								<div class="data-table-container">
-								    <table class="data-clickable">
-								        <tbody>
-								            <tr>
-								                <th>name</th>
-								                <th>description</th>
-								                <th>picture</th>
-								                <th>item_code</th>
-								                <th>category_fk</th>
-								                <th>date_modified</th>
-								                <th>amount</th>
-								            </tr>
-								            <tr ng-repeat="x in products" ng-click="productIndex($index)" ng-class="{'active': x.selected}">
-								                <td>{{x.name}}</td>
-								                <td>{{x.description}}</td>
-								                <td>{{x.picture}}</td>
-								                <td>{{x.item_code}}</td>
-								                <td>{{x.category_fk}}</td>
-								                <td>{{x.date_modified}}</td>
-								                <td>{{x.amount}}</td>
-								            </tr>
-								        </tbody>
-								    </table>
+									<table class="data-clickable">
+										<tbody>
+											<tr>
+												<th>name</th>
+												<th>description</th>
+												<th>picture</th>
+												<th>item_code</th>
+												<th>category_fk</th>
+												<th>price</th>
+											</tr>
+											<tr ng-repeat="x in products" ng-click="productIndex($index)" ng-class="{'active': x.selected}">
+												<td>{{x.name}}</td>
+												<td>{{x.description}}</td>
+												<td>{{x.picture}}</td>
+												<td>{{x.item_code}}</td>
+												<td>{{x.category_fk}}</td>
+												<td>{{x.price}}</td>
+											</tr>
+										</tbody>
+									</table>
 								</div>
+								<button class="waves-effect waves-light btn" ng-click="openEditProductModal()">Edit</button>
+								
 							</div>
 						</div>
 					</div>
 					<div class="col s12">
-						<div class="category">
-							<h3>category_tbl</h3>
-							<form ng-submit="addCategory()">
-								
-								<div class="input-field col s12">
-								    <input ng-model="categoryFields.name" name="name" value="" type="text" class="validate" maxlength="50" required>
-								    <label for="name">name</label>
+						<div class="row">
+							<div class="col m5 s12">
+								<add-category></add-category>
+							</div>
+							<div class="col m7 s12">
+								<div class="data-table-container">
+							    <table class="data-clickable">
+							      <tbody>
+							        <tr>
+							          <th>name</th>
+							          <th>category_code</th>
+							          <th>description</th>
+							        </tr>
+							        <tr ng-repeat="x in categories" ng-click="categoryIndex($index)" ng-class="{'active': x.selected}">
+							          <td>{{x.name}}</td>
+							          <td>{{x.category_code}}</td>
+							          <td>{{x.description}}</td>
+							        </tr>
+							      </tbody>
+							    </table>
 								</div>
+								<button class="waves-effect waves-light btn" ng-click="openEditCategoryModal()">Edit</button>
 								
-								<div class="input-field col s12">
-								    <input ng-model="categoryFields.category_code" name="category_code" value="" type="text" class="validate" maxlength="50">
-								    <label for="category_code">category_code</label>
-								</div>
-								
-								<div class="input-field col s12">
-								    <input ng-model="categoryFields.description" name="description" value="" type="text" class="validate" maxlength="50">
-								    <label for="description">description</label>
-								</div>
-							
-								<button class="waves-effect waves-light btn" type="submit">Add</button>
-								<button class="waves-effect waves-light btn">Clear</button>
-							</form>
+							</div>
 						</div>
 					</div>
 				</div>

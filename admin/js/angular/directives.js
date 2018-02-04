@@ -56,7 +56,6 @@ app.directive("addEmployee",function(){
 			</div>
 		`
 	};
-
 });
 app.directive("addEmployeeAccess",function(){
 	return {
@@ -220,6 +219,140 @@ app.directive("updateBranch",function(){
 			    </form>
 			</div>
 				`
+	}
+});
+app.directive("addCategory",function(){
+	return {
+		template: `
+			<div class="category">
+			    <h3>category_tbl</h3>
+			    <form ng-submit="addCategory()">
+			        <div class="input-field col s12">
+			            <input ng-model="categoryFields.name" name="name" value="" type="text" class="validate" maxlength="50" required>
+			            <label for="name">name</label>
+			        </div>
+			        <div class="input-field col s12">
+			            <input ng-model="categoryFields.category_code" name="category_code" value="" type="text" class="validate" maxlength="50">
+			            <label for="category_code">category_code</label>
+			        </div>
+			        <div class="input-field col s12">
+			            <input ng-model="categoryFields.description" name="description" value="" type="text" class="validate" maxlength="50">
+			            <label for="description">description</label>
+			        </div>
+			        <button class="waves-effect waves-light btn" type="submit">Add</button>
+			        <button class="waves-effect waves-light btn">Clear</button>
+			    </form>
+			</div>
+		`
+	}
+});
+app.directive("updateCategory",function(){
+	return {
+		template: `
+			<div id="edit-category" class="modal category">
+			    <form ng-submit="editCategory()">
+			        <div class="modal-content">
+			            <h4>Edit Category</h4>
+			            <div class="input-field col s12">
+			                <input ng-model="editCategoryFields.id" name="id" value="" type="number" class="validate" maxlength="50" required placeholder="">
+			                <label for="id">id</label>
+			            </div>
+			            <div class="input-field col s12">
+			                <input ng-model="editCategoryFields.name" name="name" value="" type="text" class="validate" maxlength="50" required placeholder="">
+			                <label for="name">name</label>
+			            </div>
+			            <div class="input-field col s12">
+			                <input ng-model="editCategoryFields.category_code" name="category_code" value="" type="text" class="validate" maxlength="50" placeholder="">
+			                <label for="category_code">category_code</label>
+			            </div>
+			            <div class="input-field col s12">
+			                <input ng-model="editCategoryFields.description" name="description" value="" type="text" class="validate" maxlength="50" placeholder="">
+			                <label for="description">description</label>
+			            </div>
+			        </div>
+			        <div class="modal-footer">
+			            <button class="waves-effect waves-light btn" type="submit" ng-click="editCategory()">Update</button>
+			        </div>
+				</div>
+			</form>
+		`
+	}
+});
+app.directive("addProduct",function(){
+	return {
+		template: `
+			<div class="product">
+				<h3>product_tbl</h3>
+				<form ng-submit="addProduct()">
+					<div class="input-field col s12">
+						<input ng-model="productFields.name" name="name" value="" type="text" class="validate" maxlength="50" required>
+						<label for="name">name</label>
+					</div>
+					<div class="input-field col s12">
+						<input ng-model="productFields.description" name="description" value="" type="text" class="validate" maxlength="50" required>
+						<label for="description">description</label>
+					</div>
+					<div class="input-field col s12">
+						<input ng-model="productFields.picture" name="picture" value="" type="text" class="validate" maxlength="50">
+						<label for="picture">picture</label>
+					</div>
+					<div class="input-field col s12">
+						<input ng-model="productFields.item_code" name="item_code" value="" type="text" class="validate" maxlength="50">
+						<label for="item_code">item_code</label>
+					</div>
+					<div class="input-field col s12">
+						<input ng-model="productFields.category_fk" name="category_fk" value="" type="number" class="validate" maxlength="50">
+						<label for="category_fk">category_fk</label>
+					</div>
+					<div class="input-field col s12">
+						<input ng-model="productFields.price" name="price" value="" type="number" class="validate" maxlength="50">
+						<label for="price">price</label>
+					</div>
+					<button class="waves-effect waves-light btn" type="submit">Add</button>
+					<button class="waves-effect waves-light btn">Clear</button>
+				</form>
+			</div>
+		`
+	}
+});
+app.directive("updateProduct",function(){
+	return {
+		template: `
+			<div id="edit-product" class="modal product">
+				<form ng-submit="editProduct()">
+					<div class="modal-content">
+						<h4>editproduct</h4>
+						<div class="input-field col s12">
+							<input ng-model="editProductFields.name" name="name" value="" type="text" class="validate" maxlength="50" required placeholder="">
+							<label for="name">name</label>
+						</div>
+						<div class="input-field col s12">
+							<input ng-model="editProductFields.description" name="description" value="" type="text" class="validate" maxlength="50" required placeholder="">
+							<label for="description">description</label>
+						</div>
+						<div class="input-field col s12">
+							<input ng-model="editProductFields.picture" name="picture" value="" type="text" class="validate" maxlength="50" placeholder="">
+							<label for="picture">picture</label>
+						</div>
+						<div class="input-field col s12">
+							<input ng-model="editProductFields.item_code" name="item_code" value="" type="text" class="validate" maxlength="50" placeholder="">
+							<label for="item_code">item_code</label>
+						</div>
+						<div class="input-field col s12">
+							<input ng-model="editProductFields.category_fk" name="category_fk" value="" type="number" class="validate" maxlength="50" placeholder="">
+							<label for="category_fk">category_fk</label>
+						</div>
+						<div class="input-field col s12">
+							<input ng-model="editProductFields.price" name="price" value="" type="number" class="validate" maxlength="50" placeholder="">
+							<label for="price">price</label>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button class="waves-effect waves-light btn" type="submit" ng-click="editProduct()">Update</button>
+					</div>
+				</form>
+			</div>
+		`
 	}
 });
 

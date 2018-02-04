@@ -23,6 +23,7 @@ app.service('dbOperations',function($http){
 			url:"/admin/views.php",
 			data: { 'process': process, 'data':data }
 		}).then(function success(res){
+			// console.log(res);
 			return res.data;
 		},function error(err) {
 			console.log("error");

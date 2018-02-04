@@ -10,7 +10,7 @@ app.controller("employeeManagement",function($scope,dbOperations){
 		functions
 	*/
 	// convert the string data to the right data type
-	function formatData(){
+	function formatEmployeeData(){
 		if(($scope.employees).length>0){
 			($scope.employees).forEach(function(e){
 				e.id = parseInt(e.id);
@@ -29,7 +29,7 @@ app.controller("employeeManagement",function($scope,dbOperations){
 	function getEmployees(){
 		dbOperations.views("GetEmployee",{}).then(function(res){
 			$scope.employees = res;
-			formatData();
+			formatEmployeeData();
 		});
 	}
 	/*
@@ -75,22 +75,111 @@ app.controller("employeeManagement",function($scope,dbOperations){
 	getEmployees();
 });
 app.controller("productManagement",function($scope,dbOperations){
-
-	// $scope.functionName = function(){
-	// 	dbOperations.processData("processName","").then(function(res){
-	// 		console.log(res);
-	// 	});
-	// }
-	$scope.addProduct = function(){
-		dbOperations.processData("AddProduct",$scope.productFields).then(function(res){
-			console.log(res);
+	/*
+		Variables
+	*/
+	$scope.categories = [];
+	$scope.editCategoryFields = {};
+	$scope.categoryFields = {}; //means object
+	/*
+		functions
+	*/
+	// convert the string data to the right data type
+	function formatCategoryData(){
+		if(($scope.categories).length>0){
+			($scope.categories).forEach(function(c){
+				c.id = parseInt(c.id);
+			});
+		}
+	}
+	// convert string date data to date format
+	function formatDate(inputDate) { return  new Date(inputDate); }
+	// get the category data on the database
+	function getcategories(){
+		dbOperations.views("GetCategory",{}).then(function(res){
+			$scope.categories = res;
+			formatCategoryData();
 		});
 	}
+	/*
+		$scope functions. These functions are like event handlers
+	*/
+	// add category to the database
 	$scope.addCategory = function(){
 		dbOperations.processData("AddCategory",$scope.categoryFields).then(function(res){
-			console.log(res);
+			getcategories();
+			$('#add-category').modal('close');
 		});
 	}
+	// select the active index and sets all the fields to the edit modal
+	$scope.categoryIndex = function(categoryData){
+		($scope.categories).forEach(function(e){ e.selected = false; });//set selected false in the object
+		$scope.categories[categoryData].selected = true;
+		$scope.editCategoryFields = (($scope.categories)[categoryData]);
+	}
+
+	$scope.editCategory = function(){
+		// console.log($scope.editCategoryFields);
+		dbOperations.processData("EditCategory",$scope.editCategoryFields).then(function(res){
+			getcategories();
+			$("#edit-category").modal("close");
+		});
+	}
+	getcategories();
+	/*
+		Variables
+	*/
+	$scope.products = [];
+	$scope.editProductFields = {};
+	$scope.productFields = {}; //means object
+	/*
+		functions
+	*/
+	// convert the string data to the right data type
+	function formatProductData(){
+		if(($scope.products).length>0){
+			($scope.products).forEach(function(c){
+				c.id = parseInt(c.id);
+				c.category_fk = parseInt(c.category_fk);
+				c.price = parseFloat(c.price);
+			});
+		}
+	}
+	// get the product data on the database
+	function getProducts(){
+		dbOperations.views("GetProduct",{}).then(function(res){
+			console.log("nasa get products");
+			console.log(res)
+			$scope.products = res;
+			formatProductData();
+			
+		});
+	}
+	/*
+		$scope functions. These functions are like event handlers
+	*/
+	// add product to the database
+	$scope.addProduct = function(){
+		dbOperations.processData("AddProduct",$scope.productFields).then(function(res){
+			getProducts();
+			$('#add-product').modal('close');
+		});
+	}
+	// select the active index and sets all the fields to the edit modal
+	$scope.productIndex = function(productData){
+		($scope.products).forEach(function(e){ e.selected = false; });//set selected false in the object
+		$scope.products[productData].selected = true;
+		$scope.editProductFields = (($scope.products)[productData]);
+	}
+
+	$scope.editProduct = function(){
+		// console.log($scope.editProductFields);
+		dbOperations.processData("EditProduct",$scope.editProductFields).then(function(res){
+			getProducts();
+			$("#edit-product").modal("close");
+		});
+	}
+	getProducts();
 });
 app.controller("buisnessManagement",function($scope,dbOperations){
 
@@ -102,7 +191,7 @@ app.controller("buisnessManagement",function($scope,dbOperations){
 		functions
 	*/
 	// convert the string data to the right data type
-	function formatData(){
+	function formatPositionData(){
 		if(($scope.positions).length>0){
 			($scope.positions).forEach(function(p){
 				p.id = parseInt(p.id);
@@ -113,7 +202,7 @@ app.controller("buisnessManagement",function($scope,dbOperations){
 	function getPositions(){
 		dbOperations.views("GetPosition",{}).then(function(res){
 			$scope.positions = res;
-			formatData();
+			formatPositionData();
 		});
 	}
 	$scope.addPosition = function(){
@@ -149,7 +238,7 @@ app.controller("buisnessManagement",function($scope,dbOperations){
 		functions
 	*/
 	// convert the string data to the right data type
-	function formatData(){
+	function formatBranchData(){
 		if(($scope.branches).length>0){
 			($scope.branches).forEach(function(b){
 				b.id = parseInt(b.id);
@@ -161,7 +250,7 @@ app.controller("buisnessManagement",function($scope,dbOperations){
 		dbOperations.views("GetBranch",{}).then(function(res){
 			console.log(res);
 			$scope.branches = res;
-			formatData();
+			formatBranchData();
 		});
 	}
 	$scope.addBranch = function(){
@@ -208,11 +297,11 @@ app.controller("userInterface",function($scope){
 		$scope.buisnessManagement = false;
 		$scope.reports = false;
 	}
-	$scope.showemployeeManagement = function(){hideSections();$scope.employeeManagement = true;}
-	$scope.showproductManagement = function(){hideSections();$scope.productManagement = true;}
-	$scope.showbuisnessManagement = function(){hideSections();$scope.buisnessManagement = true;}
-	$scope.showreports = function(){hideSections();$scope.reports = true;}
-	$scope.buisnessManagement = true;
+	$scope.showemployeeManagement = function(){hideSections();$scope.sideNavActive = false;$scope.employeeManagement = true;}
+	$scope.showproductManagement = function(){hideSections();$scope.sideNavActive = false;$scope.productManagement = true;}
+	$scope.showbuisnessManagement = function(){hideSections();$scope.sideNavActive = false;$scope.buisnessManagement = true;}
+	$scope.showreports = function(){hideSections();$scope.sideNavActive = false;$scope.reports = true;}
+	$scope.productManagement = true;
 	$('.modal').modal();
 	$scope.openEditEmployee = function(){
 		$('#edit-employee').modal('open');
@@ -228,5 +317,17 @@ app.controller("userInterface",function($scope){
 	}
 	$scope.openEditBranchModal = function(){
 		$('#edit-branch').modal('open');
+	}
+	$scope.openEditCategoryModal = function(){
+		$('#edit-category').modal('open');
+	}
+	$scope.openEditProductModal = function(){
+		$('#edit-product').modal('open');
+	}
+	$scope.menuClick = function(){
+		$scope.sideNavActive = true;
+	}
+	$scope.shadowClick = function(){
+		$scope.sideNavActive = false;
 	}
 });

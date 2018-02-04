@@ -60,7 +60,6 @@ function updateEmployee($c,$d){
 	$msg = ($sql->execute() === TRUE) ? "Editting Employee success" : "Error: " . $sql . "<br>" . $c->error;
 	$sql->close();
 }
-
 //position functions
 function insertPosition($c,$d){
 	$sql = $c->prepare("INSERT INTO position_tbl(name,description)VALUES(?,?)");
@@ -85,7 +84,7 @@ function insertProduct($c,$d){
 function updateProduct($c,$d){
 	$adminId = 1;
 	$sql = $c->prepare("UPDATE product_tbl SET name = ?, description = ?, picture = ?, item_code = ?, category_fk = ?, modified_by_fk = ?, price = ? WHERE id = ?");
-	$sql->bind_param('ssssiidi',$d->name,$d->description,$d->picture,$d->item_code,$d->category_fk,$adminId,$d->price,$d->id);
+	$sql->bind_param('ssssiidi',$d->name,$d->description,$d->picture,$d->item_code,$d->category_fk,$d->$adminId,$d->price,$d->id);
 	$msg = ($sql->execute() === TRUE) ? "Editting Product success" : "Error: " . $sql . "<br>" . $c->error;
 	$sql->close();
 }

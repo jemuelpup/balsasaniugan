@@ -293,17 +293,27 @@ app.directive("addProduct",function(){
 						<label for="description">description</label>
 					</div>
 					<div class="input-field col s12">
-						<input ng-model="productFields.picture" name="picture" value="" type="text" class="validate" maxlength="50">
-						<label for="picture">picture</label>
+						<p>Picture</p><input ng-model="productFields.picture" file-input="files" name="picture" value="" type="file" class="validate">
 					</div>
 					<div class="input-field col s12">
 						<input ng-model="productFields.item_code" name="item_code" value="" type="text" class="validate" maxlength="50">
 						<label for="item_code">item_code</label>
 					</div>
+
 					<div class="input-field col s12">
+						<select name="itemCategory" id="poductCategory" ng-model="productFields.category_fk">
+							<option value="" disabled selected>Choose your option</option>
+							<option value="{{c.id}}" ng-repeat="c in categories">{{c.name}}</option>
+						</select>
+					    <label>Category</label>
+					</div>
+
+
+
+					<!--<div class="input-field col s12">
 						<input ng-model="productFields.category_fk" name="category_fk" value="" type="number" class="validate" maxlength="50">
 						<label for="category_fk">category_fk</label>
-					</div>
+					</div>-->
 					<div class="input-field col s12">
 						<input ng-model="productFields.price" name="price" value="" type="number" class="validate" maxlength="50">
 						<label for="price">price</label>
@@ -331,8 +341,8 @@ app.directive("updateProduct",function(){
 							<label for="description">description</label>
 						</div>
 						<div class="input-field col s12">
-							<input ng-model="editProductFields.picture" name="picture" value="" type="text" class="validate" maxlength="50" placeholder="">
-							<label for="picture">picture</label>
+							<p>Picture</p><input ng-model="productFields.picture" file-input="files" name="picture" value="" type="file" class="validate">
+							<img class="prodImgPreview" src="{{editProductFields.picture}}" alt="Product picture" />
 						</div>
 						<div class="input-field col s12">
 							<input ng-model="editProductFields.item_code" name="item_code" value="" type="text" class="validate" maxlength="50" placeholder="">
@@ -355,4 +365,20 @@ app.directive("updateProduct",function(){
 		`
 	}
 });
+
+// study this... nakuha lng sa youtube
+app.directive("fileInput", function($parse){  
+  return{  
+       link: function($scope, element, attrs){  
+            element.on("change", function(event){  
+                 var files = event.target.files;
+                 //console.log(files[0].name);  
+                 $parse(attrs.fileInput).assign($scope, element[0].files);  
+                 $scope.$apply();  
+            });  
+       }  
+  }  
+});  
+
+
 

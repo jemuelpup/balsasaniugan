@@ -109,17 +109,19 @@
 									<table class="data-clickable">
 										<tbody>
 											<tr>
+												<th>picture</th>
 												<th>name</th>
 												<th>description</th>
-												<th>picture</th>
 												<th>item_code</th>
 												<th>category_fk</th>
 												<th>price</th>
 											</tr>
 											<tr ng-repeat="x in products" ng-click="productIndex($index)" ng-class="{'active': x.selected}">
+												<td class="imgData">
+													<img src="{{x.picture}}" alt="">
+												</td>
 												<td>{{x.name}}</td>
 												<td>{{x.description}}</td>
-												<td>{{x.picture}}</td>
 												<td>{{x.item_code}}</td>
 												<td>{{x.category_fk}}</td>
 												<td>{{x.price}}</td>
@@ -258,14 +260,15 @@
 
 
 	</main>
+	<script src="/plugins/jquery/jquery-3.2.1.min.js"></script>
+	<script src="/plugins/materialize-src/js/bin/materialize.min.js"></script>
 	<script src="/admin/js/angular/modules.js"></script>
 	<script src="/admin/js/angular/directives.js"></script>
 	<script src="/admin/js/angular/services.js"></script>
 	<script src="/admin/js/angular/controllers.js"></script>
 
 	<!-- other scripts -->
-	<script src="/plugins/jquery/jquery-3.2.1.min.js"></script>
-	<script src="/plugins/materialize-src/js/bin/materialize.min.js"></script>
+	
 	<script src="/admin/js/main.js"></script>
 </body>
 

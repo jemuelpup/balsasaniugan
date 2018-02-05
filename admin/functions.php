@@ -73,12 +73,19 @@ function updatePosition($c,$d){
 	$msg = ($sql->execute() === TRUE) ? "Editting Position success" : "Error: " . $sql . "<br>" . $c->error;
 	$sql->close();
 }
-//product functions
+//product functions - return the id of the image after insert....
 function insertProduct($c,$d){
 	$adminId = 1;
-	$sql = $c->prepare("INSERT INTO product_tbl(name,description,picture,item_code,category_fk,modified_by_fk,price)VALUES(?,?,?,?,?,?,?)");
-	$sql->bind_param('ssssiid',$d->name,$d->description,$d->picture,$d->item_code,$d->category_fk,$adminId,$d->price);
-	$msg = ($sql->execute() === TRUE) ? "Adding Product success" : "Error: " . $sql . "<br>" . $c->error;
+	$dataInserted = true;
+	$sql = $c->prepare("INSERT INTO product_tbl(name,description,item_code,category_fk,modified_by_fk,price)VALUES(?,?,?,?,?,?)");
+	$sql->bind_param('sssiid',$d->name,$d->description,$d->item_code,$d->category_fk,$adminId,$d->price);
+	$dataInserted = ($sql->execute() === TRUE) ? true : false;
+	if($dataInserted){
+		print_r(json_encode(array("id"=>$sql->insert_id)));
+	}
+	else{
+		echo "error";
+	}
 	$sql->close();
 }
 function updateProduct($c,$d){
@@ -121,7 +128,6 @@ function updateBranch($c,$d){
 	$sql->bind_param('ssssii',$d->name,$d->address,$d->description,$d->branch_code,$adminId,$d->id);// change the modified by
 	$msg = ($sql->execute() === TRUE) ? "Editting branch success" : "Error: " . $sql . "<br>" . $c->error;
 	$sql->close();
-
 }
 // function updateAccess($c,$d){
 // 	$sql = $c->prepare("UPDATE access_tbl SET employee_id_fk = ?, username = ?, password = ?");

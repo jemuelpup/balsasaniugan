@@ -1,5 +1,5 @@
  <?php  
- $connect = mysqli_connect("localhost", "root", "", "testing");  
+ $connect = mysqli_connect("localhost", "root", "", "balsasaniugan");  
  if(!empty($_FILES))  
  {  
       $path = 'upload/' . $_FILES['file']['name'];  

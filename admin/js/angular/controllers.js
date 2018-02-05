@@ -74,7 +74,7 @@ app.controller("employeeManagement",function($scope,dbOperations){
 	*/
 	getEmployees();
 });
-app.controller("productManagement",function($scope,dbOperations){
+app.controller("productManagement",function($http,$scope,dbOperations){
 	/*
 		Variables
 	*/
@@ -99,6 +99,8 @@ app.controller("productManagement",function($scope,dbOperations){
 		dbOperations.views("GetCategory",{}).then(function(res){
 			$scope.categories = res;
 			formatCategoryData();
+			// console.log("dumaan sa get categories");
+			// $('select').material_select();
 		});
 	}
 	/*
@@ -126,6 +128,7 @@ app.controller("productManagement",function($scope,dbOperations){
 		});
 	}
 	getcategories();
+
 	/*
 		Variables
 	*/
@@ -148,8 +151,8 @@ app.controller("productManagement",function($scope,dbOperations){
 	// get the product data on the database
 	function getProducts(){
 		dbOperations.views("GetProduct",{}).then(function(res){
-			console.log("nasa get products");
-			console.log(res)
+			// console.log("nasa get products");
+			// console.log(res)
 			$scope.products = res;
 			formatProductData();
 			
@@ -160,10 +163,30 @@ app.controller("productManagement",function($scope,dbOperations){
 	*/
 	// add product to the database
 	$scope.addProduct = function(){
+		$scope.productFields.category_fk = $("select#poductCategory").val();
+		// console.log($scope.productFields);
 		dbOperations.processData("AddProduct",$scope.productFields).then(function(res){
+			uploadImageSaveToDB(res.data.id,"");
 			getProducts();
-			$('#add-product').modal('close');
+			console.log(res);
 		});
+	}
+	// nakuha lang sa youtube yung process na ito...
+	function uploadImageSaveToDB(productID,oldImg){
+      	var form_data = new FormData();  
+		angular.forEach($scope.files, function(file){  
+		    form_data.append('file', file);  
+		});
+		form_data.append('pID',productID);
+		form_data.append('oldImg',oldImg);
+		$http.post('/admin/upload.php', form_data,  
+		{  
+		    transformRequest: angular.identity,  
+		    headers: {'Content-Type': undefined,'Process-Data': false}  
+		}).then(function(response){
+			console.log(response)
+			getProducts();
+		});  
 	}
 	// select the active index and sets all the fields to the edit modal
 	$scope.productIndex = function(productData){
@@ -173,10 +196,14 @@ app.controller("productManagement",function($scope,dbOperations){
 	}
 
 	$scope.editProduct = function(){
+		// console.log($scope.editProductFields.id,$scope.editProductFields.picture)
 		// console.log($scope.editProductFields);
+		// console.log($scope.editProductFields.id,$scope.editProductFields.picture)
 		dbOperations.processData("EditProduct",$scope.editProductFields).then(function(res){
+			uploadImageSaveToDB($scope.editProductFields.id,$scope.editProductFields.picture)
 			getProducts();
 			$("#edit-product").modal("close");
+			$('input:file').val("");
 		});
 	}
 	getProducts();
@@ -214,7 +241,7 @@ app.controller("buisnessManagement",function($scope,dbOperations){
 		($scope.positions).forEach(function(e){ e.selected = false; });//set selected false in the object
 		$scope.positions[positionData].selected = true;
 		$scope.editPositionFields = (($scope.positions)[positionData]);
-		console.log($scope.editPositionFields);
+		// console.log($scope.editPositionFields);
 	}
 	
 	$scope.editPosition = function(){
@@ -264,11 +291,11 @@ app.controller("buisnessManagement",function($scope,dbOperations){
 		($scope.branches).forEach(function(e){ e.selected = false; });//set selected false in the object
 		$scope.branches[branchData].selected = true;
 		$scope.editBranchFields = (($scope.branches)[branchData]);
-		console.log($scope.editBranchFields);
+		// console.log($scope.editBranchFields);
 	}
 
 	$scope.editBranch = function(){
-		console.log($scope.editBranchFields);
+		// console.log($scope.editBranchFields);
 		dbOperations.processData("EditBranch",$scope.editBranchFields).then(function(res){
 			console.log(res);
 			getBranches();

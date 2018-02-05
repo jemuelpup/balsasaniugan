@@ -17,7 +17,7 @@ this is the database
 */
 
 
- $connect = mysqli_connect("localhost", "root", "", "testing");  
+ $connect = mysqli_connect("localhost", "root", "", "balsasaniugan");  
  $output = '';  
  $query = "SELECT * FROM tbl_images ORDER BY id DESC";  
  $result = mysqli_query($connect, $query);  

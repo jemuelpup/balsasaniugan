@@ -44,6 +44,7 @@
            angular.forEach($scope.files, function(file){  
                 form_data.append('file', file);  
            });  
+           console.log(form_data);
            $http.post('upload.php', form_data,  
            {  
                 transformRequest: angular.identity,  

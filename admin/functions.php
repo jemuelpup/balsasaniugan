@@ -47,16 +47,24 @@ switch($process){
 /* function area */
 // employee functions
 function insertEmployee($c,$d){
-
+	$adminId = 1;
+	$dataInserted = true;
 	$sql = $c->prepare("INSERT INTO employee_tbl(name,picture,address,contact_number,email,position_fk,branch_fk,salary,modified_by_fk,birth_day,gender)VALUES(?,?,?,?,?,?,?,?,?,?,?)");
-	$sql->bind_param('sssssiidisi',$d->name,$d->picture,$d->address,$d->contact_number,$d->email,$d->position_fk,$d->branch_fk,$d->salary,$d->modified_by_fk,$d->birth_day,$d->gender);
-	$msg = ($sql->execute() === TRUE) ? "Adding new Employee success" : "Error: " . $sql . "<br>" . $c->error;
+	$sql->bind_param('sssssiidisi',$d->name,$d->picture,$d->address,$d->contact_number,$d->email,$d->position_fk,$d->branch_fk,$d->salary,$adminId,$d->birth_day,$d->gender);
+	$dataInserted = ($sql->execute() === TRUE) ? true : false;
+	if($dataInserted){
+		print_r(json_encode(array("id"=>$sql->insert_id)));
+	}
+	else{
+		echo "error";
+	}
 	$sql->close();
 	/**/
 }
 function updateEmployee($c,$d){
+	$adminId = 1;
 	$sql = $c->prepare("UPDATE employee_tbl SET name = ?, picture = ?, address = ?, contact_number = ?, email = ?, position_fk = ?, branch_fk = ?, salary = ?, modified_by_fk = ?, birth_day = ?, gender = ? WHERE id = ?"); 
-	$sql->bind_param('sssssiidisii',$d->name,$d->picture,$d->address,$d->contact_number,$d->email,$d->position_fk,$d->branch_fk,$d->salary,$d->modified_by_fk,$d->birth_day,$d->gender,$d->id);
+	$sql->bind_param('sssssiidisii',$d->name,$d->picture,$d->address,$d->contact_number,$d->email,$d->position_fk,$d->branch_fk,$d->salary,$adminId,$d->birth_day,$d->gender,$d->id);
 	$msg = ($sql->execute() === TRUE) ? "Editting Employee success" : "Error: " . $sql . "<br>" . $c->error;
 	$sql->close();
 }

@@ -26,7 +26,7 @@ switch($process){
 
 // selectEmployee($conn);
 function selectEmployee($c){
-	$sql = "SELECT id,name,picture,address,contact_number,email,position_fk,branch_fk,salary,modified_by_fk,birth_day,gender FROM employee_tbl WHERE active=1";
+	$sql = "SELECT id,name,picture,address,contact_number,email,position_fk,(SELECT name FROM position_tbl WHERE id=position_fk) as position_name,branch_fk,(SELECT name FROM branch_tbl WHERE id = branch_fk) as branch_name,salary,modified_by_fk,birth_day,gender FROM employee_tbl WHERE active=1";
 	print_r(hasRows($c,$sql) ? json_encode(selectQuery($c,$sql)) : "");
 }
 

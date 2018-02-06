@@ -37,7 +37,17 @@ app.controller("employeeManagement",function($scope,dbOperations){
 	*/
 	// add employee to the database
 	$scope.addEmployee = function(){
+		$scope.employeeFields.position_fk = $("select#addEmployeePosition").val();
+		$scope.employeeFields.branch_fk = $("select#addEmployeeBranch").val();
+		$scope.employeeFields.gender = $("select#addEmployeeGender").val();
+		// console.log($scope.employeeFields);
 		dbOperations.processData("AddEmployee",$scope.employeeFields).then(function(res){
+			var datainsertedID = res.data.id;// use this data for adding the pictures
+
+			// dbOperations.uploadImageSaveToDB(res.data.id,"","/common/images/employees/").then(function(){
+			// 	console.log(res);
+			// });
+
 			getEmployees();
 			$('#add-employee').modal('close');
 		});
@@ -55,20 +65,24 @@ app.controller("employeeManagement",function($scope,dbOperations){
 			$('#add-employee-access').modal('close');
 		});
 	}
-	$scope.editEmployee = function(){
+	$scope.editEmployee = function(){/*
+		
+		/**/
+		if(dbOperations.isConvertibleToInteger($("select#updateEmployeePosition").val())){
+			$scope.editemployeeFields.position_fk = $("select#updateEmployeePosition").val();
+		}
+		if(dbOperations.isConvertibleToInteger($("select#updateEmployeeBranch").val())){
+			$scope.editemployeeFields.branch_fk = $("select#updateEmployeeBranch").val();
+		}
+		if(dbOperations.isConvertibleToInteger($("select#updateEmployeeGender").val())){
+			$scope.editemployeeFields.gender = $("select#updateEmployeeGender").val();
+		}
+		// console.log($scope.editemployeeFields);
 		dbOperations.processData("EditEmployee",$scope.editemployeeFields).then(function(res){
 			getEmployees();
 			$("#edit-employee").modal("close");
 		});
 	}
-	// $scope.editEmployee = function(){
-	// 	console.log("pumasok dito");
-	// 	$('#employee').modal('open');
-	// }
-
-	
-
-
 	/*
 		Function calls
 	*/
@@ -151,8 +165,6 @@ app.controller("productManagement",function($http,$scope,dbOperations){
 	// get the product data on the database
 	function getProducts(){
 		dbOperations.views("GetProduct",{}).then(function(res){
-			// console.log("nasa get products");
-			// console.log(res)
 			$scope.products = res;
 			formatProductData();
 			
@@ -171,7 +183,7 @@ app.controller("productManagement",function($http,$scope,dbOperations){
 			console.log(res);
 		});
 	}
-	// nakuha lang sa youtube yung process na ito...
+	// nakuha lang sa youtube yung process na ito... replace this if success in adding in service
 	function uploadImageSaveToDB(productID,oldImg){
       	var form_data = new FormData();  
 		angular.forEach($scope.files, function(file){  
@@ -196,9 +208,10 @@ app.controller("productManagement",function($http,$scope,dbOperations){
 	}
 
 	$scope.editProduct = function(){
-		// console.log($scope.editProductFields.id,$scope.editProductFields.picture)
-		// console.log($scope.editProductFields);
-		// console.log($scope.editProductFields.id,$scope.editProductFields.picture)
+		if(dbOperations.isConvertibleToInteger($("#editProductCategory").val())){
+			$scope.editProductFields.category_fk = $("#editProductCategory").val();
+		}
+		// console.log($scope.editProductFields.category_fk);
 		dbOperations.processData("EditProduct",$scope.editProductFields).then(function(res){
 			uploadImageSaveToDB($scope.editProductFields.id,$scope.editProductFields.picture)
 			getProducts();
@@ -282,10 +295,10 @@ app.controller("buisnessManagement",function($scope,dbOperations){
 	}
 	$scope.addBranch = function(){
 		console.log($scope.branchFields);
-		// dbOperations.processData("AddBranch",$scope.branchFields).then(function(res){
-		// 	console.log(res);
-		// 	getBranches();
-		// });
+		dbOperations.processData("AddBranch",$scope.branchFields).then(function(res){
+			console.log(res);
+			getBranches();
+		});
 	}
 	$scope.branchIndex = function(branchData){
 		($scope.branches).forEach(function(e){ e.selected = false; });//set selected false in the object
@@ -328,9 +341,10 @@ app.controller("userInterface",function($scope){
 	$scope.showproductManagement = function(){hideSections();$scope.sideNavActive = false;$scope.productManagement = true;}
 	$scope.showbuisnessManagement = function(){hideSections();$scope.sideNavActive = false;$scope.buisnessManagement = true;}
 	$scope.showreports = function(){hideSections();$scope.sideNavActive = false;$scope.reports = true;}
-	$scope.productManagement = true;
+	$scope.employeeManagement = true;
 	$('.modal').modal();
 	$scope.openEditEmployee = function(){
+		$('.modal').modal();
 		$('#edit-employee').modal('open');
 	}
 	$scope.openAddEmployeeModal = function(){
@@ -349,6 +363,10 @@ app.controller("userInterface",function($scope){
 		$('#edit-category').modal('open');
 	}
 	$scope.openEditProductModal = function(){
+		// console.log(editProductCategorySelected);
+		// $("#editProductCategory").material_select('destroy');
+		// $("#editProductCategory option").eq(editProductCategorySelected).attr("selected",true);
+		// $("#editProductCategory").material_select();
 		$('#edit-product').modal('open');
 	}
 	$scope.menuClick = function(){

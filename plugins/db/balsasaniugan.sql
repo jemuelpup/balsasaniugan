@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 05, 2018 at 01:00 PM
+-- Generation Time: Feb 06, 2018 at 09:14 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -47,7 +47,14 @@ CREATE TABLE IF NOT EXISTS `branch_tbl` (
   `branch_code` varchar(10) NOT NULL,
   `modified_by_fk` int(11) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `branch_tbl`
+--
+
+INSERT INTO `branch_tbl` (`id`, `name`, `address`, `description`, `branch_code`, `modified_by_fk`, `active`) VALUES
+(1, 'sm north', 'sm north edsa', 'wala', '123', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -94,7 +101,19 @@ CREATE TABLE IF NOT EXISTS `employee_tbl` (
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `birth_day` date DEFAULT NULL,
   `gender` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `employee_tbl`
+--
+
+INSERT INTO `employee_tbl` (`id`, `name`, `picture`, `address`, `contact_number`, `email`, `position_fk`, `branch_fk`, `salary`, `date_modified`, `modified_by_fk`, `active`, `birth_day`, `gender`) VALUES
+(1, 'jemuel', '123123', 'wala st', '213123', '123123', 2, 1, '123123.00', '2018-02-06 06:03:17', 1, 1, '1994-05-20', 1),
+(2, 'Karen Talla', '123123', '123123123', '123123', '123123', 1, 1, '123123.00', '2018-02-06 07:04:43', 1, 1, '1995-05-04', 0),
+(3, 'jenny', '12312312', '123123', '123123123', '123123', 1, 1, '123123.00', '2018-02-06 07:43:51', 1, 1, '1992-05-04', 0),
+(4, 'qeqweq', '123123', '1231231', '123123', '123123', 1, 1, '132123.00', '2018-02-06 07:45:01', 1, 1, '1990-05-04', 1),
+(5, 'adfasdfadsf', '123123', '123123', '123123', '123123123', 2, 1, '123123.00', '2018-02-06 07:45:42', 1, 1, '1992-05-04', 1),
+(6, 'paolo', '12312312', '123123123', '123123123', '123123123', 1, 1, '13123.00', '2018-02-06 08:08:54', 1, 1, '1990-05-04', 1);
 
 -- --------------------------------------------------------
 
@@ -163,14 +182,15 @@ CREATE TABLE IF NOT EXISTS `position_tbl` (
   `name` varchar(50) NOT NULL,
   `description` varchar(500) DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `position_tbl`
 --
 
 INSERT INTO `position_tbl` (`id`, `name`, `description`, `active`) VALUES
-(1, 'Waiter', 'Gets the orders and the payment of the customers', 1);
+(1, 'Waiter', 'Gets the orders and the payment of the customers', 1),
+(2, 'cook', 'adfajadskasfd', 1);
 
 -- --------------------------------------------------------
 
@@ -199,13 +219,13 @@ CREATE TABLE IF NOT EXISTS `product_tbl` (
 INSERT INTO `product_tbl` (`id`, `name`, `description`, `picture`, `item_code`, `category_fk`, `date_modified`, `modified_by_fk`, `active`, `price`, `amount`) VALUES
 (1, 'adobo', '123', '/common/images/products/default_food_img.jpg', 'p01', 1, '2018-02-05 06:33:12', 0, 1, '1123.00', 1),
 (2, 'srimp', '123', '/common/images/products/default_food_img.jpg', '112', 1, '2018-02-05 06:34:15', 0, 1, '123.00', 1),
-(3, 'Test', '123123123123', '/common/images/products/Desert3.jpg', NULL, NULL, '2018-02-05 06:45:14', 0, 1, NULL, 1),
-(4, 'qwe', 'qwerwer', '/common/images/products/Tulips4.jpg', NULL, NULL, '2018-02-05 06:47:30', 0, 1, NULL, 1),
-(5, 'laing', 'wala pa', '/common/images/products/Lighthouse5.jpg', NULL, NULL, '2018-02-05 07:43:25', 0, 1, NULL, 1),
-(6, 'sinigang sa miso', '123123', '/common/images/products/Chrysanthemum6.jpg', '123', 1, '2018-02-05 10:56:30', 1, 1, '123.00', 1),
-(7, 'fried chicken', '1123123', '/common/images/products/Hydrangeas7.jpg', 'f1', 1, '2018-02-05 10:59:36', 1, 1, '123.00', 1),
+(3, 'Test', '123123123123', '/common/images/products/Desert3.jpg', NULL, 2, '2018-02-05 06:45:14', 0, 1, '1234.00', 1),
+(4, 'qwe', 'qwerwer', '/common/images/products/Tulips4.jpg', NULL, 2, '2018-02-05 06:47:30', 0, 1, '123.00', 1),
+(5, 'laing', 'wala pa 123', '/common/images/products/Lighthouse5.jpg', NULL, 2, '2018-02-05 07:43:25', 0, 1, NULL, 1),
+(6, 'sinigang', '123123', '/common/images/products/Chrysanthemum6.jpg', '123', 2, '2018-02-05 10:56:30', 0, 1, '123.00', 1),
+(7, 'fried chicken', '1123123', '/common/images/products/Jellyfish7.jpg', 'f1', 1, '2018-02-05 10:59:36', 0, 1, '123.00', 1),
 (8, 'fried rice', '1231231231', '/common/images/products/Hydrangeas8.jpg', '123', 1, '2018-02-05 11:00:48', 1, 1, '1.00', 1),
-(9, 'lecheflan', '213', '/common/images/products/Jellyfish9.jpg', 'd01', NULL, '2018-02-05 11:48:26', 1, 1, '123.00', 1),
+(9, 'lecheflan', '213', '/common/images/products/Jellyfish9.jpg', 'd01', 2, '2018-02-05 11:48:26', 0, 1, '123.00', 1),
 (10, 'adobong kangkong', '123', '/common/images/products/Penguins10.jpg', NULL, 1, '2018-02-05 12:00:33', 1, 1, '123.00', 1);
 
 -- --------------------------------------------------------
@@ -287,7 +307,7 @@ ALTER TABLE `tbl_images`
 -- AUTO_INCREMENT for table `branch_tbl`
 --
 ALTER TABLE `branch_tbl`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `category_tbl`
 --
@@ -297,7 +317,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `employee_tbl`
 --
 ALTER TABLE `employee_tbl`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `ingredients_tbl`
 --
@@ -312,7 +332,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `position_tbl`
 --
 ALTER TABLE `position_tbl`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `product_tbl`
 --

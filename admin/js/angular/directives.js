@@ -26,28 +26,34 @@ app.directive("addEmployee",function(){
 							<label for="email">email</label>
 						</div>
 						<div class="input-field col s12">
-							<input ng-model="employeeFields.position_fk" name="position_fk" value="" type="number" class="validate" maxlength="50">
-							<label for="position_fk">position_fk</label>
+							<select name="employeePosition" id="addEmployeePosition">
+								<option value="" disabled selected>Choose your option</option>
+								<option value="{{e.id}}" ng-repeat="e in positions">{{e.name}}</option>
+							</select>
+							<label>Position</label>
 						</div>
 						<div class="input-field col s12">
-							<input ng-model="employeeFields.branch_fk" name="branch_fk" value="" type="number" class="validate" maxlength="50">
-							<label for="branch_fk">branch_fk</label>
+							<select name="employeeBranch" id="addEmployeeBranch">
+								<option value="" disabled selected>Choose your option</option>
+								<option value="{{e.id}}" ng-repeat="e in branches">{{e.name}}</option>
+							</select>
+							<label>Branch</label>
 						</div>
 						<div class="input-field col s12">
 							<input ng-model="employeeFields.salary" name="salary" value="" type="number" class="validate" maxlength="50" required>
 							<label for="salary">salary</label>
 						</div>
 						<div class="input-field col s12">
-							<input ng-model="employeeFields.modified_by_fk" name="modified_by_fk" value="" type="number" class="validate" maxlength="50" required>
-							<label for="modified_by_fk">modified_by_fk</label>
-						</div>
-						<div class="input-field col s12">
 							<input ng-model="employeeFields.birth_day" name="birth_day" value="" type="date" class="validate" maxlength="50">
 							<label for="birth_day" class="active">birth_day</label>
 						</div>
 						<div class="input-field col s12">
-							<input ng-model="employeeFields.gender" name="gender" value="" type="number" class="validate" maxlength="50" required>
-							<label for="gender">gender</label>
+							<select name="employeeGender" id="addEmployeeGender">
+								<option value="" disabled selected>Choose your option</option>
+								<option value="1">Male</option>
+								<option value="0">Female</option>
+							</select>
+							<label>Gender</label>
 						</div>
 						<button class="waves-effect waves-light btn" type="submit">Add</button>
 						<button class="waves-effect waves-light btn">Clear</button>
@@ -110,13 +116,19 @@ app.directive("updateEmployee",function(){
 			                <label for="email" class="active">email</label>
 			            </div>
 			            <div class="input-field col s12">
-			                <input ng-model="editemployeeFields.position_fk" name="position_fk" value="" type="number" class="validate" maxlength="50" placeholder="">
-			                <label for="position_fk" class="active">position_fk</label>
-			            </div>
-			            <div class="input-field col s12">
-			                <input ng-model="editemployeeFields.branch_fk" name="branch_fk" value="" type="number" class="validate" maxlength="50" placeholder="">
-			                <label for="branch_fk" class="active">branch_fk</label>
-			            </div>
+										<select name="employeePositionUpdate" id="updateEmployeePosition">
+											<option value="" disabled selected>Choose your option</option>
+											<option value="{{e.id}}" ng-repeat="e in positions">{{e.name}}</option>
+										</select>
+										<label>Position</label>
+									</div>
+									<div class="input-field col s12">
+										<select name="employeeBranchUpdate" id="updateEmployeeBranch">
+											<option value="" disabled selected>Choose your option</option>
+											<option value="{{e.id}}" ng-repeat="e in branches">{{e.name}}</option>
+										</select>
+										<label>Branch</label>
+									</div>
 			            <div class="input-field col s12">
 			                <input ng-model="editemployeeFields.salary" name="salary" value="" type="number" class="validate" maxlength="50" required placeholder="">
 			                <label for="salary" class="active">salary</label>
@@ -129,13 +141,18 @@ app.directive("updateEmployee",function(){
 			                <input ng-model="editemployeeFields.birth_day" name="birth_day" value="" type="date" class="validate" maxlength="50" placeholder="">
 			                <label for="birth_day" class="active">birth_day</label>
 			            </div>
-			            <div class="input-field col s12">
-			                <input ng-model="editemployeeFields.gender" name="gender" value="" type="number" class="validate" maxlength="50" required placeholder="">
-			                <label for="gender" class="active">gender</label>
-			            </div>
+									<div class="input-field col s12">
+										<select name="employeeGenderUpdate" id="updateEmployeeGender">
+											<option value="" disabled selected>Choose your option</option>
+											<option value=1>Male</option>
+											<option value=0>Female</option>
+										</select>
+										<label>Gender</label>
+									</div>
+
 			        </div>
 			        <div class="modal-footer">
-			            <button class="waves-effect waves-light btn" type="submit" ng-click="editItem()">Update</button>
+			            <button class="waves-effect waves-light btn" type="submit">Update</button>
 			        </div>
 			    </form>
 			</div>
@@ -299,21 +316,13 @@ app.directive("addProduct",function(){
 						<input ng-model="productFields.item_code" name="item_code" value="" type="text" class="validate" maxlength="50">
 						<label for="item_code">item_code</label>
 					</div>
-
 					<div class="input-field col s12">
-						<select name="itemCategory" id="poductCategory" ng-model="productFields.category_fk">
+						<select name="itemCategory" id="productCategory">
 							<option value="" disabled selected>Choose your option</option>
 							<option value="{{c.id}}" ng-repeat="c in categories">{{c.name}}</option>
 						</select>
 					    <label>Category</label>
 					</div>
-
-
-
-					<!--<div class="input-field col s12">
-						<input ng-model="productFields.category_fk" name="category_fk" value="" type="number" class="validate" maxlength="50">
-						<label for="category_fk">category_fk</label>
-					</div>-->
 					<div class="input-field col s12">
 						<input ng-model="productFields.price" name="price" value="" type="number" class="validate" maxlength="50">
 						<label for="price">price</label>
@@ -349,8 +358,11 @@ app.directive("updateProduct",function(){
 							<label for="item_code">item_code</label>
 						</div>
 						<div class="input-field col s12">
-							<input ng-model="editProductFields.category_fk" name="category_fk" value="" type="number" class="validate" maxlength="50" placeholder="">
-							<label for="category_fk">category_fk</label>
+							<select name="itemCategory" id="editProductCategory">
+								<option value="" disabled selected>Choose your option</option>
+								<option value="{{c.id}}" ng-repeat="c in categories">{{c.name}}</option>
+							</select>
+						    <label>Category</label>
 						</div>
 						<div class="input-field col s12">
 							<input ng-model="editProductFields.price" name="price" value="" type="number" class="validate" maxlength="50" placeholder="">

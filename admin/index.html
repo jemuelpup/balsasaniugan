@@ -50,8 +50,10 @@
 				<h2>Employee management</h2>
 				<div class="row">
 					<!-- These are the employee modals from directive -->
-					<add-employee></add-employee>
-					<update-employee></update-employee>
+					<div ng-controller="buisnessManagement">
+						<add-employee></add-employee>
+						<update-employee></update-employee>
+					</div>
 					<add-employee-access></add-employee-access>
 					<div class="col s12">
 						<div class="data-table-container">
@@ -76,12 +78,12 @@
 						                <td>{{x.address}}</td>
 						                <td>{{x.contact_number}}</td>
 						                <td>{{x.email}}</td>
-						                <td>{{x.position_fk}}</td>
-						                <td>{{x.branch_fk}}</td>
+						                <td>{{x.position_name}}</td>
+						                <td>{{x.branch_name}}</td>
 						                <td>{{x.salary}}</td>
 						                <td>{{x.modified_by_fk}}</td>
-						                <td>{{x.birth_day}}</td>
-						                <td>{{x.gender}}</td>
+						                <td>{{x.birth_day| date}}</td>
+						                <td>{{x.gender ? "MALE" : "FEMALE"}}</td>
 						            </tr>
 						        </tbody>
 						    </table>

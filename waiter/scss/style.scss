@@ -1,0 +1,58 @@
+$themeColor: #4a148c;
+$themeColorLight: #7c43bd;
+$themeColorDark: #12005e;
+
+.btn{
+	background-color: $themeColor;
+}
+.hide{
+	display: none;
+}
+
+/** this styles must be in common***/
+h3{
+	color: $themeColorDark;
+	font-size: 2rem;
+	padding: 10px 0;
+    border-bottom: 1px solid #d0d0d0;
+}
+/***********************************/
+
+.productList{
+	li{
+		position: relative;
+		.title{
+			max-width: 200px;
+		    text-transform: capitalize;
+			color: $themeColor;
+		}
+		.fullDesc,
+		.desc{
+			word-wrap: break-word;
+			width: calc(100% - 60px);
+		}
+		button.add{
+			position: absolute;
+		    right: 20px;
+		    padding: 0 12px;
+		    bottom: 10px;
+		    font-size: 12px;
+			height: 25px;
+			line-height: 10px;
+		}
+		i{
+			color: $themeColor;
+		}
+	}
+}
+@media screen and (max-width: 600px) {
+	.productList{
+		i{
+			color: $themeColor;
+		}
+	}
+	.container{
+		width: 100%;;
+		margin: 0;
+	}
+}

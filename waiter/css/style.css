@@ -1,0 +1,44 @@
+.btn {
+  background-color: #4a148c; }
+
+.hide {
+  display: none; }
+
+/** this styles must be in common***/
+h3 {
+  color: #12005e;
+  font-size: 2rem;
+  padding: 10px 0;
+  border-bottom: 1px solid #d0d0d0; }
+
+/***********************************/
+.productList li {
+  position: relative; }
+  .productList li .title {
+    max-width: 200px;
+    text-transform: capitalize;
+    color: #4a148c; }
+  .productList li .fullDesc,
+  .productList li .desc {
+    word-wrap: break-word;
+    width: calc(100% - 60px); }
+  .productList li button.add {
+    position: absolute;
+    right: 20px;
+    padding: 0 12px;
+    bottom: 10px;
+    font-size: 12px;
+    height: 25px;
+    line-height: 10px; }
+  .productList li i {
+    color: #4a148c; }
+
+@media screen and (max-width: 600px) {
+  .productList i {
+    color: #4a148c; }
+
+  .container {
+    width: 100%;
+    margin: 0; } }
+
+/*# sourceMappingURL=style.css.map */

@@ -114,6 +114,8 @@ h4{
 	}
 	td,th{
 		border-radius: 0;
+		max-width: 150px;
+		word-wrap: break-word;
 	}
 	.imgData{
 		width: 50px;
@@ -129,7 +131,7 @@ h4{
 }
 
 .data-table-container{
-	height: 500px;
+	max-height: 500px;
 	overflow: scroll;
 	margin-bottom: 10px;
 }

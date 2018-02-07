@@ -242,7 +242,7 @@ app.directive("addCategory",function(){
 	return {
 		template: `
 			<div class="category">
-			    <h3>category_tbl</h3>
+			    <h3>Add Category</h3>
 			    <form ng-submit="addCategory()">
 			        <div class="input-field col s12">
 			            <input ng-model="categoryFields.name" name="name" value="" type="text" class="validate" maxlength="50" required>
@@ -299,7 +299,7 @@ app.directive("addProduct",function(){
 	return {
 		template: `
 			<div class="product">
-				<h3>product_tbl</h3>
+				<h3>Add Product</h3>
 				<form ng-submit="addProduct()">
 					<div class="input-field col s12">
 						<input ng-model="productFields.name" name="name" value="" type="text" class="validate" maxlength="50" required>

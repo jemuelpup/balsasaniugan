@@ -1,6 +1,13 @@
 $themeColor: #4a148c;
 $themeColorLight: #7c43bd;
 $themeColorDark: #12005e;
+@mixin transition($transition){
+	-webkit-transition: $transition;
+	-moz-transition: $transition;
+	-ms-transition: $transition;
+	-o-transition: $transition;
+	transition: $transition;
+}
 
 .btn{
 	background-color: $themeColor;
@@ -8,6 +15,20 @@ $themeColorDark: #12005e;
 .hide{
 	display: none;
 }
+
+.mb0{
+	margin-bottom: 0;
+}
+.bb0{
+	border-bottom: 0;
+}
+input + label {
+    pointer-events: none;
+    * {
+        pointer-events: all;
+    }
+}
+
 
 /** this styles must be in common***/
 h3{
@@ -17,10 +38,30 @@ h3{
     border-bottom: 1px solid #d0d0d0;
 }
 /***********************************/
-
+.categoryList{
+	li{
+		text-transform: capitalize;
+		font-weight: 700;
+		font-size: 16px;
+		color: $themeColor;
+		cursor: pointer;
+		border-bottom: 1px solid $themeColorLight;
+		padding: 10px 0;
+		&:first-child{
+			border-top: 1px solid $themeColorLight;
+		}
+		&.active{
+			background: #7c43bd;
+			color: #fff;
+		}
+	}
+}
 .productList{
+	max-height: 400px;
+    overflow-y: scroll;
 	li{
 		position: relative;
+		z-index: 0;
 		.title{
 			max-width: 200px;
 		    text-transform: capitalize;
@@ -39,10 +80,85 @@ h3{
 		    font-size: 12px;
 			height: 25px;
 			line-height: 10px;
+			z-index: 2;
 		}
 		i{
 			color: $themeColor;
 		}
+		.secondary-content{
+			top: 10px;
+			input{
+				width: 46px;
+			    font-size: 12px;
+			    height: 20px;
+			    margin-right: 7px;
+			}
+		}
+		.price{
+			color: $themeColorDark;
+		}
+	}
+}
+.orderListBlock{
+	.orderList{
+		border: 1px solid $themeColorLight;
+    	margin-bottom: 15px;
+	    table{
+	    	width:100%;
+	    	tbody {
+				display:block;
+				max-height:350px;
+				overflow:auto;
+				padding: 0 5px;
+				tr{
+					cursor: pointer;
+					.removeFromOrder{
+						position: relative;
+						overflow: hidden;
+						span{
+							position: absolute;
+							background-color: $themeColor;
+							border-radius: 100%;
+							padding: 0px 4px;
+							right: -30px;
+							cursor: pointer;
+							@include transition(right 400ms ease);
+							i{
+								font-size:18px;
+	   							line-height: 1.5;
+	   							color: #fff;
+							}
+						}
+					}
+					td{
+						max-width: 200px;
+    					word-wrap: break-word;
+    					font-size: 12px;
+    					
+					}
+					&:hover .removeFromOrder span{
+						right: 12px;
+					}
+				}
+			}
+			thead, tbody tr {
+				display:table;
+				width:100%;
+				table-layout:fixed;
+			}
+			thead {
+				color: $themeColorDark;
+			}
+			td:nth-child(0n+2),th:nth-child(0n+2){
+				width: 38px;
+			}
+	    }
+	}
+}
+@media screen and (max-width: 850px) {
+	.container{
+		width: 100%;;
+		margin: 0;
 	}
 }
 @media screen and (max-width: 600px) {

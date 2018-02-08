@@ -8,9 +8,10 @@ app.service('dbOperations',function($http){
 	this.processData = function(process,dataInputs){
 		return $http({
 			method:"POST",
-			url:"/admin/functions.php",
+			url:"/waiter/functions.php",
 			data: { 'process': process, 'data': dataInputs }
 		}).then(function success(res){
+			console.log("dumaan sa waiter service");
 			return res;
 		}, function error(err) {
 			console.log(err);
@@ -20,7 +21,7 @@ app.service('dbOperations',function($http){
 		console.log("Dumaan sa view");
 		return $http({
 			method:"POST",
-			url:"/admin/views.php",
+			url:"/waiter/views.php",
 			data: { 'process': process, 'data':data }
 		}).then(function success(res){
 			// console.log(res);
@@ -29,5 +30,8 @@ app.service('dbOperations',function($http){
 			console.log("error");
 			console.log(err);
 	    });
+	}
+	this.isConvertibleToInteger = function(value) {
+	  return /^\d+$/.test(value);
 	}
 });

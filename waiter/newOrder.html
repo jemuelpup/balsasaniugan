@@ -18,20 +18,20 @@
 				<div class="col s12">
 					<h1>NEW ORDER</h1>
 					<div class="searchFields">
-						<button>categories</button>
-						<button>ordered items</button>
+						<button class="waves-effect waves-light btn">categories</button>
+						<button class="waves-effect waves-light btn">ordered items</button>
 					</div>			
 				</div>
 				<div class="col s12">
 					<div class="row">
 						<div class="col m3 s12">
-							<h3>Category list</h3>
-							<ul ng-init="selectedCategory=''">
-								<li ng-repeat="x in categories" ng-click="categoryClicked(x.id)">{{x.name}}</li>
+							<h3 class="mb0">Category list</h3>
+							<ul class="categoryList">
 								<li ng-click="categoryClicked('')">All</li>
+								<li ng-repeat="x in categories" ng-click="categoryClicked(x.id)">{{x.name}}</li>
 							</ul>
 						</div>
-						<div class="col m9 s12">
+						<div class="col m5 s12">
 							<h3>Product list</h3>
 							<div class="headerSearch">
 								<input placeholder="Search" id="{{category.categoryName}}" type="text" class="validate" ng-model="productFilter" ng-focus="focus=true" ng-blur="focus=false">
@@ -39,26 +39,72 @@
 							<ul class="collection productList">
 								<li class="collection-item avatar" 
 								ng-repeat="x in products | filter:productFilter | filter:{category_fk:selectedCategory}" 
-								ng-init="expand=0" 
-								ng-click="expand = !expand">
+								ng-init="expand=0">
 									<img src="{{x.picture}}" alt="" class="circle">
 									<span class="title">{{x.name}}</span>
-									<p class="desc" ng-show="!expand">{{x.description | limitTo: 20 }}{{x.description.length > 20 ? '...' : ''}}</p>
-									<p class="fullDesc" ng-show="expand">{{x.description}}</p>
-									<a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-									<button class="waves-effect waves-light btn add">ADD</button>
+									<p class="desc" ng-show="!expand" ng-click="expand = !expand">{{x.description | limitTo: 20 }}{{x.description.length > 20 ? '...' : ''}}</p>
+									<p class="fullDesc" ng-show="expand" ng-click="expand = !expand">{{x.description}}</p>
+									<p class="price">Php. {{x.price}}</p>
+									<div class="secondary-content">
+										<input placeholder="Qty" type="number" ng-model="x.quantity">
+									</div>
+									<button class="waves-effect waves-light btn add" ng-click="addProductOrder(x.id,x.name,x.quantity,x.price);x.quantity=null">ADD</button>
 								</li>
 						  </ul>
+						</div>
+						<div class="col m4 s12">
+							<div class="orderListBlock">
+								<h3>Order list</h3>
+								<div class="orderList">
+									<table>
+										<thead>
+											<tr class="tableHead">
+												<th>Name</th>
+												<th>Qty</th>
+												<th>Price</th>
+												<th>Total</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="x in orderList">
+												<td>{{x.name}}</td>
+												<td>{{x.quantity}}</td>
+												<td>{{x.price}}</td>
+												<td class="removeFromOrder">{{x.quantity*x.price}} <span ng-click="removeFromOrder(orderList.indexOf(x))"><i class="material-icons">close</i></span></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div class="row">
+									<div class="input-field col s12">
+					          <input name="customer_name" type="text" ng-model="customerName">
+					          <label for="customer_name">Customer Name</label>
+					        </div>
+									<div class="input-field col s12">
+					          <input name="order_notes" type="text" ng-model="orderNotes">
+					          <label for="order_notes">Order Notes</label>
+					        </div>
+									<div class="input-field col s6">
+					          <input name="seat_id" type="text" ng-model="seatID">
+					          <label for="seat_id">Seat ID</label>
+					        </div>
+									<div class="input-field col s6">
+										<button class="waves-effect waves-light btn" ng-click="saveOrders()">Save</button>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</main>
+	<script src="/plugins/jquery/jquery-3.2.1.min.js"></script>
+	<script src="/plugins/materialize/js/materialize.min.js"></script>
 	<script src="/waiter/js/angular/modules.js"></script>
 	<script src="/waiter/js/angular/service.js"></script>
 	<script src="/waiter/js/angular/controllers.js"></script>
-
+	
 </body>
 
 </html>

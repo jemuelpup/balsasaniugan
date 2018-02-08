@@ -4,6 +4,17 @@
 .hide {
   display: none; }
 
+.mb0 {
+  margin-bottom: 0; }
+
+.bb0 {
+  border-bottom: 0; }
+
+input + label {
+  pointer-events: none; }
+  input + label * {
+    pointer-events: all; }
+
 /** this styles must be in common***/
 h3 {
   color: #12005e;
@@ -12,27 +23,105 @@ h3 {
   border-bottom: 1px solid #d0d0d0; }
 
 /***********************************/
-.productList li {
-  position: relative; }
-  .productList li .title {
-    max-width: 200px;
-    text-transform: capitalize;
-    color: #4a148c; }
-  .productList li .fullDesc,
-  .productList li .desc {
-    word-wrap: break-word;
-    width: calc(100% - 60px); }
-  .productList li button.add {
-    position: absolute;
-    right: 20px;
-    padding: 0 12px;
-    bottom: 10px;
-    font-size: 12px;
-    height: 25px;
-    line-height: 10px; }
-  .productList li i {
-    color: #4a148c; }
+.categoryList li {
+  text-transform: capitalize;
+  font-weight: 700;
+  font-size: 16px;
+  color: #4a148c;
+  cursor: pointer;
+  border-bottom: 1px solid #7c43bd;
+  padding: 10px 0; }
+  .categoryList li:first-child {
+    border-top: 1px solid #7c43bd; }
+  .categoryList li.active {
+    background: #7c43bd;
+    color: #fff; }
 
+.productList {
+  max-height: 400px;
+  overflow-y: scroll; }
+  .productList li {
+    position: relative;
+    z-index: 0; }
+    .productList li .title {
+      max-width: 200px;
+      text-transform: capitalize;
+      color: #4a148c; }
+    .productList li .fullDesc,
+    .productList li .desc {
+      word-wrap: break-word;
+      width: calc(100% - 60px); }
+    .productList li button.add {
+      position: absolute;
+      right: 20px;
+      padding: 0 12px;
+      bottom: 10px;
+      font-size: 12px;
+      height: 25px;
+      line-height: 10px;
+      z-index: 2; }
+    .productList li i {
+      color: #4a148c; }
+    .productList li .secondary-content {
+      top: 10px; }
+      .productList li .secondary-content input {
+        width: 46px;
+        font-size: 12px;
+        height: 20px;
+        margin-right: 7px; }
+    .productList li .price {
+      color: #12005e; }
+
+.orderListBlock .orderList {
+  border: 1px solid #7c43bd;
+  margin-bottom: 15px; }
+  .orderListBlock .orderList table {
+    width: 100%; }
+    .orderListBlock .orderList table tbody {
+      display: block;
+      max-height: 350px;
+      overflow: auto;
+      padding: 0 5px; }
+      .orderListBlock .orderList table tbody tr {
+        cursor: pointer; }
+        .orderListBlock .orderList table tbody tr .removeFromOrder {
+          position: relative;
+          overflow: hidden; }
+          .orderListBlock .orderList table tbody tr .removeFromOrder span {
+            position: absolute;
+            background-color: #4a148c;
+            border-radius: 100%;
+            padding: 0px 4px;
+            right: -30px;
+            cursor: pointer;
+            -webkit-transition: right 400ms ease;
+            -moz-transition: right 400ms ease;
+            -ms-transition: right 400ms ease;
+            -o-transition: right 400ms ease;
+            transition: right 400ms ease; }
+            .orderListBlock .orderList table tbody tr .removeFromOrder span i {
+              font-size: 18px;
+              line-height: 1.5;
+              color: #fff; }
+        .orderListBlock .orderList table tbody tr td {
+          max-width: 200px;
+          word-wrap: break-word;
+          font-size: 12px; }
+        .orderListBlock .orderList table tbody tr:hover .removeFromOrder span {
+          right: 12px; }
+    .orderListBlock .orderList table thead, .orderListBlock .orderList table tbody tr {
+      display: table;
+      width: 100%;
+      table-layout: fixed; }
+    .orderListBlock .orderList table thead {
+      color: #12005e; }
+    .orderListBlock .orderList table td:nth-child(0n+2), .orderListBlock .orderList table th:nth-child(0n+2) {
+      width: 38px; }
+
+@media screen and (max-width: 850px) {
+  .container {
+    width: 100%;
+    margin: 0; } }
 @media screen and (max-width: 600px) {
   .productList i {
     color: #4a148c; }

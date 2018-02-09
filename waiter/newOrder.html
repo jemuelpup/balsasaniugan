@@ -48,12 +48,15 @@
 									<div class="secondary-content">
 										<input placeholder="Qty" type="number" ng-model="x.quantity">
 									</div>
-									<button class="waves-effect waves-light btn add" ng-click="addProductOrder(x.id,x.name,x.quantity,x.price);x.quantity=null">ADD</button>
+									<button class="waves-effect waves-light btn add" ng-click="addProductOrder(x.id,x.name,x.quantity,x.price,x.product_code);x.quantity=null">ADD</button>
 								</li>
 						  </ul>
 						</div>
 						<div class="col m4 s12">
 							<div class="orderListBlock">
+								<div class="message">
+									<button class="btn" ng-class="orderDoneMsg ? 'active':''" ng-click="orderDoneMsg=false">Order Saved</button>
+								</div>
 								<h3>Order list</h3>
 								<div class="orderList">
 									<table>
@@ -77,18 +80,10 @@
 								</div>
 								<div class="row">
 									<div class="input-field col s12">
-					          <input name="customer_name" type="text" ng-model="customerName">
-					          <label for="customer_name">Customer Name</label>
-					        </div>
-									<div class="input-field col s12">
-					          <input name="order_notes" type="text" ng-model="orderNotes">
-					          <label for="order_notes">Order Notes</label>
-					        </div>
-									<div class="input-field col s6">
-					          <input name="seat_id" type="text" ng-model="seatID">
-					          <label for="seat_id">Seat ID</label>
-					        </div>
-									<div class="input-field col s6">
+								    <input class="mb0" name="customer_name" type="text" ng-model="customerName" placeholder="Customer Name">
+								    <input class="mb0" name="order_notes" type="text" ng-model="orderNotes" placeholder="Order Notes">
+								    <input name="seat_id" type="text" ng-model="seatID" placeholder="Seat ID">
+								    <input name="down_payment" type="number" ng-model="downPayment" placeholder="Down Payment">
 										<button class="waves-effect waves-light btn" ng-click="saveOrders()">Save</button>
 									</div>
 								</div>

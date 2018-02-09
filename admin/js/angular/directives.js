@@ -313,8 +313,8 @@ app.directive("addProduct",function(){
 						<p>Picture</p><input ng-model="productFields.picture" file-input="files" name="picture" value="" type="file" class="validate">
 					</div>
 					<div class="input-field col s12">
-						<input ng-model="productFields.item_code" name="item_code" value="" type="text" class="validate" maxlength="50">
-						<label for="item_code">item_code</label>
+						<input ng-model="productFields.product_code" name="product_code" value="" type="text" class="validate" maxlength="50">
+						<label for="product_code">product_code</label>
 					</div>
 					<div class="input-field col s12">
 						<select name="itemCategory" id="productCategory">
@@ -354,8 +354,8 @@ app.directive("updateProduct",function(){
 							<img class="prodImgPreview" src="{{editProductFields.picture}}" alt="Product picture" />
 						</div>
 						<div class="input-field col s12">
-							<input ng-model="editProductFields.item_code" name="item_code" value="" type="text" class="validate" maxlength="50" placeholder="">
-							<label for="item_code">item_code</label>
+							<input ng-model="editProductFields.product_code" name="product_code" value="" type="text" class="validate" maxlength="50" placeholder="">
+							<label for="product_code">product_code</label>
 						</div>
 						<div class="input-field col s12">
 							<select name="itemCategory" id="editProductCategory">

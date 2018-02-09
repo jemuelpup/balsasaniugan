@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Orders</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/plugins/materialize/css/materialize.css">
+	<link href="/plugins/materialize/" rel="stylesheet">
+	<link rel="stylesheet" href="/plugins/materialize/css/materialFont.css">
+	<link rel="stylesheet" href="/waiter/css/style.css">
+	<script src="/plugins/angular/angular.min.js"></script>
+</head>
+
+<body ng-app="waiter">
+	<main ng-controller="viewOrders">
+		<div class="container">
+			<div class="row">
+				<div class="col s12">
+					<h1>Customer Orders</h1>
+					<ul class="Orders">
+						<li ng-repeat="order in orders">
+							<p>Customer name: {{order.orderDetails.customer_name}}<br>Order ID: {{order.orderDetails.id}}<br>Seat ID: {{order.orderDetails.seat_number}}</p>
+							<div>
+								<p>Order Details</p>
+								<table>
+									<tr>
+										<th>Name</th>
+										<th>Qty</th>
+										<th>Served</th>
+										<th>Served add served items</th>
+									</tr>
+									<tr ng-repeat="oLine in order.orderLine">
+										<td>{{oLine.name}}</td>
+										<td>{{oLine.quantity}}</td>
+										<td>{{oLine.served_items}}</td>
+										<td><button>add</button></td>
+									</tr>
+								</table>
+							</div>
+						</li>					
+					</ul>			
+				</div>
+			</div>
+		</div>
+	</main>
+	<script src="/plugins/jquery/jquery-3.2.1.min.js"></script>
+	<script src="/plugins/materialize/js/materialize.min.js"></script>
+	<script src="/waiter/js/angular/modules.js"></script>
+	<script src="/waiter/js/angular/service.js"></script>
+	<script src="/waiter/js/angular/controllers.js"></script>
+	
+</body>
+
+</html>

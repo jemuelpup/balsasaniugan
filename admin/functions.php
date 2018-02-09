@@ -85,8 +85,8 @@ function updatePosition($c,$d){
 function insertProduct($c,$d){
 	$adminId = 1;
 	$dataInserted = true;
-	$sql = $c->prepare("INSERT INTO product_tbl(name,description,item_code,category_fk,modified_by_fk,price)VALUES(?,?,?,?,?,?)");
-	$sql->bind_param('sssiid',$d->name,$d->description,$d->item_code,$d->category_fk,$adminId,$d->price);
+	$sql = $c->prepare("INSERT INTO product_tbl(name,description,product_code,category_fk,modified_by_fk,price)VALUES(?,?,?,?,?,?)");
+	$sql->bind_param('sssiid',$d->name,$d->description,$d->product_code,$d->category_fk,$adminId,$d->price);
 	$dataInserted = ($sql->execute() === TRUE) ? true : false;
 	if($dataInserted){
 		print_r(json_encode(array("id"=>$sql->insert_id)));
@@ -98,8 +98,8 @@ function insertProduct($c,$d){
 }
 function updateProduct($c,$d){
 	$adminId = 1;
-	$sql = $c->prepare("UPDATE product_tbl SET name = ?, description = ?, picture = ?, item_code = ?, category_fk = ?, modified_by_fk = ?, price = ? WHERE id = ?");
-	$sql->bind_param('ssssiidi',$d->name,$d->description,$d->picture,$d->item_code,$d->category_fk,$d->$adminId,$d->price,$d->id);
+	$sql = $c->prepare("UPDATE product_tbl SET name = ?, description = ?, picture = ?, product_code = ?, category_fk = ?, modified_by_fk = ?, price = ? WHERE id = ?");
+	$sql->bind_param('ssssiidi',$d->name,$d->description,$d->picture,$d->product_code,$d->category_fk,$d->$adminId,$d->price,$d->id);
 	$msg = ($sql->execute() === TRUE) ? "Editting Product success" : "Error: " . $sql . "<br>" . $c->error;
 	$sql->close();
 }

@@ -17,7 +17,7 @@ $themeColorDark: #12005e;
 }
 
 .mb0{
-	margin-bottom: 0;
+	margin-bottom: 0!important;
 }
 .bb0{
 	border-bottom: 0;
@@ -100,9 +100,28 @@ h3{
 	}
 }
 .orderListBlock{
+	position:relative;
+	overflow: hidden;
+	.message{
+    	button{
+    		font-size: 16px;
+    		margin: 9px;
+    		margin: 0 auto;
+    		position: absolute;
+			top: -50px;
+			left: 0;
+			right: 0;
+    		width: 166px;
+			background: $themeColor;
+			color: #fff;
+			@include transition(top 400ms ease);
+			&.active{
+	    		top: 10px;
+	    	}
+    	}
+	}
 	.orderList{
 		border: 1px solid $themeColorLight;
-    	margin-bottom: 15px;
 	    table{
 	    	width:100%;
 	    	tbody {

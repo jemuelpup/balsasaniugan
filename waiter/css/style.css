@@ -5,7 +5,7 @@
   display: none; }
 
 .mb0 {
-  margin-bottom: 0; }
+  margin-bottom: 0 !important; }
 
 .bb0 {
   border-bottom: 0; }
@@ -72,51 +72,71 @@ h3 {
     .productList li .price {
       color: #12005e; }
 
-.orderListBlock .orderList {
-  border: 1px solid #7c43bd;
-  margin-bottom: 15px; }
-  .orderListBlock .orderList table {
-    width: 100%; }
-    .orderListBlock .orderList table tbody {
-      display: block;
-      max-height: 350px;
-      overflow: auto;
-      padding: 0 5px; }
-      .orderListBlock .orderList table tbody tr {
-        cursor: pointer; }
-        .orderListBlock .orderList table tbody tr .removeFromOrder {
-          position: relative;
-          overflow: hidden; }
-          .orderListBlock .orderList table tbody tr .removeFromOrder span {
-            position: absolute;
-            background-color: #4a148c;
-            border-radius: 100%;
-            padding: 0px 4px;
-            right: -30px;
-            cursor: pointer;
-            -webkit-transition: right 400ms ease;
-            -moz-transition: right 400ms ease;
-            -ms-transition: right 400ms ease;
-            -o-transition: right 400ms ease;
-            transition: right 400ms ease; }
-            .orderListBlock .orderList table tbody tr .removeFromOrder span i {
-              font-size: 18px;
-              line-height: 1.5;
-              color: #fff; }
-        .orderListBlock .orderList table tbody tr td {
-          max-width: 200px;
-          word-wrap: break-word;
-          font-size: 12px; }
-        .orderListBlock .orderList table tbody tr:hover .removeFromOrder span {
-          right: 12px; }
-    .orderListBlock .orderList table thead, .orderListBlock .orderList table tbody tr {
-      display: table;
-      width: 100%;
-      table-layout: fixed; }
-    .orderListBlock .orderList table thead {
-      color: #12005e; }
-    .orderListBlock .orderList table td:nth-child(0n+2), .orderListBlock .orderList table th:nth-child(0n+2) {
-      width: 38px; }
+.orderListBlock {
+  position: relative;
+  overflow: hidden; }
+  .orderListBlock .message button {
+    font-size: 16px;
+    margin: 9px;
+    margin: 0 auto;
+    position: absolute;
+    top: -50px;
+    left: 0;
+    right: 0;
+    width: 166px;
+    background: #4a148c;
+    color: #fff;
+    -webkit-transition: top 400ms ease;
+    -moz-transition: top 400ms ease;
+    -ms-transition: top 400ms ease;
+    -o-transition: top 400ms ease;
+    transition: top 400ms ease; }
+    .orderListBlock .message button.active {
+      top: 10px; }
+  .orderListBlock .orderList {
+    border: 1px solid #7c43bd; }
+    .orderListBlock .orderList table {
+      width: 100%; }
+      .orderListBlock .orderList table tbody {
+        display: block;
+        max-height: 350px;
+        overflow: auto;
+        padding: 0 5px; }
+        .orderListBlock .orderList table tbody tr {
+          cursor: pointer; }
+          .orderListBlock .orderList table tbody tr .removeFromOrder {
+            position: relative;
+            overflow: hidden; }
+            .orderListBlock .orderList table tbody tr .removeFromOrder span {
+              position: absolute;
+              background-color: #4a148c;
+              border-radius: 100%;
+              padding: 0px 4px;
+              right: -30px;
+              cursor: pointer;
+              -webkit-transition: right 400ms ease;
+              -moz-transition: right 400ms ease;
+              -ms-transition: right 400ms ease;
+              -o-transition: right 400ms ease;
+              transition: right 400ms ease; }
+              .orderListBlock .orderList table tbody tr .removeFromOrder span i {
+                font-size: 18px;
+                line-height: 1.5;
+                color: #fff; }
+          .orderListBlock .orderList table tbody tr td {
+            max-width: 200px;
+            word-wrap: break-word;
+            font-size: 12px; }
+          .orderListBlock .orderList table tbody tr:hover .removeFromOrder span {
+            right: 12px; }
+      .orderListBlock .orderList table thead, .orderListBlock .orderList table tbody tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed; }
+      .orderListBlock .orderList table thead {
+        color: #12005e; }
+      .orderListBlock .orderList table td:nth-child(0n+2), .orderListBlock .orderList table th:nth-child(0n+2) {
+        width: 38px; }
 
 @media screen and (max-width: 850px) {
   .container {

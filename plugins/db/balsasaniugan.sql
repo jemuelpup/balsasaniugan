@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 06, 2018 at 09:14 AM
+-- Generation Time: Feb 09, 2018 at 10:33 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -145,8 +145,23 @@ CREATE TABLE IF NOT EXISTS `order_line_tbl` (
   `code` varchar(50) NOT NULL,
   `quantity` int(11) NOT NULL,
   `price` decimal(11,2) NOT NULL,
-  `discount` decimal(11,2) DEFAULT NULL
+  `served` tinyint(4) NOT NULL DEFAULT '0',
+  `served_items` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `order_line_tbl`
+--
+
+INSERT INTO `order_line_tbl` (`order_id_fk`, `product_id_fk`, `name`, `code`, `quantity`, `price`, `served`, `served_items`) VALUES
+(1, 1, 'adobo', 'p01', 2, '1123.00', 0, 0),
+(1, 2, 'srimp', '112', 3, '123.00', 0, 0),
+(2, 1, 'adobo', 'p01', 1, '1123.00', 0, 0),
+(2, 2, 'srimp', '112', 1, '123.00', 0, 0),
+(3, 2, 'srimp', '112', 1, '123.00', 0, 0),
+(4, 1, 'adobo', 'p01', 3, '1123.00', 0, 0),
+(4, 2, 'srimp', '112', 2, '123.00', 0, 0),
+(5, 2, 'srimp', '112', 2, '123.00', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -157,19 +172,31 @@ CREATE TABLE IF NOT EXISTS `order_line_tbl` (
 CREATE TABLE IF NOT EXISTS `order_tbl` (
 `id` int(11) NOT NULL,
   `order_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `seat_number` int(11) DEFAULT '0',
-  `cashier_fk` int(11) NOT NULL,
+  `seat_number` varchar(11) DEFAULT '0',
+  `cashier_fk` int(11) DEFAULT NULL,
   `branch_fk` int(11) NOT NULL,
   `waiter_fk` int(11) NOT NULL,
   `void_fk` int(11) NOT NULL DEFAULT '0',
-  `total_amount` decimal(11,2) NOT NULL,
-  `customer_name` varchar(50) NOT NULL,
+  `total_amount` decimal(11,2) NOT NULL DEFAULT '0.00',
+  `customer_name` varchar(50) DEFAULT '""',
   `payment` decimal(11,2) DEFAULT NULL,
   `notes` varchar(200) DEFAULT NULL,
   `down_payment` decimal(11,2) NOT NULL DEFAULT '0.00',
   `received_date` datetime DEFAULT NULL,
-  `void_reason` varchar(150) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `void_reason` varchar(150) DEFAULT NULL,
+  `discount` double(11,2) NOT NULL DEFAULT '0.00'
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `order_tbl`
+--
+
+INSERT INTO `order_tbl` (`id`, `order_date`, `seat_number`, `cashier_fk`, `branch_fk`, `waiter_fk`, `void_fk`, `total_amount`, `customer_name`, `payment`, `notes`, `down_payment`, `received_date`, `void_reason`, `discount`) VALUES
+(1, '2018-02-09 03:40:42', '1', NULL, 1, 1, 0, '0.00', NULL, NULL, '', '1000.00', NULL, NULL, 0.00),
+(2, '2018-02-09 04:35:23', '2', NULL, 1, 1, 0, '0.00', NULL, NULL, '', '0.00', NULL, NULL, 0.00),
+(3, '2018-02-09 05:09:58', '1', NULL, 1, 1, 0, '0.00', NULL, NULL, '', '0.00', NULL, NULL, 0.00),
+(4, '2018-02-09 05:11:44', '1', NULL, 1, 1, 0, '0.00', NULL, NULL, '', '0.00', NULL, NULL, 0.00),
+(5, '2018-02-09 05:14:27', '6', NULL, 1, 1, 0, '0.00', NULL, NULL, '', '0.00', NULL, NULL, 0.00);
 
 -- --------------------------------------------------------
 
@@ -203,7 +230,7 @@ CREATE TABLE IF NOT EXISTS `product_tbl` (
   `name` varchar(50) NOT NULL,
   `description` varchar(300) NOT NULL DEFAULT 'no desc',
   `picture` varchar(100) DEFAULT '/common/images/products/default_food_img.jpg',
-  `item_code` varchar(10) DEFAULT NULL,
+  `product_code` varchar(10) DEFAULT NULL,
   `category_fk` int(11) DEFAULT NULL,
   `date_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_by_fk` int(11) NOT NULL,
@@ -216,9 +243,9 @@ CREATE TABLE IF NOT EXISTS `product_tbl` (
 -- Dumping data for table `product_tbl`
 --
 
-INSERT INTO `product_tbl` (`id`, `name`, `description`, `picture`, `item_code`, `category_fk`, `date_modified`, `modified_by_fk`, `active`, `price`, `amount`) VALUES
-(1, 'adobo', '123', '/common/images/products/default_food_img.jpg', 'p01', 1, '2018-02-05 06:33:12', 0, 1, '1123.00', 1),
-(2, 'srimp', '123', '/common/images/products/default_food_img.jpg', '112', 1, '2018-02-05 06:34:15', 0, 1, '123.00', 1),
+INSERT INTO `product_tbl` (`id`, `name`, `description`, `picture`, `product_code`, `category_fk`, `date_modified`, `modified_by_fk`, `active`, `price`, `amount`) VALUES
+(1, 'adobo', 'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww', '/common/images/products/default_food_img.jpg', 'p01', 1, '2018-02-05 06:33:12', 0, 1, '1123.00', 1),
+(2, 'srimp', 'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww', '/common/images/products/default_food_img.jpg', '112', 1, '2018-02-05 06:34:15', 0, 1, '123.00', 1),
 (3, 'Test', '123123123123', '/common/images/products/Desert3.jpg', NULL, 2, '2018-02-05 06:45:14', 0, 1, '1234.00', 1),
 (4, 'qwe', 'qwerwer', '/common/images/products/Tulips4.jpg', NULL, 2, '2018-02-05 06:47:30', 0, 1, '123.00', 1),
 (5, 'laing', 'wala pa 123', '/common/images/products/Lighthouse5.jpg', NULL, 2, '2018-02-05 07:43:25', 0, 1, NULL, 1),
@@ -327,7 +354,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `order_tbl`
 --
 ALTER TABLE `order_tbl`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `position_tbl`
 --

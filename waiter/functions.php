@@ -40,33 +40,35 @@ function insertOrder($c,$d){
 	$waiterID = 1;
 	$branch = 1;
 	$dataInserted = true;
+	$orderID = 0;
 	// print_r($d);
-
 	
-	/*
 	$sql = $c->prepare("INSERT INTO order_tbl(seat_number,branch_fk,waiter_fk,customer_name,notes,down_payment)VALUES(?,?,?,?,?,?)");
-	$sql->bind_param('iiissd',$d->seat_number,$branch,$waiterID,$d->customer_name,$d->notes,$d->down_payment);
+	$sql->bind_param('siissd',$d->seatID,$branch,$waiterID,$d->customer_name,$d->orderNotes,$d->downPayment);
 	$dataInserted = ($sql->execute() === TRUE) ? true : false;
 	if($dataInserted){
-		print_r(json_encode(array("id"=>$sql->insert_id)));
+		insertOrderLine($c,$d->orderedItems,$sql->insert_id);
 	}
 	else{
-		echo "error";
+		echo "error";//. htmlspecialchars($sql->error);
 	}
 	$sql->close();
 	/**/
-	$orderID = 1;
-	insertOrderLine($c,$d->orderedItems,$orderID);
+	
+	
 }
 function updateOrder($c,$d){
 
 }
 
-function insertOrderLine($c,$d){
-	print_r($d);
-	// foreach ($d as $product) {
-		
-	// }
+function insertOrderLine($c,$d,$orderID){
+	$sql = $c->prepare("INSERT INTO order_line_tbl(order_id_fk,product_id_fk,name,code,quantity,price)VALUES(?,?,?,?,?,?)");
+
+	foreach ($d as $product) {
+		$sql->bind_param('iissid',$orderID,$product->id,$product->name,$product->productCode,$product->quantity,$product->price);
+		$sql->execute();
+	}
+	// print_r($d);
 }
 
 

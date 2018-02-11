@@ -30,10 +30,32 @@ else{
 
 switch($process){
 	case "AddOrder":{insertOrder($conn,$data);}break;
+	case "SetOrderID":{setOrderID($data);}break;
+	case "GetOrderID":{getOrderID($data);}break;
+	case "AddOrderLine":{addToOrderLine($conn,$data);}break;
 	// case "EditOrder":{updateOrder($conn,$data);}break;
 	
 }
-
+function addToOrderLine($c,$d){
+	if(isset($_SESSION["orderID"])){
+		// echo "may orderID orderID: ".$_SESSION["orderID"];
+		insertOrderLine($c,$d->orderedItems,(int)$_SESSION["orderID"]);
+	}
+	else{
+		// echo "walang orderID";
+	}
+}
+function setOrderID($d){
+	print_r($d);
+	$_SESSION["orderID"] = $d->orderID;
+}
+function getOrderID(){
+	$orderID = 0;
+	if(isset($_SESSION["orderID"])){
+		$orderID = $_SESSION["orderID"];
+	}
+	print_r(json_encode(array("orderID"=>$orderID)));
+}
 /* function area */
 function insertOrder($c,$d){
 	$adminId = 1;
@@ -62,14 +84,19 @@ function updateOrder($c,$d){
 }
 
 function insertOrderLine($c,$d,$orderID){
-	$sql = $c->prepare("INSERT INTO order_line_tbl(order_id_fk,product_id_fk,name,code,quantity,price)VALUES(?,?,?,?,?,?)");
 
+
+	$sql = $c->prepare("INSERT INTO order_line_tbl(order_id_fk,product_id_fk,name,code,quantity,price)
+		VALUES(?,?,?,?,?,?)");
+	
 	foreach ($d as $product) {
+		// echo "dumaan dito";
+		// print_r($product);
 		$sql->bind_param('iissid',$orderID,$product->id,$product->name,$product->productCode,$product->quantity,$product->price);
 		$sql->execute();
 	}
-	// print_r($d);
 }
+
 
 
 

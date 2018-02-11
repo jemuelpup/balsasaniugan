@@ -8,6 +8,7 @@
 	<link href="/plugins/materialize/" rel="stylesheet">
 	<link rel="stylesheet" href="/plugins/materialize/css/materialFont.css">
 	<link rel="stylesheet" href="/waiter/css/style.css">
+	<link rel="stylesheet" href="/waiter/css/view_orders.css">
 	<script src="/plugins/angular/angular.min.js"></script>
 </head>
 
@@ -17,9 +18,9 @@
 			<div class="row">
 				<div class="col s12">
 					<h1>Customer Orders</h1>
-					<ul class="Orders">
-						<li ng-repeat="order in orders">
-							<p>Customer name: {{order.orderDetails.customer_name}}<br>Order ID: {{order.orderDetails.id}}<br>Seat ID: {{order.orderDetails.seat_number}}</p>
+					<ul class="orderList">
+						<li class="order" ng-repeat="order in orders">
+							<p>Customer name: <span class="b">{{order.orderDetails.customer_name}}</span><br>Order ID: <span class="b">{{order.orderDetails.id}}</span><br>Seat ID: <span class="b">{{order.orderDetails.seat_number}}</span></p>
 							<div>
 								<p>Order Details</p>
 								<table>
@@ -33,10 +34,12 @@
 										<td>{{oLine.name}}</td>
 										<td>{{oLine.quantity}}</td>
 										<td>{{oLine.served_items}}</td>
-										<td><button>add</button></td>
+										<td><button>Serve</button></td>
 									</tr>
 								</table>
 							</div>
+							<button class="addProduct wave btn" ng-click="addProductsToOrder(order.orderDetails
+.id)">Add<br>Order</button>
 						</li>					
 					</ul>			
 				</div>

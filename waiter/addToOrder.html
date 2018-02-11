@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title>NEW ORDER</title>
+	<title>ADD TO ORDER</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/plugins/materialize/css/materialize.css">
 	<link href="/plugins/materialize/" rel="stylesheet">
@@ -13,10 +13,10 @@
 
 <body ng-app="waiter">
 	<main ng-controller="operations">
-		<div class="container">
+		<div class="container" ng-controller="viewOrderLine">
 			<div class="row">
 				<div class="col s12">
-					<h1>NEW ORDER</h1>
+					<h1>ADD TO ORDER</h1>
 					<div class="searchFields">
 						<button class="waves-effect waves-light btn">categories</button>
 						<button class="waves-effect waves-light btn">ordered items</button>
@@ -34,11 +34,7 @@
 							<order-list></order-list>
 							<div class="row">
 								<div class="input-field col s12">
-							    <input class="mb0" name="customer_name" type="text" ng-model="customerName" placeholder="Customer Name">
-							    <input class="mb0" name="order_notes" type="text" ng-model="orderNotes" placeholder="Order Notes">
-							    <input name="seat_id" type="text" ng-model="seatID" placeholder="Seat ID">
-							    <input name="down_payment" type="number" ng-model="downPayment" placeholder="Down Payment">
-									<button class="waves-effect waves-light btn" ng-click="saveOrders()">Save</button>
+									<button class="waves-effect waves-light btn" ng-click="addToOrderLine()">ADD TO ORDER</button>
 								</div>
 							</div>
 						</div>

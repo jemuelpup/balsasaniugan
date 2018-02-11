@@ -3,6 +3,7 @@
 
 include $_SERVER['DOCUMENT_ROOT'].'/common/commonfunctions.php';
 require $_SERVER['DOCUMENT_ROOT'].'/common/dbconnect.php';
+require $_SERVER['DOCUMENT_ROOT'].'/common/commonViews.php';
 
 $process="";
 
@@ -18,6 +19,8 @@ else{
 // $process = "GetCategory";
 switch($process){
 	case "GetOrders":{selectOrders($conn);}break;
+	case "GetCategory":{selectCategory($conn);}break;
+	case "GetProduct":{selectProduct($conn);}break;
 }
 
 // selectEmployee($conn);
@@ -30,24 +33,23 @@ function selectOrders($c){
 	$res = $c->query($sql);
 	if(hasRows($c,$sql)){
 		while($row = $res->fetch_assoc()){
-			$orderDetails = array("id"=>$row['order_id'],"date"=>$row['order_date'],"seat_number"=>$row['order_seat_number'],"cashier_fk"=>$row['order_cashier_fk'],"branch_fk"=>$row['order_branch_fk'],"waiter_fk"=>$row['order_waiter_fk'],"void_fk"=>$row['order_void_fk'],"total_amount"=>$row['order_total_amount'],"customer_name"=>$row['order_customer_name'],"payment"=>$row['order_payment'],"notes"=>$row['order_notes'],"down_payment"=>$row['order_down_payment'],"received_date"=>$row['order_received_date'],"void_reason"=>$row['order_void_reason'],"discount"=>$row['order_discount']);
-
 			$orderLine = array("order_id_fk"=>$row['oLine_order_id_fk'],"product_id_fk"=>$row['oLine_product_id_fk'],"name"=>$row['oLine_name'],"code"=>$row['oLine_code'],"quantity"=>$row['oLine_quantity'],"price"=>$row['oLine_price'],"served"=>$row['oLine_served'],"served_items"=>$row['served_items']);
 
 			if($iterationStart){// at first set the category and add the array
 				$iterationStart = false;
-				$category = $row['oLine_order_id_fk'];
+				$category = $row['order_id'];
 				array_push($catArray,$orderLine);
 			}
-			elseif($category != $row['oLine_order_id_fk']){ // if not the same id, push catArray to structuredDataArray and assign new id to the category
+			elseif($category != $row['order_id']){ // if not the same id, push catArray to structuredDataArray and assign new id to the category
 				$structuredDataArray[$category.""] = array("orderDetails"=>$orderDetails,"orderLine"=>$catArray);
 				$catArray = array();
 				array_push($catArray,$orderLine);
-				$category = $row['oLine_order_id_fk'];
+				$category = $row['order_id'];
 			}
 			else{ // if same id, push it to the category
 				array_push($catArray,$orderLine);
 			}
+			$orderDetails = array("id"=>$row['order_id'],"date"=>$row['order_date'],"seat_number"=>$row['order_seat_number'],"cashier_fk"=>$row['order_cashier_fk'],"branch_fk"=>$row['order_branch_fk'],"waiter_fk"=>$row['order_waiter_fk'],"void_fk"=>$row['order_void_fk'],"total_amount"=>$row['order_total_amount'],"customer_name"=>$row['order_customer_name'],"payment"=>$row['order_payment'],"notes"=>$row['order_notes'],"down_payment"=>$row['order_down_payment'],"received_date"=>$row['order_received_date'],"void_reason"=>$row['order_void_reason'],"discount"=>$row['order_discount']);
 		}
 		$structuredDataArray[$category.""] = array("orderDetails"=>$orderDetails,"orderLine"=>$catArray);
 	}

@@ -3,6 +3,7 @@
 
 include $_SERVER['DOCUMENT_ROOT'].'/common/commonfunctions.php';
 require $_SERVER['DOCUMENT_ROOT'].'/common/dbconnect.php';
+require $_SERVER['DOCUMENT_ROOT'].'/common/commonViews.php';
 
 $process="";
 
@@ -36,14 +37,6 @@ function selectPosition($c){
 }
 function selectBranch($c){
 	$sql = "SELECT id,name,address,description,branch_code FROM branch_tbl WHERE active=1";
-	print_r(hasRows($c,$sql) ? json_encode(selectQuery($c,$sql)) : "");
-}
-function selectCategory($c){
-	$sql = "SELECT id,name,category_code,description FROM category_tbl WHERE active=1";
-	print_r(hasRows($c,$sql) ? json_encode(selectQuery($c,$sql)) : "");
-}
-function selectProduct($c){
-	$sql = "SELECT id,name,description,picture,product_code,category_fk,price FROM product_tbl";
 	print_r(hasRows($c,$sql) ? json_encode(selectQuery($c,$sql)) : "");
 }
 

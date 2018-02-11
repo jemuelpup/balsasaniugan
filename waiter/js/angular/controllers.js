@@ -8,11 +8,12 @@ app.controller("operations",function($scope,dbOperations,$timeout){
 	$scope.orderNotes = "";
 	$scope.downPayment = "";
 	$scope.orderDoneMsg = false;
+	var addToOrderLineButtonClicked = false;
 	function getProducts(){
 		dbOperations.views("GetProduct",{}).then(function(res){
 			// res.push({id:"",name:"all",description:"All products"});
-
-			// console.log(res);
+			console.log("nasa GetProducts");
+			console.log(res);
 
 			$scope.products = res;
 		});
@@ -40,8 +41,8 @@ app.controller("operations",function($scope,dbOperations,$timeout){
 	$scope.removeFromOrder = function(orderIndex){$scope.orderList.splice(orderIndex, 1);}
 	$scope.saveOrders = function(){
 		// console.log($scope.seatID);
-		if(($scope.seatID)!=""){
-			if($scope.orderList.length){
+		if(($scope.seatID)!=""){//if seatID is written
+			if($scope.orderList.length){// if order list is not empty
 				var downPayment = $scope.downPayment=="" ? 0 : $scope.downPayment;
 				console.log(downPayment);
 				dbOperations.processData("AddOrder",{
@@ -74,14 +75,52 @@ app.controller("operations",function($scope,dbOperations,$timeout){
 			console.log("Please type the seat ID");
 		}
 	}
+	$scope.addToOrderLine = function(){
+		if($scope.orderList.length){ // if order list is not empty
+			console.log($scope.orderList);
+			if(!addToOrderLineButtonClicked){
+				addToOrderLineButtonClicked = true;
+				dbOperations.processData("AddOrderLine",{orderedItems: $scope.orderList}).then(function(res){
+					console.log(res);
+					if(res!="error"){
+						dbOperations.processData("SetOrderID",{orderID:0}).then(function(res){
+							window.location.href = "/waiter/viewOrders.html";
+						});
+					}
+				});
+			}
+		}
+		else{
+			alert("Please add order first");
+		}
+	}
 
 	getCategories();
 	getProducts();
 });
 app.controller("viewOrders",function($scope,dbOperations){
 	$scope.orders = [];
-	dbOperations.views("GetOrders",{}).then(function(res){
-		$scope.orders = res;
-		console.log(res);
+	function getOrders(){
+		dbOperations.views("GetOrders",{}).then(function(res){
+			$scope.orders = res;
+			console.log(res);
+		});
+	}
+	$scope.addProductsToOrder = function(orderID){
+		console.log(orderID);
+		dbOperations.processData("SetOrderID",{orderID:orderID}).then(function(res){
+			window.location.href = "/waiter/addToOrder.html";
+		});
+	}
+	getOrders();
+});
+app.controller("viewOrderLine",function($scope,dbOperations){
+	// check if you already have the order id in your sessing
+	dbOperations.processData("GetOrderID",{}).then(function(res){
+		// pag walang order id sa session, return home
+		if(!(res.data.orderID)){// means merong order id sa session
+			console.log("add function here to return to view Orders page");
+			window.location.href = "/waiter/viewOrders.html";
+		}
 	});
 });

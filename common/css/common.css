@@ -1,6 +1,6 @@
-input[type="text"] + label {
+input + label {
   pointer-events: none; }
-  input[type="text"] + label * {
+  input + label * {
     pointer-events: all; }
 
 .h4-design, .data-header h4 {
@@ -38,5 +38,17 @@ input[type="text"] + label {
 
 .w50p {
   width: 50%; }
+
+h1 {
+  font-size: 1.5rem; }
+
+.b {
+  font-weight: 700; }
+
+.mb0 {
+  margin-bottom: 0 !important; }
+
+.mt0 {
+  margin-top: 0 !important; }
 
 /*# sourceMappingURL=common.css.map */

@@ -2,24 +2,24 @@
 <html>
 
 <head>
-	<title>ADD TO ORDER</title>
+	<title>NEW ORDER</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/plugins/materialize/css/materialize.css">
 	<link href="/plugins/materialize/" rel="stylesheet">
 	<link rel="stylesheet" href="/plugins/materialize/css/materialFont.css">
-	<link rel="stylesheet" href="/waiter/css/style.css">
+	<link rel="stylesheet" href="/operations/css/style.css">
 	<script src="/plugins/angular/angular.min.js"></script>
 </head>
 
-<body ng-app="waiter">
+<body ng-app="operations">
 	<main ng-controller="operations">
-		<div class="container" ng-controller="viewOrderLine">
+		<div class="container">
 			<div class="row">
 				<div class="col s12">
-					<h1>ADD TO ORDER</h1>
+					<h1>NEW ORDER</h1>
 					<div class="searchFields">
 						<button class="waves-effect waves-light btn">categories</button>
-						<button class="waves-effect waves-light btn">ordered items</button>
+						<a href="/operations/viewOrders.html" class="waves-effect waves-light btn">ordered items</a>
 					</div>			
 				</div>
 				<div class="col s12">
@@ -34,7 +34,11 @@
 							<order-list></order-list>
 							<div class="row">
 								<div class="input-field col s12">
-									<button class="waves-effect waves-light btn" ng-click="addToOrderLine()">ADD TO ORDER</button>
+							    <input class="mb0" name="customer_name" type="text" ng-model="customerName" placeholder="Customer Name">
+							    <input class="mb0" name="order_notes" type="text" ng-model="orderNotes" placeholder="Order Notes">
+							    <input name="seat_id" type="text" ng-model="seatID" placeholder="Seat ID">
+							    <input name="down_payment" type="number" ng-model="downPayment" placeholder="Down Payment">
+									<button class="waves-effect waves-light btn" ng-click="saveOrders()">Save</button>
 								</div>
 							</div>
 						</div>
@@ -45,11 +49,11 @@
 	</main>
 	<script src="/plugins/jquery/jquery-3.2.1.min.js"></script>
 	<script src="/plugins/materialize/js/materialize.min.js"></script>
-	<script src="/waiter/js/angular/modules.js"></script>
-	<script src="/waiter/js/angular/service.js"></script>
+	<script src="/operations/js/angular/modules.js"></script>
+	<script src="/operations/js/angular/service.js"></script>
 
-	<script src="/waiter/js/angular/directives.js"></script>
-	<script src="/waiter/js/angular/controllers.js"></script>
+	<script src="/operations/js/angular/directives.js"></script>
+	<script src="/operations/js/angular/controllers.js"></script>
 	
 </body>
 

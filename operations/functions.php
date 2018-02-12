@@ -33,8 +33,21 @@ switch($process){
 	case "SetOrderID":{setOrderID($data);}break;
 	case "GetOrderID":{getOrderID($data);}break;
 	case "AddOrderLine":{addToOrderLine($conn,$data);}break;
-	// case "EditOrder":{updateOrder($conn,$data);}break;
+	case "RemoveFromOrderLine":{removeFromOrderLine($conn,$data);}break;
+	case "ServeOrder":{updateOrderServed($conn,$data);}break;
 	
+}
+function updateOrderServed($c,$d){
+	$sql = $c->prepare("UPDATE order_line_tbl SET served_items=served_items+1 WHERE id = ?"); 
+	$sql->bind_param('i',$d->orderLineID);
+	$msg = ($sql->execute() === TRUE) ? "Updating data in orderline success" : "Error: " . $sql . "<br>" . $c->error;
+	$sql->close();
+}
+function removeFromOrderLine($c,$d){
+	$sql = $c->prepare("DELETE FROM `order_line_tbl` WHERE id = ?"); 
+	$sql->bind_param('i',$d->orderLineID);
+	$msg = ($sql->execute() === TRUE) ? "Removing data to orderline success" : "Error: " . $sql . "<br>" . $c->error;
+	$sql->close();
 }
 function addToOrderLine($c,$d){
 	if(isset($_SESSION["orderID"])){
@@ -84,8 +97,6 @@ function updateOrder($c,$d){
 }
 
 function insertOrderLine($c,$d,$orderID){
-
-
 	$sql = $c->prepare("INSERT INTO order_line_tbl(order_id_fk,product_id_fk,name,code,quantity,price)
 		VALUES(?,?,?,?,?,?)");
 	
@@ -95,6 +106,7 @@ function insertOrderLine($c,$d,$orderID){
 		$sql->bind_param('iissid',$orderID,$product->id,$product->name,$product->productCode,$product->quantity,$product->price);
 		$sql->execute();
 	}
+	$sql->close();
 }
 
 

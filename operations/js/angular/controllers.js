@@ -84,7 +84,7 @@ app.controller("operations",function($scope,dbOperations,$timeout){
 					console.log(res);
 					if(res!="error"){
 						dbOperations.processData("SetOrderID",{orderID:0}).then(function(res){
-							window.location.href = "/waiter/viewOrders.html";
+							window.location.href = "/operations/viewOrders.html";
 						});
 					}
 				});
@@ -98,29 +98,15 @@ app.controller("operations",function($scope,dbOperations,$timeout){
 	getCategories();
 	getProducts();
 });
-app.controller("viewOrders",function($scope,dbOperations){
-	$scope.orders = [];
-	function getOrders(){
-		dbOperations.views("GetOrders",{}).then(function(res){
-			$scope.orders = res;
-			console.log(res);
-		});
-	}
-	$scope.addProductsToOrder = function(orderID){
-		console.log(orderID);
-		dbOperations.processData("SetOrderID",{orderID:orderID}).then(function(res){
-			window.location.href = "/waiter/addToOrder.html";
-		});
-	}
-	getOrders();
-});
+
 app.controller("viewOrderLine",function($scope,dbOperations){
 	// check if you already have the order id in your sessing
 	dbOperations.processData("GetOrderID",{}).then(function(res){
 		// pag walang order id sa session, return home
 		if(!(res.data.orderID)){// means merong order id sa session
 			console.log("add function here to return to view Orders page");
-			window.location.href = "/waiter/viewOrders.html";
+			window.location.href = "/operations/viewOrders.html";
 		}
 	});
+
 });

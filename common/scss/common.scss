@@ -2,7 +2,7 @@ $themeColor: #4a148c;
 $themeColorLight: #7c43bd;
 $themeColorDark: #12005e;
 $menuPadding:  15px 10px;
-input[type="text"] + label {
+input + label {
     pointer-events: none;
 
     * {
@@ -61,4 +61,16 @@ input[type="text"] + label {
 
 .w50p{
 	width: 50%;
+}
+h1{
+	font-size: 1.5rem;
+}
+.b{
+	font-weight: 700;
+}
+.mb0{
+	margin-bottom: 0!important;
+}
+.mt0{
+	margin-top: 0!important;
 }

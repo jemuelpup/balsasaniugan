@@ -8,7 +8,7 @@ app.service('dbOperations',function($http){
 	this.processData = function(process,dataInputs){
 		return $http({
 			method:"POST",
-			url:"/waiter/functions.php",
+			url:"/operations/functions.php",
 			data: { 'process': process, 'data': dataInputs }
 		}).then(function success(res){
 			console.log("dumaan sa waiter service");
@@ -21,7 +21,7 @@ app.service('dbOperations',function($http){
 		console.log("Dumaan sa view");
 		return $http({
 			method:"POST",
-			url:"/waiter/views.php",
+			url:"/operations/views.php",
 			data: { 'process': process, 'data':data }
 		}).then(function success(res){
 			// console.log(res);

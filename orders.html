@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Order list</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/plugins/materialize/css/materialize.css">
+	<link href="/plugins/materialize/" rel="stylesheet">
+	<link rel="stylesheet" href="/plugins/materialize/css/materialFont.css">
+	<link rel="stylesheet" href="/common/css/style.css">
+	<link rel="stylesheet" href="/common/css/common.css">
+	<link rel="stylesheet" href="/common/css/order_list.css">
+	<!-- <link rel="stylesheet" href="/operations/css/view_orders.css"> -->
+	<script src="/plugins/angular/angular.min.js"></script>
+</head>
+
+<body ng-app="operations">
+	<main ng-controller="OrderWindowController">
+		<div class="container">
+			<div class="row">
+				<div class="col s12">
+					<h1>Customer Orders</h1>
+					<ul class="orderList">
+						<li class="order" ng-repeat="order in unservedOrders">
+							<p>Seat ID: <span class="b">{{order.orderDetails.seat_number}}</span></p>
+							<div>
+								<table>
+									<tr>
+										<th>Picture</th>
+										<th>Name</th>
+										<th>Qty</th>
+										<th>Served</th>
+									</tr>
+									<tr ng-repeat="oLine in order.orderLine">
+										<td>
+											<div class="imgContainer">
+												<img src="{{oLine.productImg}}" alt="">
+											</div>
+										</td>
+										<td>{{oLine.name}}</td>
+										<td>{{oLine.quantity}}</td>
+										<td>{{oLine.served_items}}</td>
+									</tr>
+								</table>
+							</div>
+							<div class="orderInfoBlock">
+								<p class="orderNotes mt0"><span class="b">Notes: </span>{{order.orderDetails.notes}}</p>
+							</div>
+						</li>					
+					</ul>			
+				</div>
+			</div>
+		</div>
+	</main>
+	<script src="/plugins/jquery/jquery-3.2.1.min.js"></script>
+	<script src="/plugins/materialize/js/materialize.min.js"></script>
+	<script src="/operations/js/angular/modules.js"></script>
+	<script src="/operations/js/angular/service.js"></script>
+	<script src="/common/js/angular/OrderWindowController.js"></script>
+	
+</body>
+
+</html>

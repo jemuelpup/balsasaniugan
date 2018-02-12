@@ -7,12 +7,14 @@
 	<link rel="stylesheet" href="/plugins/materialize/css/materialize.css">
 	<link href="/plugins/materialize/" rel="stylesheet">
 	<link rel="stylesheet" href="/plugins/materialize/css/materialFont.css">
-	<link rel="stylesheet" href="/waiter/css/style.css">
-	<link rel="stylesheet" href="/waiter/css/view_orders.css">
+	<link rel="stylesheet" href="/common/css/style.css">
+	<link rel="stylesheet" href="/common/css/common.css">
+	<link rel="stylesheet" href="/common/css/order_list.css">
+	<!-- <link rel="stylesheet" href="/operations/css/view_orders.css"> -->
 	<script src="/plugins/angular/angular.min.js"></script>
 </head>
 
-<body ng-app="waiter">
+<body ng-app="operations">
 	<main ng-controller="viewOrders">
 		<div class="container">
 			<div class="row">
@@ -28,18 +30,23 @@
 										<th>Name</th>
 										<th>Qty</th>
 										<th>Served</th>
-										<th>Served add served items</th>
+										<th>Void</th>
+										<th>Serve</th>
 									</tr>
 									<tr ng-repeat="oLine in order.orderLine">
 										<td>{{oLine.name}}</td>
 										<td>{{oLine.quantity}}</td>
 										<td>{{oLine.served_items}}</td>
-										<td><button>Serve</button></td>
+										<td><button ng-click="removeFromOrderLine(oLine.order_line_id)">Remove</button></td>
+										<td><button ng-click="serveItem(oLine.order_line_id,oLine.quantity,oLine.served_items)">Serve</button></td>
 									</tr>
 								</table>
 							</div>
-							<button class="addProduct wave btn" ng-click="addProductsToOrder(order.orderDetails
-.id)">Add<br>Order</button>
+							<div class="orderInfoBlock">
+								<p class="orderNotes mt0"><span class="b">Notes: </span>{{order.orderDetails.notes}}</p>
+								<p class="left mt0"><span class="b">TotalPrice: </span>Php. {{getTotalPrice(order.orderLine)}}</p>
+								<button class="right addProduct wave btn" ng-click="addProductsToOrder(order.orderDetails.id)">Add<br>Order</button>
+							</div>
 						</li>					
 					</ul>			
 				</div>
@@ -48,9 +55,9 @@
 	</main>
 	<script src="/plugins/jquery/jquery-3.2.1.min.js"></script>
 	<script src="/plugins/materialize/js/materialize.min.js"></script>
-	<script src="/waiter/js/angular/modules.js"></script>
-	<script src="/waiter/js/angular/service.js"></script>
-	<script src="/waiter/js/angular/controllers.js"></script>
+	<script src="/operations/js/angular/modules.js"></script>
+	<script src="/operations/js/angular/service.js"></script>
+	<script src="/operations/js/angular/ordersController.js"></script>
 	
 </body>
 

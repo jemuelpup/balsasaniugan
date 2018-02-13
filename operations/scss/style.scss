@@ -11,6 +11,10 @@ $themeColorDark: #12005e;
 
 .btn{
 	background-color: $themeColor;
+	&.common{
+		width: 180px;
+		margin-bottom: 15px;
+	}
 }
 .hide{
 	display: none;
@@ -189,5 +193,30 @@ h3{
 	.container{
 		width: 100%;;
 		margin: 0;
+	}
+	.slideRightOnSP,
+	.slideLeftOnSP{
+	    position: fixed;
+	    overflow-y: scroll;
+	    top: 0;
+	    z-index: 100;
+	    background: #fff;
+	    width: 100%;
+	    max-width: 280px;
+	    height: 100vh;
+	}
+	.slideRightOnSP{
+		right: -320px!important;
+		@include transition(right 400ms ease);
+	    &.active{
+	    	right: 0px!important;
+	    }
+	}
+	.slideLeftOnSP{
+		left: -320px!important;
+		@include transition(left 400ms ease);
+	    &.active{
+	    	left: 0px!important;
+	    }
 	}
 }

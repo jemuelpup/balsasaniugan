@@ -1,5 +1,8 @@
 .btn {
   background-color: #4a148c; }
+  .btn.common {
+    width: 180px;
+    margin-bottom: 15px; }
 
 .hide {
   display: none; }
@@ -148,6 +151,37 @@ h3 {
 
   .container {
     width: 100%;
-    margin: 0; } }
+    margin: 0; }
+
+  .slideRightOnSP,
+  .slideLeftOnSP {
+    position: fixed;
+    overflow-y: scroll;
+    top: 0;
+    z-index: 100;
+    background: #fff;
+    width: 100%;
+    max-width: 280px;
+    height: 100vh; }
+
+  .slideRightOnSP {
+    right: -320px !important;
+    -webkit-transition: right 400ms ease;
+    -moz-transition: right 400ms ease;
+    -ms-transition: right 400ms ease;
+    -o-transition: right 400ms ease;
+    transition: right 400ms ease; }
+    .slideRightOnSP.active {
+      right: 0px !important; }
+
+  .slideLeftOnSP {
+    left: -320px !important;
+    -webkit-transition: left 400ms ease;
+    -moz-transition: left 400ms ease;
+    -ms-transition: left 400ms ease;
+    -o-transition: left 400ms ease;
+    transition: left 400ms ease; }
+    .slideLeftOnSP.active {
+      left: 0px !important; } }
 
 /*# sourceMappingURL=style.css.map */

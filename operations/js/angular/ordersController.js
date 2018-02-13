@@ -7,7 +7,23 @@ app.controller("viewOrders",function($scope,dbOperations){
 			console.log(res);
 		});
 	}
-	
+	function getOrderTotalPrice(orderLineArray){
+		return (orderLineArray).reduce(function(p,c){
+			return p+(parseFloat(c.price)*parseInt(c.quantity));
+		},0);
+	}
+	$scope.orderPaid = function(orderID,discount,orderLineArray){
+		var totalPrice = getOrderTotalPrice(orderLineArray);
+		discount = discount ? discount:0;
+		console.log(orderID,discount,totalPrice);
+		if(confirm("Does the payment given to cashier?")){
+			dbOperations.processData("SetOrderPaid",{orderID:orderID,totalPrice:totalPrice,discount:discount}).then(function(res){
+				console.log(res);
+				getOrders();
+				// window.location.href = "/operations/addToOrder.html";
+			});
+		}
+	}
 	$scope.addProductsToOrder = function(orderID){
 		console.log(orderID);
 		dbOperations.processData("SetOrderID",{orderID:orderID}).then(function(res){
@@ -15,10 +31,7 @@ app.controller("viewOrders",function($scope,dbOperations){
 		});
 	}
 	$scope.getTotalPrice = function(orderLineArray){
-		console.log("dumaan sa get total price")
-		return (orderLineArray).reduce(function(p,c){
-			return p+(parseFloat(c.price)*parseInt(c.quantity));
-		},0);
+		return getOrderTotalPrice(orderLineArray);
 	}
 	$scope.removeFromOrderLine = function(orderLineID){
 		if(confirm("Do you want to remove this from orderline?")){

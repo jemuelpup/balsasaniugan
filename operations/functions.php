@@ -35,7 +35,19 @@ switch($process){
 	case "AddOrderLine":{addToOrderLine($conn,$data);}break;
 	case "RemoveFromOrderLine":{removeFromOrderLine($conn,$data);}break;
 	case "ServeOrder":{updateOrderServed($conn,$data);}break;
+	case "SetOrderPaid":{setOrderPaid($conn,$data);}break;
 	
+}
+function setOrderPaid($c,$d){
+	$sql = $c->prepare("UPDATE order_tbl SET payment=?,discount=?,received_date=NOW() WHERE id = ?"); 
+	$sql->bind_param('ddi',$d->totalPrice,$d->discount,$d->orderID);
+	$msg = ($sql->execute() === TRUE) ? "Updating data in Order success" : "Error: " . $sql . "<br>" . $c->error;
+	$sql->close();
+	$sql = $c->prepare("UPDATE order_line_tbl SET served_items=quantity WHERE order_id_fk = ?");
+	$sql->bind_param('i',$d->orderID);
+	$msg = ($sql->execute() === TRUE) ? "Updating data in Order success" : "Error: " . $sql . "<br>" . $c->error;
+	$sql->close();
+	/**/
 }
 function updateOrderServed($c,$d){
 	$sql = $c->prepare("UPDATE order_line_tbl SET served_items=served_items+1 WHERE id = ?"); 
@@ -91,9 +103,6 @@ function insertOrder($c,$d){
 	/**/
 	
 	
-}
-function updateOrder($c,$d){
-
 }
 
 function insertOrderLine($c,$d,$orderID){

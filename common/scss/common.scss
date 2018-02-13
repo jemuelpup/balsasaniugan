@@ -2,12 +2,25 @@ $themeColor: #4a148c;
 $themeColorLight: #7c43bd;
 $themeColorDark: #12005e;
 $menuPadding:  15px 10px;
+@mixin transition($transition){
+	-webkit-transition: $transition;
+	-moz-transition: $transition;
+	-ms-transition: $transition;
+	-o-transition: $transition;
+	transition: $transition;
+}
 input + label {
     pointer-events: none;
 
     * {
         pointer-events: all;
     }
+}
+h1{
+	img{
+		width: 100%;
+		max-width: 420px;
+	}
 }
 
 .h4-design{
@@ -73,4 +86,28 @@ h1{
 }
 .mt0{
 	margin-top: 0!important;
+}
+
+#sidenav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 120vh;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 99;
+	display: none;
+	opacity: 0;
+	@include transition(opacity 400ms ease);
+	&.active{
+		opacity: 1;
+		display: block;
+	}
+}
+
+.back{
+	position: fixed;
+	bottom: 20px;
+	right: 10px;
+	background-color: $themeColor;
 }

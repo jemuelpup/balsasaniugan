@@ -5,32 +5,34 @@
 	<title>NEW ORDER</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/plugins/materialize/css/materialize.css">
-	<link href="/plugins/materialize/" rel="stylesheet">
 	<link rel="stylesheet" href="/plugins/materialize/css/materialFont.css">
 	<link rel="stylesheet" href="/operations/css/style.css">
+	<link rel="stylesheet" href="/common/css/common.css">
 	<script src="/plugins/angular/angular.min.js"></script>
 </head>
 
 <body ng-app="operations">
 	<main ng-controller="operations">
+	<div id="sidenav-overlay" ng-class="showCategories || showOrderedItems ? 'active' : ''" ng-click="sideNavOverlayClicked()"></div>
 		<div class="container">
 			<div class="row">
 				<div class="col s12">
 					<h1>NEW ORDER</h1>
 					<div class="searchFields">
-						<button class="waves-effect waves-light btn">categories</button>
-						<a href="/operations/viewOrders.html" class="waves-effect waves-light btn">ordered items</a>
+						<button class="common waves-effect waves-light btn" ng-click="showCategories=true">categories</button>
+						<button class="common waves-effect waves-light btn" ng-click="showOrderedItems=true">ordered items</button>
+
 					</div>			
 				</div>
 				<div class="col s12">
 					<div class="row">
-						<div class="col m3 s12">
+						<div class="col m3 s12 slideLeftOnSP" ng-class="showCategories ? 'active':''">
 							<category-list></category-list>
 						</div>
 						<div class="col m5 s12">
 							<product-list></product-list>
 						</div>
-						<div class="col m4 s12">
+						<div class="col m4 s12 slideRightOnSP" ng-class="showOrderedItems ? 'active':''">
 							<order-list></order-list>
 							<div class="row">
 								<div class="input-field col s12">
@@ -42,6 +44,7 @@
 								</div>
 							</div>
 						</div>
+						<a href="/operations/" class="back btn-floating btn-medium waves-effect waves-light"><i class="material-icons">arrow_back</i></a>
 					</div>
 				</div>
 			</div>

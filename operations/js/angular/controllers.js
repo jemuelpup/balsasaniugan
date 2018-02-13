@@ -8,6 +8,11 @@ app.controller("operations",function($scope,dbOperations,$timeout){
 	$scope.orderNotes = "";
 	$scope.downPayment = "";
 	$scope.orderDoneMsg = false;
+	$scope.showCategories = false;
+	$scope.showOrderedItems = false;
+
+
+
 	var addToOrderLineButtonClicked = false;
 	function getProducts(){
 		dbOperations.views("GetProduct",{}).then(function(res){
@@ -37,7 +42,15 @@ app.controller("operations",function($scope,dbOperations,$timeout){
 			alert("invalid dat input");
 		}
 	}
-	$scope.categoryClicked = function(catID){$scope.selectedCategory = catID;}
+	$scope.categoryClicked = function(catID){
+		$scope.selectedCategory = catID;
+		$scope.showCategories = false;
+		$scope.showOrderedItems = false;
+	}
+	$scope.sideNavOverlayClicked = function(){
+		$scope.showCategories = false;
+		$scope.showOrderedItems = false;
+	}
 	$scope.removeFromOrder = function(orderIndex){$scope.orderList.splice(orderIndex, 1);}
 	$scope.saveOrders = function(){
 		// console.log($scope.seatID);

@@ -3,8 +3,6 @@
   display: flex;
   justify-content: center;
   align-items: center; }
-  .login h1 img {
-    width: 100%; }
 
 .login-card {
   position: relative;

@@ -36,7 +36,20 @@ switch($process){
 	case "RemoveFromOrderLine":{removeFromOrderLine($conn,$data);}break;
 	case "ServeOrder":{updateOrderServed($conn,$data);}break;
 	case "SetOrderPaid":{setOrderPaid($conn,$data);}break;
-	
+	case "SetProductAvailable":{updateProductAvailable($conn,$data);}break;
+	case "SetProductNotAvailable":{updateProductNotAvailable($conn,$data);}break;
+}
+function updateProductAvailable($c,$d){
+	$sql = $c->prepare("UPDATE product_tbl SET available=1 WHERE id=?");
+	$sql->bind_param('i',$d->prodID);
+	$msg = ($sql->execute() === TRUE) ? "Updating data in Product success" : "Error: " . $sql . "<br>" . $c->error;
+	$sql->close();
+}
+function updateProductNotAvailable($c,$d){
+	$sql = $c->prepare("UPDATE product_tbl SET available=0 WHERE id=?");
+	$sql->bind_param('i',$d->prodID);
+	$msg = ($sql->execute() === TRUE) ? "Updating data in Product success" : "Error: " . $sql . "<br>" . $c->error;
+	$sql->close();
 }
 function setOrderPaid($c,$d){
 	$sql = $c->prepare("UPDATE order_tbl SET payment=?,discount=?,received_date=NOW() WHERE id = ?"); 

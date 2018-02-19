@@ -18,6 +18,25 @@ input + label {
   input + label * {
     pointer-events: all; }
 
+.productConfig p.price {
+  padding-bottom: 30px; }
+
+.outOfStock:before {
+  content: "Out of stock";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  background: #fff;
+  z-index: 10;
+  opacity: 0.7;
+  font-size: 26px;
+  vertical-align: middle;
+  padding-top: 31px;
+  font-weight: 700; }
+
 /** this styles must be in common***/
 h3 {
   color: #12005e;

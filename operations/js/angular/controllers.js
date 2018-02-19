@@ -14,13 +14,23 @@ app.controller("operations",function($scope,dbOperations,$timeout){
 
 
 	var addToOrderLineButtonClicked = false;
+
+	function formatProduct(){
+		if(($scope.products).length>0){
+			($scope.products).forEach(function(e){
+				e.available = parseInt(e.available);
+			});
+		}
+	}
+
 	function getProducts(){
 		dbOperations.views("GetProduct",{}).then(function(res){
 			// res.push({id:"",name:"all",description:"All products"});
-			console.log("nasa GetProducts");
-			console.log(res);
-
 			$scope.products = res;
+			formatProduct();
+			console.log("nasa GetProducts");
+			console.log($scope.products);
+			
 		});
 	}
 	function getCategories(){
@@ -41,6 +51,17 @@ app.controller("operations",function($scope,dbOperations,$timeout){
 		else{
 			alert("invalid dat input");
 		}
+	}
+	$scope.setProductNotAvailable = function(prodID){
+		dbOperations.processData("SetProductNotAvailable",{prodID: prodID}).then(function(res){
+			getProducts();
+		});
+	}
+
+	$scope.setProductAvailable = function(prodID){
+		dbOperations.processData("SetProductAvailable",{prodID: prodID}).then(function(res){
+			getProducts();
+		});
 	}
 	$scope.categoryClicked = function(catID){
 		$scope.selectedCategory = catID;

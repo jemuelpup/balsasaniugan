@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Product management</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/plugins/materialize/css/materialize.css">
+	<link rel="stylesheet" href="/plugins/materialize/css/materialFont.css">
+	<link rel="stylesheet" href="/operations/css/style.css">
+	<link rel="stylesheet" href="/common/css/common.css">
+	<script src="/plugins/angular/angular.min.js"></script>
+</head>
+
+<body ng-app="operations">
+	<main ng-controller="operations">
+	<div id="sidenav-overlay" ng-class="showCategories || showOrderedItems ? 'active' : ''" ng-click="sideNavOverlayClicked()"></div>
+		<div class="container">
+			<div class="row">
+				<div class="col s12">
+					<h1>Product management</h1>	
+				</div>
+				<div class="col s12">
+					<div class="row">
+						<div class="col m3 s12 slideLeftOnSP" ng-class="showCategories ? 'active':''">
+							<category-list></category-list>
+						</div>
+						<div class="col m5 s12">
+							<!-- <product-list></product-list> -->
+							<h3>Product list</h3>
+							<div class="headerSearch">
+								<input placeholder="Search" id="{{category.categoryName}}" type="text" class="validate" ng-model="productFilter" ng-focus="focus=true" ng-blur="focus=false">
+							</div>
+							<ul class="collection productList productConfig">
+								<li class="collection-item avatar" 
+								ng-repeat="x in products | filter:productFilter | filter:{category_fk:selectedCategory}" 
+								ng-init="expand=0">
+									<img src="{{x.picture}}" alt="" class="circle">
+									<span class="title">{{x.name}}</span>
+									<p class="desc" ng-show="!expand" ng-click="expand = !expand">{{x.description | limitTo: 20 }}{{x.description.length > 20 ? '...' : ''}}</p>
+									<p class="fullDesc" ng-show="expand" ng-click="expand = !expand">{{x.description}}</p>
+									<p class="price">Php. {{x.price}}</p>
+
+									<button class="waves-effect waves-light btn add" ng-click="setProductNotAvailable(x.id)" ng-class="x.available ? '':'hide'">Set Not Available</button>
+									<button class="waves-effect waves-light btn add" ng-click="setProductAvailable(x.id)" ng-class="x.available ? 'hide':''">Set Available</button>
+								</li>
+							</ul>
+							<!-- <product-list></product-list> -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<script src="/plugins/jquery/jquery-3.2.1.min.js"></script>
+	<script src="/plugins/materialize/js/materialize.min.js"></script>
+	<script src="/operations/js/angular/modules.js"></script>
+	<script src="/operations/js/angular/service.js"></script>
+
+	<script src="/operations/js/angular/directives.js"></script>
+	<script src="/operations/js/angular/controllers.js"></script>
+	
+</body>
+
+</html>

@@ -20,7 +20,8 @@ app.directive("productList",function(){
 			<ul class="collection productList">
 				<li class="collection-item avatar" 
 				ng-repeat="x in products | filter:productFilter | filter:{category_fk:selectedCategory}" 
-				ng-init="expand=0">
+				ng-init="expand=0"
+				ng-class="x.available ? '':'outOfStock'">
 					<img src="{{x.picture}}" alt="" class="circle">
 					<span class="title">{{x.name}}</span>
 					<p class="desc" ng-show="!expand" ng-click="expand = !expand">{{x.description | limitTo: 20 }}{{x.description.length > 20 ? '...' : ''}}</p>
@@ -29,7 +30,7 @@ app.directive("productList",function(){
 					<div class="secondary-content">
 						<input placeholder="Qty" type="number" ng-model="x.quantity">
 					</div>
-					<button class="waves-effect waves-light btn add" ng-click="addProductOrder(x.id,x.name,x.quantity,x.price,x.product_code);x.quantity=null">ADD</button>
+					<button class="waves-effect waves-light btn add" ng-click="addProductOrder(x.id,x.name,x.quantity,x.price,x.product_code);x.quantity=null" ng-class="x.available ? '':'hide'">ADD</button>
 				</li>
 			</ul>
 		`

@@ -83,6 +83,13 @@ app.controller("employeeManagement",function($scope,dbOperations){
 			$("#edit-employee").modal("close");
 		});
 	}
+	$scope.deleteEmployee = function(){
+		if(confirm("Are you sure you want to delete this employee")){
+			dbOperations.processData("RemoveEmployee",$scope.editemployeeFields).then(function(res){
+				getEmployees();
+			});
+		}
+	}
 	/*
 		Function calls
 	*/
@@ -141,6 +148,13 @@ app.controller("productManagement",function($http,$scope,dbOperations){
 			$("#edit-category").modal("close");
 		});
 	}
+	$scope.deleteCategory = function(){
+		if(confirm("Are you sure you want to delete this category")){
+			dbOperations.processData("RemoveCategory",$scope.editCategoryFields).then(function(res){
+				getcategories();
+			});
+		}
+	}
 	getcategories();
 
 	/*
@@ -180,7 +194,7 @@ app.controller("productManagement",function($http,$scope,dbOperations){
 		dbOperations.processData("AddProduct",$scope.productFields).then(function(res){
 			uploadImageSaveToDB(res.data.id,"");
 			getProducts();
-			console.log(res);
+			// console.log(res);
 		});
 	}
 	// nakuha lang sa youtube yung process na ito... replace this if success in adding in service
@@ -196,7 +210,7 @@ app.controller("productManagement",function($http,$scope,dbOperations){
 		    transformRequest: angular.identity,  
 		    headers: {'Content-Type': undefined,'Process-Data': false}  
 		}).then(function(response){
-			console.log(response)
+			// console.log(response)
 			getProducts();
 		});  
 	}
@@ -218,6 +232,13 @@ app.controller("productManagement",function($http,$scope,dbOperations){
 			$("#edit-product").modal("close");
 			$('input:file').val("");
 		});
+	}
+	$scope.deleteProduct = function(){
+		if(confirm("Are you sure you want to delete this product")){
+			dbOperations.processData("RemoveProduct",$scope.editProductFields).then(function(res){
+				getProducts();
+			});
+		}
 	}
 	getProducts();
 });
@@ -265,6 +286,14 @@ app.controller("buisnessManagement",function($scope,dbOperations){
 		});
 		
 	}
+	$scope.deletePosition = function(){
+		if(confirm("Are you sure you want to delete this Position")){
+			dbOperations.processData("RemovePosition",$scope.editPositionFields).then(function(res){
+				getPositions();
+			});
+		}
+	}
+
 	/*
 		Function calls
 	*/
@@ -288,15 +317,15 @@ app.controller("buisnessManagement",function($scope,dbOperations){
 	//get the pusitions data()
 	function getBranches(){
 		dbOperations.views("GetBranch",{}).then(function(res){
-			console.log(res);
+			// console.log(res);
 			$scope.branches = res;
 			formatBranchData();
 		});
 	}
 	$scope.addBranch = function(){
-		console.log($scope.branchFields);
+		// console.log($scope.branchFields);
 		dbOperations.processData("AddBranch",$scope.branchFields).then(function(res){
-			console.log(res);
+			// console.log(res);
 			getBranches();
 		});
 	}
@@ -310,10 +339,17 @@ app.controller("buisnessManagement",function($scope,dbOperations){
 	$scope.editBranch = function(){
 		// console.log($scope.editBranchFields);
 		dbOperations.processData("EditBranch",$scope.editBranchFields).then(function(res){
-			console.log(res);
+			// console.log(res);
 			getBranches();
 			$("#edit-branch").modal("close");
 		});
+	}
+	$scope.deleteBranch = function(){
+		if(confirm("Are you sure you want to delete this Branch")){
+			dbOperations.processData("RemoveBranch",$scope.editBranchFields).then(function(res){
+				getBranches();
+			});
+		}
 	}
 	/*
 		Function calls
@@ -321,12 +357,35 @@ app.controller("buisnessManagement",function($scope,dbOperations){
 	getBranches();
 });
 app.controller("reports",function($scope,dbOperations){
-
-	// $scope.functionName = function(){
-	// 	dbOperations.processData("processName","").then(function(res){
-	// 		console.log(res);
-	// 	});
-	// }
+	console.log("nasa reports");
+	$scope.fromdateInput = new Date();
+	$scope.todateInput = new Date(($scope.fromdateInput).getTime() + (24 * 60 * 60 * 1000));
+	$scope.transactions = [];
+	$scope.sales = 0;
+	function formatData(){
+		($scope.transactions).forEach(function(e){
+			e.orderDetails.payment = parseFloat(e.orderDetails.payment);
+			e.orderDetails.down_payment = parseFloat(e.orderDetails.down_payment);
+		});
+	}
+	function getTotalSales(){
+		$scope.sales = ($scope.transactions).reduce(function(acc,cur){
+			return acc+(cur.orderDetails.payment+cur.orderDetails.down_payment);
+		},0);
+	}
+	$scope.getTransactionData = function(){
+		console.log("pumasok here");
+		dbOperations.views("GetTransactionsFromTo",{
+			from:$scope.fromdateInput,
+			to:$scope.todateInput
+		}).then(function(res){
+			console.log(res);
+			$scope.transactions = res;
+			formatData();
+			getTotalSales();
+		});
+	}
+	$scope.getTransactionData();
 });
 app.controller("userInterface",function($scope){
 	$scope.sideNavActive = false;
@@ -341,7 +400,7 @@ app.controller("userInterface",function($scope){
 	$scope.showproductManagement = function(){hideSections();$scope.sideNavActive = false;$scope.productManagement = true;}
 	$scope.showbuisnessManagement = function(){hideSections();$scope.sideNavActive = false;$scope.buisnessManagement = true;}
 	$scope.showreports = function(){hideSections();$scope.sideNavActive = false;$scope.reports = true;}
-	$scope.employeeManagement = true;
+	$scope.reports = true;
 	$('.modal').modal();
 	$scope.openEditEmployee = function(){
 		$('.modal').modal();
@@ -376,3 +435,9 @@ app.controller("userInterface",function($scope){
 		$scope.sideNavActive = false;
 	}
 });
+
+
+
+	
+
+

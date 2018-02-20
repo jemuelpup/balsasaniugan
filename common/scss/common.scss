@@ -111,3 +111,19 @@ h1{
 	right: 10px;
 	background-color: $themeColor;
 }
+
+.showInPC{
+	display: block;
+}
+.showInSP{
+	display: none;
+}
+
+@media screen and (max-width: 600px) {
+	.showInPC{
+		display: none;
+	}
+	.showInSP{
+		display: block;
+	}
+}

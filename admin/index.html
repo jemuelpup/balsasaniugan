@@ -38,7 +38,7 @@
 			<div class="container">
 				<p class="menu-btn showOnSP"><i class="material-icons showOnSP menu" ng-click="menuClick()">menu</i></p>
 				<div class="banner">
-					<h2>Point of sale System</h2>
+					<h2>Balsa Sa Niugan System</h2>
 					<div class="logout" ng-click="logout()">
 						<p>logout</p><i class="material-icons">exit_to_app</i>
 					</div>
@@ -81,7 +81,7 @@
 						                <td>{{x.position_name}}</td>
 						                <td>{{x.branch_name}}</td>
 						                <td>{{x.salary}}</td>
-						                <td>{{x.modified_by_fk}}</td>
+						                <td>{{x.admin_name}}</td>
 						                <td>{{x.birth_day| date}}</td>
 						                <td>{{x.gender ? "MALE" : "FEMALE"}}</td>
 						            </tr>
@@ -89,8 +89,9 @@
 						    </table>
 						</div>
 						<button class="waves-effect waves-light btn" ng-click="openAddEmployeeModal()">ADD</button>
-						<button class="waves-effect waves-light btn" ng-click="openEditEmployee()">editTest</button>
+						<button class="waves-effect waves-light btn" ng-click="openEditEmployee()">edit</button>
 						<button class="waves-effect waves-light btn" ng-click="openAddEmployeeAccessModal()">ADD ACCESS</button>
+						<button class="waves-effect waves-light btn" ng-click="deleteEmployee()">delete</button>
 					</div>
 				</div>
 			</div>
@@ -126,14 +127,14 @@
 												<td>{{x.name}}</td>
 												<td>{{x.description}}</td>
 												<td>{{x.product_code}}</td>
-												<td>{{x.category_fk}}</td>
+												<td>{{x.category_name}}</td>
 												<td>{{x.price}}</td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
 								<button class="waves-effect waves-light btn" ng-click="openEditProductModal()">Edit</button>
-								
+								<button class="waves-effect waves-light btn" ng-click="deleteProduct()">delete</button>
 							</div>
 						</div>
 					</div>
@@ -161,7 +162,7 @@
 								    </table>
 								</div>
 								<button class="waves-effect waves-light btn" ng-click="openEditCategoryModal()">Edit</button>
-								
+								<button class="waves-effect waves-light btn" ng-click="deleteCategory()">delete</button>
 							</div>
 						</div>
 					</div>
@@ -195,6 +196,7 @@
 								    </table>
 								</div>
 								<button class="waves-effect waves-light btn" ng-click="openEditPositionModal()">editTest</button>
+								<button class="waves-effect waves-light btn" ng-click="deletePosition()">delete</button>
 							</div>
 						</div>
 					</div>
@@ -244,7 +246,8 @@
 								        </tbody>
 								    </table>
 								</div>
-								<button class="waves-effect waves-light btn" ng-click="openEditBranchModal()">editTest</button>
+								<button class="waves-effect waves-light btn" ng-click="openEditBranchModal()">edit</button>
+								<button class="waves-effect waves-light btn" ng-click="deleteBranch()">delete</button>
 							</div>
 						</div>
 					</div>
@@ -256,7 +259,44 @@
 				<h2>Reports</h2>
 				<div class="row">
 					<div class="col s12">
-						
+						<h2>Sales</h2>
+						<h3>Get transactions on</h3>
+						<input type="date" ng-model="fromdateInput" class="datepicker">
+						<input type="date" ng-model="todateInput" class="datepicker">
+						<button class="waves-effect waves-light btn" ng-click="getTransactionData()">VIEW</button>
+					</div>
+					<div class="col s12">
+						<div class="data-table-container">
+							<table class="data-clickable">
+								<tbody>
+									<tr>
+										<th>id</th>
+										<th>order_date</th>
+										<th>seat_number</th>
+										<th>void</th>
+										<th>total_amount</th>
+										<th>customer_name</th>
+										<th>payment</th>
+										<th>down_payment</th>
+										<th>received_date</th>
+										<th>discount</th>
+									</tr>
+									<tr ng-repeat="x in transactions" ng-click="transactionsIndex($index)" ng-class="{'active': x.selected}">
+										<td>{{x.orderDetails.id}}</td>
+										<td>{{x.orderDetails.date}}</td>
+										<td>{{x.orderDetails.seat_number}}</td>
+										<td>{{x.orderDetails.void_fk}}</td>
+										<td>{{x.orderDetails.total_amount}}</td>
+										<td>{{x.orderDetails.customer_name}}</td>
+										<td>{{x.orderDetails.payment}}</td>
+										<td>{{x.orderDetails.down_payment}}</td>
+										<td>{{x.orderDetails.received_date}}</td>
+										<td>{{x.orderDetails.discount}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<p>Total sales: Php {{sales}}</p>
 					</div>
 				</div>
 			</div>

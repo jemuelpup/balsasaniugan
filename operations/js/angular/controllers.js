@@ -102,11 +102,11 @@ app.controller("operations",function($scope,dbOperations,$timeout){
 				});
 			}
 			else{
-				console.log("Please add orders first");
+				alert("Please add orders first");
 			}
 		}
 		else{
-			console.log("Please type the seat ID");
+			alert("Please add the seat ID");
 		}
 	}
 	$scope.addToOrderLine = function(){

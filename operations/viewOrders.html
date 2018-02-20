@@ -19,7 +19,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col s12">
-					<h1>Customer Orders</h1>
+					<h1>Customer Order List Orders</h1>
 					<ul class="orderList">
 						<li class="order" ng-repeat="order in orders">
 							<p>Customer name: <span class="b">{{order.orderDetails.customer_name}}</span><br>Order ID: <span class="b">{{order.orderDetails.id}}</span><br>Seat ID: <span class="b">{{order.orderDetails.seat_number}}</span></p>
@@ -37,8 +37,8 @@
 										<td>{{oLine.name}}</td>
 										<td>{{oLine.quantity}}</td>
 										<td>{{oLine.served_items}}</td>
-										<td><button ng-click="removeFromOrderLine(oLine.order_line_id)">Remove</button></td>
-										<td><button ng-click="serveItem(oLine.order_line_id,oLine.quantity,oLine.served_items)">Serve</button></td>
+										<td><button ng-if="oLine.quantity-oLine.served_items"  ng-click="removeFromOrderLine(oLine.order_line_id)">Remove</button></td>
+										<td><button ng-if="oLine.quantity-oLine.served_items" ng-click="serveItem(oLine.order_line_id,oLine.quantity,oLine.served_items)">Serve</button></td>
 									</tr>
 								</table>
 							</div>

@@ -41,6 +41,51 @@ switch($process){
 	case "EditAccess":{updateAccess($conn,$data);}break;
 	case "AddBranch":{insertBranch($conn,$data);}break;
 	case "EditBranch":{updateBranch($conn,$data);}break;
+	case "RemoveCategory":{updateDeleteCategory($conn,$data);}break;
+	case "RemoveEmployee":{updateDeleteEmployee($conn,$data);}break;
+	case "RemoveProduct":{updateDeleteProduct($conn,$data);}break;
+	case "RemovePosition":{updateDeletePosition($conn,$data);}break;
+	case "RemoveBranch":{updateDeleteBranch($conn,$data);}break;
+	case "RemoveAccess":{updateDeleteAccess($conn,$data);}break;
+}
+
+/* delete functions */
+function updateDeleteCategory($c,$d){
+	$sql = $c->prepare("UPDATE category_tbl SET active = 0 WHERE id=?"); 
+	$sql->bind_param('i',$d->id);
+	$msg = ($sql->execute() === TRUE) ? "Deleting category success" : "Error: " . $sql . "<br>" . $c->error;
+	$sql->close();
+}
+function updateDeleteEmployee($c,$d){
+	$sql = $c->prepare("UPDATE employee_tbl SET active = 0 WHERE id=?"); 
+	$sql->bind_param('i',$d->id);
+	$msg = ($sql->execute() === TRUE) ? "Deleting employee success" : "Error: " . $sql . "<br>" . $c->error;
+	$sql->close();
+}
+
+function updateDeleteProduct($c,$d){
+	$sql = $c->prepare("UPDATE product_tbl SET active = 0 WHERE id=?"); 
+	$sql->bind_param('i',$d->id);
+	$msg = ($sql->execute() === TRUE) ? "Deleting product success" : "Error: " . $sql . "<br>" . $c->error;
+	$sql->close();
+}
+function updateDeletePosition($c,$d){
+	$sql = $c->prepare("UPDATE position_tbl SET active = 0 WHERE id=?"); 
+	$sql->bind_param('i',$d->id);
+	$msg = ($sql->execute() === TRUE) ? "Deleting position success" : "Error: " . $sql . "<br>" . $c->error;
+	$sql->close();
+}
+function updateDeleteBranch($c,$d){
+	$sql = $c->prepare("UPDATE branch_tbl SET active = 0 WHERE id=?"); 
+	$sql->bind_param('i',$d->id);
+	$msg = ($sql->execute() === TRUE) ? "Deleting branch success" : "Error: " . $sql . "<br>" . $c->error;
+	$sql->close();
+}
+function updateDeleteAccess($c,$d){
+	$sql = $c->prepare("UPDATE access_tbl SET active = 0 WHERE id=?"); 
+	$sql->bind_param('i',$d->id);
+	$msg = ($sql->execute() === TRUE) ? "Deleting access success" : "Error: " . $sql . "<br>" . $c->error;
+	$sql->close();
 }
 
 

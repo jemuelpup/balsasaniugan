@@ -80,4 +80,17 @@ h1 {
   right: 10px;
   background-color: #4a148c; }
 
+.showInPC {
+  display: block; }
+
+.showInSP {
+  display: none; }
+
+@media screen and (max-width: 600px) {
+  .showInPC {
+    display: none; }
+
+  .showInSP {
+    display: block; } }
+
 /*# sourceMappingURL=common.css.map */

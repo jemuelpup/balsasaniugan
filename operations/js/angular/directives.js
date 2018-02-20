@@ -42,7 +42,7 @@ app.directive("orderList",function(){
 		template:`
 		<div class="orderListBlock">
 			<div class="message">
-				<button class="btn" ng-class="orderDoneMsg ? 'active':''" ng-click="orderDoneMsg=false">Order Saved</button>
+				<button class="btn" ng-class="orderDoneMsg ? 'active':''" ng-click="orderDoneMsg=false">Saved</button>
 			</div>
 			<h3>Order list</h3>
 			<div class="orderList">

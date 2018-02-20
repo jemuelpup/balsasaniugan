@@ -19,7 +19,7 @@ app.service('dbOperations',function($http){
 	}
 	// this function calls the function for select query
 	this.views = function(process,data){
-		console.log("Dumaan sa view");
+		// console.log("Dumaan sa view");
 		return $http({
 			method:"POST",
 			url:"/admin/views.php",

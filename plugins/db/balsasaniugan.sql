@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 20, 2018 at 10:04 AM
+-- Generation Time: Feb 21, 2018 at 05:04 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -32,6 +32,15 @@ CREATE TABLE IF NOT EXISTS `access_tbl` (
   `password` varchar(50) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `access_tbl`
+--
+
+INSERT INTO `access_tbl` (`employee_id_fk`, `username`, `password`, `active`) VALUES
+(1, 'jem', '123', 1),
+(2, 'karen', '123', 1),
+(3, 'jen', '123', 1);
 
 -- --------------------------------------------------------
 
@@ -322,6 +331,12 @@ INSERT INTO `tbl_images` (`id`, `name`) VALUES
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `access_tbl`
+--
+ALTER TABLE `access_tbl`
+ ADD UNIQUE KEY `employee_id_fk` (`employee_id_fk`), ADD UNIQUE KEY `username` (`username`);
 
 --
 -- Indexes for table `branch_tbl`

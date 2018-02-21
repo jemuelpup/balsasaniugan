@@ -22,7 +22,12 @@ switch($process){
 	case "GetCategory":{selectCategory($conn);}break;
 	case "GetProduct":{selectProduct($conn);}break;
 	case "GetUnservedOrders":{selectUnservedOrders($conn);}break;
+	case "GetAccess":{selectAccess($conn,$data);}break;
+}
 
+function selectAccess($c,$d){
+	echo $d->username;
+	print_r($d);
 }
 
 function selectUnservedOrders($c){

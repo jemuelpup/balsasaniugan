@@ -1,4 +1,4 @@
-app.controller("employeeManagement",function($scope,dbOperations){
+app.controller("employeeManagement",function($scope,dbOperations,$compile){
 	/*
 		Variables
 	*/
@@ -10,6 +10,7 @@ app.controller("employeeManagement",function($scope,dbOperations){
 		functions
 	*/
 	// convert the string data to the right data type
+	var secondFirePrevent = true;
 	function formatEmployeeData(){
 		if(($scope.employees).length>0){
 			($scope.employees).forEach(function(e){
@@ -59,11 +60,16 @@ app.controller("employeeManagement",function($scope,dbOperations){
 		$scope.editemployeeFields = (($scope.employees)[employeeData]);
 	}
 	$scope.addEmployeeAccess = function(){
-		$scope.accessFields.id = $scope.editemployeeFields.id;
-		dbOperations.processData("AddAccess",$scope.accessFields).then(function(res){
-			console.log(res);
-			$('#add-employee-access').modal('close');
-		});
+		if(secondFirePrevent){// delete this after two fire bug solved
+			$scope.accessFields.id = $scope.editemployeeFields.id;
+
+			dbOperations.processData("AddAccess",$scope.accessFields).then(function(res){
+				console.log(res);
+				alert(res.data);
+				$('#add-employee-access').modal('close');
+			});
+		}
+		secondFirePrevent = !secondFirePrevent;// delete this after two fire bug solved
 	}
 	$scope.editEmployee = function(){/*
 		

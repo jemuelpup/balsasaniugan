@@ -12,26 +12,26 @@ function startSession($employeeID,$position){
 }
 
 function login($c,$userName,$uPass){
-	$sql = $c->prepare("SELECT e.position_fk, e.id FROM access_tbl a, employee_tbl e WHERE a.active=1 AND a.username=? AND a.password=? AND a.employee_id_fk = e.id");
-	$sql->bind_param('ss',$userName, $uPass);
-	if($sql->execute()){
-		$res = $sql->get_result();
-		$sesID = null;
-		$position = null;
-		if($res->num_rows>0){
-			while($row = $res->fetch_assoc()){
-				$sesID = $row["id"];
-				$position = $row["position_fk"];
-			}
+	$stmt = $c->prepare('SELECT employee_id_fk FROM `access_tbl` WHERE username = ? AND password = ?');
+	$stmt->bind_param('ss', $d->username,$d->password);
+	$tempEmployeeId = 0;
+	if($stmt->execute()){
+		$stmt->store_result();
+		$stmt->bind_result($employee_id_fk);
+		while (mysqli_stmt_fetch($stmt)) {
+			$tempEmployeeId = $employee_id_fk; 
+	    }
+		if((int)$stmt->num_rows>0) {
+			// start the session. add the access...
+
+			echo "Username already exist";
 		}
-		startSession($sesID,$position);
-		print_r(json_encode($_SESSION));
+		else{
+
+		}
+		
 	}
-	else{
-		echo "Wrong username and password";
-	}
+	$stmt->close();
 }
-
-
 
 ?>

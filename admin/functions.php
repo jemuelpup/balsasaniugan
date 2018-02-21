@@ -163,10 +163,27 @@ function updateCategory($c,$d){
 }
 //access functions
 function insertAccess($c,$d){
-	$sql = $c->prepare("INSERT INTO access_tbl(employee_id_fk,username,password)VALUES(?,?,?) ON DUPLICATE KEY UPDATE username=VALUES(username),password=VALUES(password)");
-	$sql->bind_param('iss',$d->id,$d->username,$d->password);
-	$msg = ($sql->execute() === TRUE) ? "Adding access success" : "Error: " . $sql . "<br>" . $c->error;
-	$sql->close();
+	$stmt = $c->prepare('SELECT employee_id_fk FROM `access_tbl` WHERE username = ?');
+	$stmt->bind_param('s', $d->username);
+	$tempEmployeeId = 0;
+	if($stmt->execute()){
+		$stmt->store_result();
+		$stmt->bind_result($employee_id_fk);
+		while (mysqli_stmt_fetch($stmt)) {
+			$tempEmployeeId = $employee_id_fk; 
+	    }
+		if((int)$stmt->num_rows==1 and $employee_id_fk!=$d->id) {
+			echo "Username already exist";
+		}
+		else{
+			$sql = $c->prepare("INSERT INTO access_tbl(employee_id_fk,username,password)VALUES(?,?,?) ON DUPLICATE KEY UPDATE username=VALUES(username),password=VALUES(password)");
+			$sql->bind_param('iss',$d->id,$d->username,$d->password);
+			$msg = ($sql->execute() === TRUE) ? "Adding access success" : "Error: " . $sql . "<br>" . $c->error;
+			echo $msg;
+			$sql->close();
+		}
+	}
+	$stmt->close();
 }
 function insertBranch($c,$d){
 	$adminId = 1;

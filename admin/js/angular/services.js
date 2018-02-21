@@ -14,7 +14,7 @@ app.service('dbOperations',function($http){
 		}).then(function success(res){
 			return res;
 		}, function error(err) {
-			console.log(err);
+			// console.log(err);
 	    });
 	}
 	// this function calls the function for select query

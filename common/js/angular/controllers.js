@@ -3,10 +3,15 @@ app.controller("login",function($scope,$http){
 		console.log($scope.loginForm)
 		var access = $http({
 			method:"POST",
-			url:"/operations/views.php",
-			data: { 'process': "GetAccess", 'data':$scope.loginForm }
+			url:"/common/login.php",
+			data: { 'process': "login", 'data':$scope.loginForm }
 		}).then(function success(res){
+			console.log("dumaan dito")
 			console.log(res);
+			// make access for admin here...
+			if(res.data=="2" || res.data=="3"){
+				window.location.href = "/operations";
+			}
 			// return res.data;
 		},function error(err) { return 0; });
 

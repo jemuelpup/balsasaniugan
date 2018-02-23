@@ -63,25 +63,19 @@ function setOrderPaid($c,$d){
 	/**/
 }
 function updateOrderServed($c,$d){
-	$sql = $c->prepare("UPDATE order_line_tbl SET served_items=served_items+1 WHERE id = ?"); 
+	$sql = $c->prepare("UPDATE order_line_tbl SET served_items=served_items+1 WHERE id = ? AND served_items<quantity"); 
 	$sql->bind_param('i',$d->orderLineID);
 	$msg = ($sql->execute() === TRUE) ? "Updating data in orderline success" : "Error: " . $sql . "<br>" . $c->error;
 	$sql->close();
 }
 function removeFromOrderLine($c,$d){
-
-
-	$sql = $c->prepare("UPDATE order_line_tbl SET quantity = quantity-1  WHERE id = ? AND quantity > 0"); 
+	$sql = $c->prepare("UPDATE order_line_tbl SET quantity = quantity-1  WHERE id = ? AND quantity > 0 AND served_items<quantity"); 
 	$sql->bind_param('i',$d->orderLineID);
 	if($sql->execute() === TRUE){
 		$sql = $c->prepare("DELETE FROM `order_line_tbl` WHERE id = ? AND quantity = 0"); 
 		$sql->bind_param('i',$d->orderLineID);
 		$sql->execute();
 	}
-
-
-
-	
 	$sql->close();
 }
 function addToOrderLine($c,$d){

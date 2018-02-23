@@ -402,15 +402,25 @@ app.controller("userInterface",function($scope){
 		$scope.buisnessManagement = false;
 		$scope.reports = false;
 	}
-	$scope.showemployeeManagement = function(){hideSections();$scope.sideNavActive = false;$scope.employeeManagement = true;}
-	$scope.showproductManagement = function(){hideSections();$scope.sideNavActive = false;$scope.productManagement = true;}
-	$scope.showbuisnessManagement = function(){hideSections();$scope.sideNavActive = false;$scope.buisnessManagement = true;}
-	$scope.showreports = function(){hideSections();$scope.sideNavActive = false;$scope.reports = true;}
+	$scope.showemployeeManagement = function(){
+		hideSections();$scope.sideNavActive = false;$scope.employeeManagement = true;
+	}
+	$scope.showproductManagement = function(){
+		hideSections();$scope.sideNavActive = false;$scope.productManagement = true;
+	}
+	$scope.showbuisnessManagement = function(){
+		hideSections();$scope.sideNavActive = false;$scope.buisnessManagement = true;
+	}
+	$scope.showreports = function(){
+		hideSections();$scope.sideNavActive = false;$scope.reports = true;
+	}
 	$scope.reports = true;
 	$('.modal').modal();
 	$scope.openEditEmployee = function(){
 		$('.modal').modal();
 		$('#edit-employee').modal('open');
+		$('select').val();
+		$('select').material_select();
 	}
 	$scope.openAddEmployeeModal = function(){
 		$('#add-employee').modal('open');
@@ -440,6 +450,7 @@ app.controller("userInterface",function($scope){
 	$scope.shadowClick = function(){
 		$scope.sideNavActive = false;
 	}
+	// $('select').material_select();
 });
 
 

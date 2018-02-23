@@ -3,35 +3,49 @@
 require $_SERVER['DOCUMENT_ROOT'].'/common/dbconnect.php';
 $postdata = file_get_contents("php://input");
 $request = json_decode($postdata);
-$data = $request->data; // this is the passed data
+$process = $request->process;
+$data = $request->data;
 
-function startSession($employeeID,$position){
-	session_start();
-	$_SESSION["employeeID"] = $employeeID;
-	$_SESSION["position"] = $position;
+switch($process){
+	case "login":{login($conn,$data);}break;
 }
 
-function login($c,$userName,$uPass){
-	$stmt = $c->prepare('SELECT employee_id_fk FROM `access_tbl` WHERE username = ? AND password = ?');
-	$stmt->bind_param('ss', $d->username,$d->password);
+
+function login($c,$d){
+	$stmt = $c->prepare('SELECT employee_id_fk,(SELECT position_fk FROM employee_tbl WHERE id = employee_id_fk) as position FROM access_tbl a WHERE username = ? AND password = ? AND active=1');
+	$stmt->bind_param('ss', $d->username, $d->password);
 	$tempEmployeeId = 0;
+	$tempPosition = 0;
 	if($stmt->execute()){
 		$stmt->store_result();
-		$stmt->bind_result($employee_id_fk);
+		$stmt->bind_result($employee_id_fk,$position);
 		while (mysqli_stmt_fetch($stmt)) {
 			$tempEmployeeId = $employee_id_fk; 
+			$tempPosition = $position; 
 	    }
-		if((int)$stmt->num_rows>0) {
-			// start the session. add the access...
-
-			echo "Username already exist";
-		}
-		else{
-
-		}
-		
 	}
-	$stmt->close();
+	if($tempEmployeeId and $tempPosition){
+		session_start();
+		$_SESSION["employeeID"] = $tempEmployeeId;
+		$_SESSION["position"] = $tempPosition;
+		$loc = "";
+		// switch ($position) {
+		// 	case 'value':
+		// 		# code...
+		// 		break;
+			
+		// 	default:
+		// 		# code...
+		// 		break;
+		// }
+		echo "$position";
+
+	}
+	else{
+		echo "0";
+	}
 }
+
+
 
 ?>

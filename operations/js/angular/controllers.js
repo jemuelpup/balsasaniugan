@@ -1,4 +1,4 @@
-app.controller("operations",function($scope,dbOperations,$timeout){
+app.controller("operations",function($scope,dbOperations,$timeout,$window){
 	$scope.products= [];
 	$scope.categories= [];
 	$scope.selectedCategory='';
@@ -10,8 +10,6 @@ app.controller("operations",function($scope,dbOperations,$timeout){
 	$scope.orderDoneMsg = false;
 	$scope.showCategories = false;
 	$scope.showOrderedItems = false;
-
-
 
 	var addToOrderLineButtonClicked = false;
 
@@ -128,7 +126,16 @@ app.controller("operations",function($scope,dbOperations,$timeout){
 			alert("Please add order first");
 		}
 	}
-
+	$scope.backToMainPage = function(){
+		if($scope.orderList.length){
+			if(confirm("Orders are not saved. Are you sure you want to exit?")){
+				$window.location.href = "/operations/";
+			}
+		}
+		else{
+			$window.location.href = "/operations/";
+		}
+	}
 	getCategories();
 	getProducts();
 });

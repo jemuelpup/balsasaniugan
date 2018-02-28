@@ -33,6 +33,12 @@
       right: 0;
       margin: auto; }
 
+.paidProduct {
+  margin-right: 1em; }
+
+.showOnPrint {
+  display: none; }
+
 @media screen and (max-width: 600px) {
   .orderList .order td {
     padding: 10px 0; } }
@@ -42,5 +48,25 @@
 @media screen and (max-width: 900px) {
   .container {
     width: 100%; } }
+@media print {
+  body * {
+    visibility: hidden; }
+
+  .showOnPrint {
+    display: block;
+    visibility: visible !important; }
+    .showOnPrint table {
+      margin-bottom: 10px; }
+    .showOnPrint p.mt0 {
+      margin-bottom: 3px; }
+
+  .showOnPrint * {
+    visibility: visible !important; }
+
+  @page {
+    size: auto;
+    /* auto is the initial value */
+    margin: 0;
+    /* this affects the margin in the printer settings */ } }
 
 /*# sourceMappingURL=order_list.css.map */

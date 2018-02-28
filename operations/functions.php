@@ -38,6 +38,13 @@ switch($process){
 	case "SetOrderPaid":{setOrderPaid($conn,$data);}break;
 	case "SetProductAvailable":{updateProductAvailable($conn,$data);}break;
 	case "SetProductNotAvailable":{updateProductNotAvailable($conn,$data);}break;
+	case "UpdateStocks":{updateStocks($conn,$data);}break;
+}
+function updateStocks($c,$d){
+	$sql = $c->prepare("UPDATE product_tbl SET stock=? WHERE id=?");
+	$sql->bind_param('ii',$d->stock,$d->prodID);
+	$msg = ($sql->execute() === TRUE) ? "Updating data in Product success" : "Error: " . $sql . "<br>" . $c->error;
+	$sql->close();
 }
 function updateProductAvailable($c,$d){
 	$sql = $c->prepare("UPDATE product_tbl SET available=1 WHERE id=?");
@@ -52,8 +59,8 @@ function updateProductNotAvailable($c,$d){
 	$sql->close();
 }
 function setOrderPaid($c,$d){
-	$sql = $c->prepare("UPDATE order_tbl SET payment=?,discount=?,received_date=NOW() WHERE id = ?"); 
-	$sql->bind_param('ddi',$d->totalPrice,$d->discount,$d->orderID);
+	$sql = $c->prepare("UPDATE order_tbl SET total_amount = ?, payment=?,discount=?,received_date=NOW() WHERE id = ?"); 
+	$sql->bind_param('dddi',$d->totalPrice,$d->payment,$d->discount,$d->orderID);
 	$msg = ($sql->execute() === TRUE) ? "Updating data in Order success" : "Error: " . $sql . "<br>" . $c->error;
 	$sql->close();
 	$sql = $c->prepare("UPDATE order_line_tbl SET served_items=quantity WHERE order_id_fk = ?");
@@ -129,8 +136,17 @@ function insertOrderLine($c,$d,$orderID){
 	foreach ($d as $product) {
 		// echo "dumaan dito";
 		// print_r($product);
-		$sql->bind_param('iissid',$orderID,$product->id,$product->name,$product->productCode,$product->quantity,$product->price);
-		$sql->execute();
+		
+		if($stmt=$c->prepare("UPDATE product_tbl SET stock=stock-? WHERE id = ? and stock>=?")){
+			$stmt->bind_param('iii', $product->quantity,$product->id,$product->quantity);
+    		if ($stmt->execute() and $stmt->affected_rows == 1) {
+    			$sql->bind_param('iissid',$orderID,$product->id,$product->name,$product->productCode,$product->quantity,$product->price);
+				$sql->execute();
+    		}
+    		else{
+    			echo $product->name." ordered quantity is greater than the stock.";
+    		}
+		}
 	}
 	$sql->close();
 }

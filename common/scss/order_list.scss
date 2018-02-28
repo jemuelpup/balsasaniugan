@@ -41,6 +41,12 @@
 		}
 	}
 }
+.paidProduct{
+	margin-right: 1em;
+}
+.showOnPrint{
+	display: none;
+}
 @media screen and (max-width: 600px) {
 	.orderList{
 		.order{
@@ -65,4 +71,28 @@
 		width: 100%;
 	}
 	
+}
+
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    .showOnPrint{
+        display: block;
+        visibility: visible!important;
+        table{
+        	margin-bottom: 10px;
+        }
+        p.mt0{
+			margin-bottom: 3px;
+        }
+    }
+    .showOnPrint *{
+        visibility: visible!important;
+    }
+    @page {
+        size: auto; /* auto is the initial value */
+        margin: 0; /* this affects the margin in the printer settings */
+    }
 }

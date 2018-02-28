@@ -56,7 +56,7 @@ app.directive("addEmployee",function(){
 							<label>Gender</label>
 						</div>
 						<button class="waves-effect waves-light btn" type="submit">Add</button>
-						<button class="waves-effect waves-light btn">Clear</button>
+						<button class="waves-effect waves-light btn" type="reset">Clear</button>
 					</div>
 				</form>
 			</div>
@@ -81,7 +81,7 @@ app.directive("addEmployeeAccess",function(){
 			    </div>
         		<div class="modal-footer">
 			        <button class="waves-effect waves-light btn" ng-click="addEmployeeAccess()" type="submit">Add</button>
-			        <button class="waves-effect waves-light btn">Clear</button>
+			        <button class="waves-effect waves-light btn" type="reset">Clear</button>
 			    </div>
 			    </form>
 			</div>
@@ -176,7 +176,7 @@ app.directive("addPosition",function(){
 					</div>
 				
 					<button class="waves-effect waves-light btn" type="submit">Add</button>
-					<button class="waves-effect waves-light btn">Clear</button>
+					<button class="waves-effect waves-light btn" type="reset">Clear</button>
 				</form>
 			</div>
 		`
@@ -257,7 +257,7 @@ app.directive("addCategory",function(){
 			            <label for="description">description</label>
 			        </div>
 			        <button class="waves-effect waves-light btn" type="submit">Add</button>
-			        <button class="waves-effect waves-light btn">Clear</button>
+			        <button class="waves-effect waves-light btn" type="reset">Clear</button>
 			    </form>
 			</div>
 		`
@@ -328,7 +328,7 @@ app.directive("addProduct",function(){
 						<label for="price">price</label>
 					</div>
 					<button class="waves-effect waves-light btn" type="submit">Add</button>
-					<button class="waves-effect waves-light btn">Clear</button>
+					<button class="waves-effect waves-light btn" type="reset">Clear</button>
 				</form>
 			</div>
 		`

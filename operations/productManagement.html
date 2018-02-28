@@ -24,7 +24,7 @@
 						<div class="col m3 s12 slideLeftOnSP" ng-class="showCategories ? 'active':''">
 							<category-list></category-list>
 						</div>
-						<div class="col m5 s12">
+						<div class="col m9 s12">
 							<!-- <product-list></product-list> -->
 							<h3>Product list</h3>
 							<div class="headerSearch">
@@ -39,7 +39,9 @@
 									<p class="desc" ng-show="!expand" ng-click="expand = !expand">{{x.description | limitTo: 20 }}{{x.description.length > 20 ? '...' : ''}}</p>
 									<p class="fullDesc" ng-show="expand" ng-click="expand = !expand">{{x.description}}</p>
 									<p class="price">Php. {{x.price}}</p>
-
+									<p>Stocks:</p>
+										<input type="number" ng-model="x.stock">
+									<button class="waves-effect waves-light btn updateQuantity" ng-click="updateStocks(x.id,x.stock)">Update Stock</button>
 									<button class="waves-effect waves-light btn add" ng-click="setProductNotAvailable(x.id)" ng-class="x.available ? '':'hide'">Set Not Available</button>
 									<button class="waves-effect waves-light btn add" ng-click="setProductAvailable(x.id)" ng-class="x.available ? 'hide':''">Set Available</button>
 								</li>

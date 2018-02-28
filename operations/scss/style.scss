@@ -32,8 +32,12 @@ input + label {
         pointer-events: all;
     }
 }
-.productConfig p.price{
-	padding-bottom: 30px;
+.productConfig .updateQuantity{
+	margin:10px 0 40px 0;
+    font-size: 12px;
+    padding: 0px 15px;
+    height: 26px;
+    line-height: 10px;
 }
 .outOfStock{
 	&:before { 
@@ -122,6 +126,9 @@ h3{
 			color: $themeColorDark;
 		}
 	}
+}
+.updateAmount{
+
 }
 .orderListBlock{
 	position:relative;

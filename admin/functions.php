@@ -47,7 +47,19 @@ switch($process){
 	case "RemovePosition":{updateDeletePosition($conn,$data);}break;
 	case "RemoveBranch":{updateDeleteBranch($conn,$data);}break;
 	case "RemoveAccess":{updateDeleteAccess($conn,$data);}break;
+
 }
+//normalization of table
+function normalize_order_tbl(){
+	$sql = "select distinct order_id_fk from order_line_tbl";
+	/*
+1) get the order id's
+2) run this query: 
+delete from order_tbl WHERE id IN (id1,id2,...,idN))
+
+	*/
+}
+
 
 /* delete functions */
 function updateDeleteCategory($c,$d){

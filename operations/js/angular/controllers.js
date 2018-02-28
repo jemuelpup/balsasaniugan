@@ -17,6 +17,7 @@ app.controller("operations",function($scope,dbOperations,$timeout,$window){
 		if(($scope.products).length>0){
 			($scope.products).forEach(function(e){
 				e.available = parseInt(e.available);
+				e.stock = parseInt(e.stock);
 			});
 		}
 	}
@@ -49,6 +50,11 @@ app.controller("operations",function($scope,dbOperations,$timeout,$window){
 		else{
 			alert("invalid dat input");
 		}
+	}
+	$scope.updateStocks = function(prodID,stock){
+		dbOperations.processData("UpdateStocks",{prodID: prodID,stock:stock}).then(function(res){
+			getProducts();
+		});
 	}
 	$scope.setProductNotAvailable = function(prodID){
 		dbOperations.processData("SetProductNotAvailable",{prodID: prodID}).then(function(res){
@@ -86,6 +92,9 @@ app.controller("operations",function($scope,dbOperations,$timeout,$window){
 				).then(function(res){
 					console.log(res);
 					if(res!="error"){
+						if(res.data.length>0){
+							alert(res.data);
+						}
 						$scope.orderList = [];
 						$scope.seatID = "";
 						$scope.customerName = "";
@@ -95,6 +104,8 @@ app.controller("operations",function($scope,dbOperations,$timeout,$window){
 						$timeout( function(){ $scope.orderDoneMsg = false; }, 3000);
 						// Materialize.toast('Order Saved', 4000)
 						// reset all the input fields and the orderlist
+							
+						getProducts();
 					}
 					
 				});
@@ -138,6 +149,8 @@ app.controller("operations",function($scope,dbOperations,$timeout,$window){
 	}
 	getCategories();
 	getProducts();
+
+	
 });
 
 app.controller("viewOrderLine",function($scope,dbOperations){

@@ -5,7 +5,7 @@ function selectCategory($c){
 	print_r(hasRows($c,$sql) ? json_encode(selectQuery($c,$sql)) : "");
 }
 function selectProduct($c){
-	$sql = "SELECT id,name,description,picture,product_code,category_fk,(SELECT name FROM category_tbl WHERE id=category_fk) as category_name ,price,available FROM product_tbl WHERE active=1";
+	$sql = "SELECT id,name,description,picture,product_code,category_fk,stock,(SELECT name FROM category_tbl WHERE id=category_fk) as category_name ,price,available FROM product_tbl WHERE active=1";
 	print_r(hasRows($c,$sql) ? json_encode(selectQuery($c,$sql)) : "");
 }
 

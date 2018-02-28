@@ -1,27 +1,23 @@
-app.controller("viewOrders",function($scope,dbOperations){
+app.controller("viewOrders",function($scope,dbOperations,$timeout){
 	$scope.orders = [];
 	var serveLocked = false;
 	function getOrders(){
-		dbOperations.views("GetOrders",{}).then(function(res){
-			$scope.orders = res;
-			console.log(res);
-		});
+		dbOperations.views("GetOrders",{}).then(function(res){ $scope.orders = res; console.log(res); });
 	}
 	function getOrderTotalPrice(orderLineArray){
-		return (orderLineArray).reduce(function(p,c){
-			return p+(parseFloat(c.price)*parseInt(c.quantity));
-		},0);
+		return (orderLineArray).reduce(function(p,c){ return p+(parseFloat(c.price)*parseInt(c.quantity)); },0);
 	}
-	$scope.orderPaid = function(orderID,discount,orderLineArray){
-		var totalPrice = getOrderTotalPrice(orderLineArray);
-		discount = discount ? discount:0;
-		console.log(orderID,discount,totalPrice);
-		if(confirm("Does the payment given to cashier?")){
-			dbOperations.processData("SetOrderPaid",{orderID:orderID,totalPrice:totalPrice,discount:discount}).then(function(res){
+	$scope.orderPaid = function(orderID,discount,totalPrice,payment){
+		// console.log(orderID,discount,totalPrice,payment);
+		if(totalPrice-discount<=payment){
+			dbOperations.processData("SetOrderPaid",{orderID:orderID,totalPrice:totalPrice,discount:discount,payment:payment}).then(function(res){
 				console.log(res);
 				getOrders();
 				// window.location.href = "/operations/addToOrder.html";
 			});
+		}
+		else{
+			alert("Not enough money.");
 		}
 	}
 	$scope.addProductsToOrder = function(orderID){
@@ -57,4 +53,23 @@ app.controller("viewOrders",function($scope,dbOperations){
 		}
 	}
 	getOrders();
+	$scope.setDataToPrint = function(order,totalPrice,discountPercentage,discountAmount,payment,discount){
+		if(totalPrice-discount<=payment){
+			$scope.orderPrint = order;
+			$scope.totalPricePrint = totalPrice;
+			$scope.discountPercentagePrint = discountPercentage;
+			$scope.discountAmountPrint = discountAmount;
+			$scope.paymentPrint = payment;
+			$scope.discountPrint = discount;
+			$timeout(function(){
+				window.print();
+			},200)
+		}
+		else{
+			alert("Not enough money.");
+		}
+	}
+});
+app.controller("cashier",function($scope,dbOperations){
+	
 });

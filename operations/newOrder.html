@@ -17,11 +17,17 @@
 		<div class="container">
 			<div class="row">
 				<div class="col s12">
-					<h1>NEW ORDER</h1>
-					<div class="searchFields showInSP">
-						<button class="common waves-effect waves-light btn" ng-click="showCategories=true">categories</button>
+					<div class="spHeader">
+						<h1>New order</h1>	
+						<div class="searchFields showInSP">
+							<i class="material-icons categoryListTrigger" ng-click="showCategories=true">format_list_bulleted</i>
+							<i class="material-icons orderedItemListTrigger" ng-click="showOrderedItems=true">shopping_cart</i>
+						</div>
+					</div>
+					<!-- <div class="searchFields showInSP">
+						
 						<button class="common waves-effect waves-light btn" ng-click="showOrderedItems=true">ordered items</button>
-					</div>			
+					</div>			 -->
 				</div>
 				<div class="col s12">
 					<div class="row">
@@ -29,7 +35,9 @@
 							<category-list></category-list>
 						</div>
 						<div class="col m5 s12">
-							<product-list></product-list>
+							<div class="productListContainer">
+								<product-list></product-list>
+							</div>
 						</div>
 						<div class="col m4 s12 slideRightOnSP" ng-class="showOrderedItems ? 'active':''">
 							<order-list></order-list>
@@ -43,7 +51,7 @@
 								</div>
 							</div>
 						</div>
-						<button class="back btn-floating btn-medium waves-effect waves-light" ng-click="backToMainPage()"><i class="material-icons">arrow_back</i></button>
+						<button class="back btn-floating btn-medium waves-effect waves-light z-depth-2" ng-click="backToMainPage()"><i class="material-icons">arrow_back</i></button>
 					</div>
 				</div>
 			</div>
@@ -51,6 +59,9 @@
 	</main>
 	<script src="/plugins/jquery/jquery-3.2.1.min.js"></script>
 	<script src="/plugins/materialize/js/materialize.min.js"></script>
+	<script>
+		
+	</script>
 	<script src="/operations/js/angular/modules.js"></script>
 	<script src="/operations/js/angular/service.js"></script>
 

@@ -34,4 +34,13 @@ app.service('dbOperations',function($http){
 	this.isConvertibleToInteger = function(value) {
 	  return /^\d+$/.test(value);
 	}
+	this.logout = function(){
+		$http({
+			method:"POST",
+			url:"/common/login.php",
+			data: { 'process': "logout", 'data':'' }
+		}).then(function success(res){
+			window.location.href = "/";
+		});
+	}
 });

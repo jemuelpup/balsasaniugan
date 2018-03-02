@@ -10,13 +10,9 @@ require $_SERVER['DOCUMENT_ROOT'].'/common/dbconnect.php';
 // server side vars
 session_start();
 
-
 // variables
 $process="";
 $data = "";
-
-
-
 
 if(isset($_POST['process'])){
 	$process = $_POST['process'];
@@ -47,7 +43,6 @@ switch($process){
 	case "RemovePosition":{updateDeletePosition($conn,$data);}break;
 	case "RemoveBranch":{updateDeleteBranch($conn,$data);}break;
 	case "RemoveAccess":{updateDeleteAccess($conn,$data);}break;
-
 }
 //normalization of table
 function normalize_order_tbl(){

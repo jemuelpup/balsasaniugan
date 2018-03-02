@@ -1,8 +1,11 @@
 .btn {
   background-color: #4a148c; }
   .btn.common {
-    width: 180px;
-    margin-bottom: 15px; }
+    min-width: 180px;
+    display: block;
+    margin-bottom: 15px;
+    float: left;
+    clear: left; }
 
 .hide {
   display: none; }
@@ -186,6 +189,18 @@ h3 {
     width: 100%;
     max-width: 280px;
     height: 100vh; }
+
+  .spHeader .orderedItemListTrigger,
+  .spHeader .categoryListTrigger {
+    position: absolute;
+    top: 0.75rem; }
+  .spHeader .categoryListTrigger {
+    left: 0.75rem; }
+  .spHeader .orderedItemListTrigger {
+    right: 0.75rem; }
+
+  .productListContainer {
+    padding-top: 1.25rem; }
 
   .slideRightOnSP {
     right: -320px !important;

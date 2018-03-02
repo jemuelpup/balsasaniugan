@@ -38,12 +38,12 @@
 							</tr>
 						</table>
 						<p class="mt0"><span class="b">TotalPrice: </span>Php. {{totalPricePrint}}</p>
-						<p class="mt0"><span class="b">Discount percentage: </span>Php. {{discountPercentagePrint}}</p>
-						<p class="mt0"><span class="b">Fixed Discount: </span>Php. {{discountAmountPrint}}</p>
-						<p class="mt0"><span class="b">Total discount: </span>Php. {{discountPrint}}</p>
+						<p class="mt0"><span class="b">Discount percentage: </span>{{discountPercentagePrint}}%</p>
+						<p class="mt0"><span class="b">Fixed Discount: </span>Php. {{discountPrint}}</p>
+						<p class="mt0"><span class="b">Total discount: </span>Php. {{totalDiscount}}</p>
 						<p class="mt0"><span class="b">Amount Due: </span>Php. {{totalPricePrint-discountPrint}}</p>
 						<p class="mt0"><span class="b">Payment: </span>Php. {{paymentPrint}}</p>
-						<p class="mt0"><span class="b">Change: </span>Php. {{paymentPrint-totalPricePrint+discountPrint | number:2}}</p>
+						<p class="mt0"><span class="b">Change: </span>Php. {{paymentPrint-totalPricePrint+totalDiscount | number:2}}</p>
 					</div>
 
 					<h1>Customer Order List Orders</h1>
@@ -60,46 +60,54 @@
 										<th>Price</th>
 										<th>Qty</th>
 										<th>Total</th>
+										<th>Served</th>
 									</tr>
 									<tr ng-repeat="oLine in order.orderLine">
 										<td>{{oLine.name}}</td>
 										<td>{{oLine.price}}</td>
 										<td>{{oLine.quantity}}</td>
 										<td>{{oLine.price*oLine.quantity}}</td>
+										<td>{{oLine.served_items}}</td>
 									</tr>
 								</table>
 							</div>
 							<div class="orderInfoBlock">
 								<p class="orderNotes mt0"><span class="b">Notes: </span>{{order.orderDetails.notes}}</p>
 								<p class="mt0"><span class="b">TotalPrice: </span>Php. {{totalPrice = getTotalPrice(order.orderLine)}}</p>
-								<p class="mt0"><span class="b">discount: </span>Php. {{discount = (totalPrice*(+discountPercentage)/100)+discountAmount}}</p>
+								<p class="mt0"><span class="b">discount: </span>Php. {{discount = (totalPrice*(+order.orderDetails.discount_percentage)/100)+order.orderDetails.discount | number:2}}</p>
 								<!-- (+) in variable is used to convert anything to number -->
-								<p class="mt0"><span class="b">Payment: </span>Php. {{payment}}</p>
-								<p class="mt0"><span class="b">Change: </span>Php. {{payment-totalPrice+discount | number:2}}</p>
+								<p class="mt0"><span class="b">Payment: </span>Php. {{order.orderDetails.payment}}</p>
+								<p class="mt0"><span class="b">Change: </span>Php. {{order.orderDetails.payment-totalPrice+discount | number:2}}</p>
 								<div class="row">
-									<div class="input-field col s12">
-										<input type="number" class="validate" ng-model="payment">
-										<label for="payment">Payment</label>
+									<div class="input-field col m6 s12">
+										<input type="number" class="validate" ng-model="order.orderDetails.payment">
+										<label for="payment" class="active">Payment</label>
+									</div>
+									<div class="input-field col m3 s12">
+										<input type="number" class="validate" ng-model="order.orderDetails.discount_percentage">
+										<label for="order.orderDetails.discount_percentage" class="active">Discount Percentage</label>
+									</div>
+									<div class="input-field col m3 s12">
+										<input type="number" class="validate" ng-model="order.orderDetails.discount">
+										<label for="order.orderDetails.discount" class="active">Discount Amount</label>
 									</div>
 									<div class="input-field col s12">
-										<input type="number" class="validate" ng-model="discountPercentage">
-										<label for="discountPercentage">Discount Percentage</label>
+										<input type="text" class="validate" ng-model="voidReason">
+										<label for="order.orderDetails.discount">Void reason</label>
 									</div>
 									<div class="input-field col s12">
-										<input type="number" class="validate" ng-model="discountAmount">
-										<label for="discountAmount">Discount Amount</label>
-									</div>
-									<div class="input-field col s12">
-										<button class="left paidProduct wave btn" ng-click="orderPaid(order.orderDetails.id,discount,totalPrice,payment)">Paid</button>
+										<button class="left paidProduct wave btn" ng-click="orderPaid(order.orderDetails)">Paid</button>
 										<button class="left paidProduct wave btn"
-										ng-click="setDataToPrint(order,totalPrice,discountPercentage,discountAmount,payment,discount)">Print receipt</button>
+										ng-click="setDataToPrint(order,totalPrice,order.orderDetails.discount_percentage,order.orderDetails.discount,order.orderDetails.payment,order.orderDetails.discount)">Print receipt</button>
+										<button class="left paidProduct wave btn"
+										ng-click="orderVoid(voidReason,order.orderLine,order.orderDetails)">Void</button>
 										<button class="right addProduct wave btn" ng-click="addProductsToOrder(order.orderDetails.id)">Add<br>Order</button>
 									</div>
 								</div>
 							</div>
 						</li>					
 					</ul>
-					<a href="/operations/" class="back btn-floating btn-medium waves-effect waves-light"><i class="material-icons">arrow_back</i></a>			
+					<a href="/operations/" class="back btn-floating btn-medium waves-effect waves-light z-depth-2"><i class="material-icons">arrow_back</i></a>			
 				</div>
 			</div>
 		</div>

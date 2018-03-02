@@ -2,6 +2,9 @@
 
 require $_SERVER['DOCUMENT_ROOT'].'/common/dbconnect.php';
 session_start();
+
+
+/**/
 $process="";
 $data = "";
 
@@ -28,5 +31,6 @@ function functionName($c,$d){
 	$msg = ($sql->execute() === TRUE) ? "Adding new Category success" : "Error: " . $sql . "<br>" . $c->error;
 	$sql->close();
 }
+/**/
 
 ?>

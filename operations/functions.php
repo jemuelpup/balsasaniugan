@@ -39,6 +39,44 @@ switch($process){
 	case "SetProductAvailable":{updateProductAvailable($conn,$data);}break;
 	case "SetProductNotAvailable":{updateProductNotAvailable($conn,$data);}break;
 	case "UpdateStocks":{updateStocks($conn,$data);}break;
+	case "SetOrderPrinted":{updateOrderPrinted($conn,$data);}break;
+	case "SetOrderVoid":{updateOrderVoid($conn,$data);}break;
+
+}
+function updateOrderVoid($c,$d){
+	$sql = $c->prepare("UPDATE order_tbl SET void_reason=?, void = 1 WHERE (SELECT COUNT(order_id_fk) FROM order_line_tbl WHERE order_id_fk = ? AND served_items > 0) = 0 AND id=? AND printed = 0");
+	$sql->bind_param('sii',$d->voidReason,$d->orderID,$d->orderID);
+	$msg = "error in mysql";
+	if($sql->execute() === TRUE){
+		if($sql->affected_rows == 0){
+			$msg =  "Cannot void order with served item or printed receipt.";
+		}
+		else{
+			$msg =  "Order ID $d->orderID voided";
+		}
+	}
+	echo $msg;
+	$sql->close();
+}
+function setOrderPaid($c,$d){
+	$sql = $c->prepare("UPDATE order_tbl SET done=1 WHERE id = ? AND printed=1");
+	$sql->bind_param('i',$d->orderID);
+	$msg = ($sql->execute() === TRUE) ? "Order ID $d->orderID Paid" : "Error: " . $sql . "<br>" . $c->error;
+	$sql->close();
+}
+
+
+function updateOrderPrinted($c,$d){
+	// print_r($d);
+	$sql = $c->prepare("UPDATE order_tbl SET total_amount = ?, payment=?,discount=?,received_date=NOW(),printed=1,discount_percentage=? WHERE id=?");
+	$sql->bind_param('ddddi',$d->totalPrice,$d->payment,$d->discount,$d->discountPercentage,$d->orderID);
+	$msg = ($sql->execute() === TRUE) ? "Order ID $d->orderID printed" : "Error: " . $sql . "<br>" . $c->error;
+	echo "$msg";
+	$sql->close();
+	$sql = $c->prepare("UPDATE order_line_tbl SET served_items=quantity WHERE order_id_fk = ?");
+	$sql->bind_param('i',$d->orderID);
+	$msg = ($sql->execute() === TRUE) ? "Updating data in Order success" : "Error: " . $sql . "<br>" . $c->error;
+	$sql->close();
 }
 function updateStocks($c,$d){
 	$sql = $c->prepare("UPDATE product_tbl SET stock=? WHERE id=?");
@@ -58,17 +96,7 @@ function updateProductNotAvailable($c,$d){
 	$msg = ($sql->execute() === TRUE) ? "Updating data in Product success" : "Error: " . $sql . "<br>" . $c->error;
 	$sql->close();
 }
-function setOrderPaid($c,$d){
-	$sql = $c->prepare("UPDATE order_tbl SET total_amount = ?, payment=?,discount=?,received_date=NOW() WHERE id = ?"); 
-	$sql->bind_param('dddi',$d->totalPrice,$d->payment,$d->discount,$d->orderID);
-	$msg = ($sql->execute() === TRUE) ? "Updating data in Order success" : "Error: " . $sql . "<br>" . $c->error;
-	$sql->close();
-	$sql = $c->prepare("UPDATE order_line_tbl SET served_items=quantity WHERE order_id_fk = ?");
-	$sql->bind_param('i',$d->orderID);
-	$msg = ($sql->execute() === TRUE) ? "Updating data in Order success" : "Error: " . $sql . "<br>" . $c->error;
-	$sql->close();
-	/**/
-}
+
 function updateOrderServed($c,$d){
 	$sql = $c->prepare("UPDATE order_line_tbl SET served_items=served_items+1 WHERE id = ? AND served_items<quantity"); 
 	$sql->bind_param('i',$d->orderLineID);
@@ -87,8 +115,13 @@ function removeFromOrderLine($c,$d){
 }
 function addToOrderLine($c,$d){
 	if(isset($_SESSION["orderID"])){
+		$orderID = (int)$_SESSION["orderID"];
 		// echo "may orderID orderID: ".$_SESSION["orderID"];
-		insertOrderLine($c,$d->orderedItems,(int)$_SESSION["orderID"]);
+		$sql = $c->prepare("UPDATE order_tbl SET printed=0 WHERE id = ?"); 
+		$sql->bind_param('i',$orderID);
+		if($sql->execute()){
+			insertOrderLine($c,$d->orderedItems,(int)$_SESSION["orderID"]);
+		}
 	}
 	else{
 		// echo "walang orderID";

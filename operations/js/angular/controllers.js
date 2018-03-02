@@ -1,4 +1,18 @@
 app.controller("operations",function($scope,dbOperations,$timeout,$window){
+	$scope.job = 0;
+	console.log("dumaan operations");
+
+	dbOperations.views("GetEmployeeAccess",{}).then(function(res){
+		$scope.job = res;
+		console.log(res);
+		if (!(parseInt(res)==2||parseInt(res)==3)){
+			window.location.href = "/";
+		}
+	});
+	$scope.logout = function(){
+		dbOperations.logout();
+	}
+
 	$scope.products= [];
 	$scope.categories= [];
 	$scope.selectedCategory='';
@@ -127,6 +141,7 @@ app.controller("operations",function($scope,dbOperations,$timeout,$window){
 					console.log(res);
 					if(res!="error"){
 						dbOperations.processData("SetOrderID",{orderID:0}).then(function(res){
+							console.log(res);
 							window.location.href = "/operations/viewOrders.html";
 						});
 					}
@@ -149,8 +164,6 @@ app.controller("operations",function($scope,dbOperations,$timeout,$window){
 	}
 	getCategories();
 	getProducts();
-
-	
 });
 
 app.controller("viewOrderLine",function($scope,dbOperations){

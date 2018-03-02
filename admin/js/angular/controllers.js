@@ -1,4 +1,10 @@
 app.controller("employeeManagement",function($scope,dbOperations,$compile){
+	dbOperations.views("GetEmployeeAccess",{}).then(function(res){
+		if (res!=1){
+			window.location.href = "/";
+		}
+	});
+
 	/*
 		Variables
 	*/
@@ -393,7 +399,7 @@ app.controller("reports",function($scope,dbOperations){
 	}
 	$scope.getTransactionData();
 });
-app.controller("userInterface",function($scope){
+app.controller("userInterface",function($scope,$http){
 	$scope.sideNavActive = false;
 
 	function hideSections(){
@@ -449,6 +455,15 @@ app.controller("userInterface",function($scope){
 	}
 	$scope.shadowClick = function(){
 		$scope.sideNavActive = false;
+	}
+	$scope.logout = function(){
+		$http({
+			method:"POST",
+			url:"/common/login.php",
+			data: { 'process': "logout", 'data':'' }
+		}).then(function success(res){
+			window.location.href = "/";
+		});
 	}
 	// $('select').material_select();
 });

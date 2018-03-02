@@ -19,7 +19,7 @@ app.directive("productList",function(){
 			</div>
 			<ul class="collection productList">
 				<li class="collection-item avatar" 
-				ng-repeat="x in products | filter:productFilter | filter:{category_fk:selectedCategory}" 
+				ng-repeat="x in products | filter:productFilter | filter:{category_fk:selectedCategory} | orderBy: 'stock':true" 
 				ng-init="expand=0"
 				ng-class="(x.available && x.stock>0) ? '':'outOfStock'">
 					<img src="{{x.picture}}" alt="" class="circle">

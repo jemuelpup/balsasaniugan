@@ -12,8 +12,11 @@ $themeColorDark: #12005e;
 .btn{
 	background-color: $themeColor;
 	&.common{
-		width: 180px;
+		min-width: 180px;
+		display: block;
 		margin-bottom: 15px;
+		float: left;
+		clear: left;
 	}
 }
 .hide{
@@ -231,6 +234,22 @@ h3{
 	    width: 100%;
 	    max-width: 280px;
 	    height: 100vh;
+	}
+	.spHeader{
+		.orderedItemListTrigger,
+		.categoryListTrigger{
+		    position: absolute;
+			top: 0.75rem;
+		}
+		.categoryListTrigger{
+			left: 0.75rem;
+		}
+		.orderedItemListTrigger{
+			right: 0.75rem;
+		}
+	}
+	.productListContainer{
+		padding-top: 1.25rem;
 	}
 	.slideRightOnSP{
 		right: -320px!important;

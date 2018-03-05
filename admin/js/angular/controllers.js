@@ -4,6 +4,8 @@ app.controller("employeeManagement",function($scope,dbOperations,$compile){
 			window.location.href = "/";
 		}
 	});
+	/*Normalize Data In Order Table */ 
+	dbOperations.processData("NormalizeDataInOrderTbl",{}).then(function(res){});
 
 	/*
 		Variables
@@ -27,6 +29,7 @@ app.controller("employeeManagement",function($scope,dbOperations,$compile){
 				e.gender = parseInt(e.gender);
 				e.salary = parseFloat(e.salary);
 				e.birth_day = formatDate(e.birth_day);
+				e.fixed = parseInt(e.fixed);
 			});
 		}
 	}
@@ -36,6 +39,7 @@ app.controller("employeeManagement",function($scope,dbOperations,$compile){
 	function getEmployees(){
 		dbOperations.views("GetEmployee",{}).then(function(res){
 			$scope.employees = res;
+			// console.log(res);
 			formatEmployeeData();
 		});
 	}
@@ -96,10 +100,15 @@ app.controller("employeeManagement",function($scope,dbOperations,$compile){
 		});
 	}
 	$scope.deleteEmployee = function(){
-		if(confirm("Are you sure you want to delete this employee")){
-			dbOperations.processData("RemoveEmployee",$scope.editemployeeFields).then(function(res){
-				getEmployees();
-			});
+		if($scope.editemployeeFields.fixed){
+			alert("Unable to delete fixed employee");
+		}
+		else{
+			if(confirm("Are you sure you want to delete this employee")){
+				dbOperations.processData("RemoveEmployee",$scope.editemployeeFields).then(function(res){
+					getEmployees();
+				});
+			}
 		}
 	}
 	/*
@@ -268,6 +277,7 @@ app.controller("buisnessManagement",function($scope,dbOperations){
 		if(($scope.positions).length>0){
 			($scope.positions).forEach(function(p){
 				p.id = parseInt(p.id);
+				p.fixed = parseInt(p.fixed);
 			});
 		}
 	}
@@ -275,6 +285,7 @@ app.controller("buisnessManagement",function($scope,dbOperations){
 	function getPositions(){
 		dbOperations.views("GetPosition",{}).then(function(res){
 			$scope.positions = res;
+			console.log(res);
 			formatPositionData();
 		});
 	}
@@ -299,10 +310,15 @@ app.controller("buisnessManagement",function($scope,dbOperations){
 		
 	}
 	$scope.deletePosition = function(){
-		if(confirm("Are you sure you want to delete this Position")){
-			dbOperations.processData("RemovePosition",$scope.editPositionFields).then(function(res){
-				getPositions();
-			});
+		if($scope.editPositionFields.fixed){
+			alert("Unable to delete fixed position.");
+		}
+		else{
+			if(confirm("Are you sure you want to delete this Position")){
+				dbOperations.processData("RemovePosition",$scope.editPositionFields).then(function(res){
+					getPositions();
+				});
+			}
 		}
 	}
 
@@ -323,15 +339,16 @@ app.controller("buisnessManagement",function($scope,dbOperations){
 		if(($scope.branches).length>0){
 			($scope.branches).forEach(function(b){
 				b.id = parseInt(b.id);
+				b.fixed = parseInt(b.fixed);
 			});
 		}
 	}
 	//get the pusitions data()
 	function getBranches(){
 		dbOperations.views("GetBranch",{}).then(function(res){
-			// console.log(res);
 			$scope.branches = res;
 			formatBranchData();
+			console.log(res);
 		});
 	}
 	$scope.addBranch = function(){
@@ -357,10 +374,15 @@ app.controller("buisnessManagement",function($scope,dbOperations){
 		});
 	}
 	$scope.deleteBranch = function(){
-		if(confirm("Are you sure you want to delete this Branch")){
-			dbOperations.processData("RemoveBranch",$scope.editBranchFields).then(function(res){
-				getBranches();
-			});
+		if($scope.editBranchFields.fixed){
+			alert("Unable to delete fixed branch");
+		}
+		else{
+			if(confirm("Are you sure you want to delete this Branch")){
+				dbOperations.processData("RemoveBranch",$scope.editBranchFields).then(function(res){
+					getBranches();
+				});
+			}
 		}
 	}
 	/*
@@ -430,6 +452,7 @@ app.controller("userInterface",function($scope,$http){
 	}
 	$scope.openAddEmployeeModal = function(){
 		$('#add-employee').modal('open');
+		$('select').material_select();
 	}
 	$scope.openAddEmployeeAccessModal = function(){
 		$('#add-employee-access').modal('open');

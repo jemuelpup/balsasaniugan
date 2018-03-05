@@ -10,10 +10,6 @@ app.directive("addEmployee",function(){
 							<label for="name">name</label>
 						</div>
 						<div class="input-field col s12">
-							<input ng-model="employeeFields.picture" name="picture" value="" type="text" class="validate" maxlength="50">
-							<label for="picture">picture</label>
-						</div>
-						<div class="input-field col s12">
 							<input ng-model="employeeFields.address" name="address" value="" type="text" class="validate" maxlength="50">
 							<label for="address">address</label>
 						</div>
@@ -98,10 +94,6 @@ app.directive("updateEmployee",function(){
 			            <div class="input-field col s12">
 			                <input ng-model="editemployeeFields.name" name="name" value="" type="text" class="validate" maxlength="50" required placeholder="">
 			                <label for="name" class="active">name</label>
-			            </div>
-			            <div class="input-field col s12">
-			                <input ng-model="editemployeeFields.picture" name="picture" value="" type="text" class="validate" maxlength="50" placeholder="">
-			                <label for="picture" class="active">picture</label>
 			            </div>
 			            <div class="input-field col s12">
 			                <input ng-model="editemployeeFields.address" name="address" value="" type="text" class="validate" maxlength="50" placeholder="">

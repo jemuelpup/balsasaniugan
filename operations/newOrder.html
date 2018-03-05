@@ -13,15 +13,14 @@
 
 <body ng-app="operations">
 	<main ng-controller="operations">
-	<div id="sidenav-overlay" ng-class="showCategories || showOrderedItems ? 'active' : ''" ng-click="sideNavOverlayClicked()"></div>
 		<div class="container">
 			<div class="row">
 				<div class="col s12">
 					<div class="spHeader">
 						<h1>New order</h1>	
 						<div class="searchFields showInSP">
-							<i class="material-icons categoryListTrigger" ng-click="showCategories=true">format_list_bulleted</i>
-							<i class="material-icons orderedItemListTrigger" ng-click="showOrderedItems=true">shopping_cart</i>
+							<i class="material-icons categoryListTrigger" ng-init="showCategories=false" ng-click="showCategories=(!showCategories);showOrderedItems=false">format_list_bulleted</i>
+							<i class="material-icons orderedItemListTrigger" ng-init="showOrderedItems=false" ng-click="showOrderedItems=(!showOrderedItems);showCategories=false">shopping_cart</i>
 						</div>
 					</div>
 					<!-- <div class="searchFields showInSP">
@@ -56,6 +55,7 @@
 				</div>
 			</div>
 		</div>
+		<div id="sidenav-overlay" ng-class="showCategories || showOrderedItems ? 'active' : ''" ng-click="sideNavOverlayClicked()"></div>
 	</main>
 	<script src="/plugins/jquery/jquery-3.2.1.min.js"></script>
 	<script src="/plugins/materialize/js/materialize.min.js"></script>

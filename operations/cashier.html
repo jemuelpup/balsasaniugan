@@ -21,6 +21,7 @@
 					<div class="showOnPrint">
 						<h1>Balsa sa niugan Receipt</h1>
 						<p>Customer name: <span class="b">{{orderPrint.orderDetails.customer_name}}</span><br>Order ID: <span class="b">{{orderPrint.orderDetails.id}}</span><br>Seat ID: <span class="b">{{orderPrint.orderDetails.seat_number}}</span></p>
+						<p>Order date: <span class="b">{{orderPrint.orderDetails.received_date | date : "medium"}}</span></p>
 						<p>Order Details</p>
 						<table>
 							<p></p>

@@ -188,12 +188,14 @@ h3 {
     background: #fff;
     width: 100%;
     max-width: 280px;
-    height: 100vh; }
+    height: 100vh;
+    margin-top: 20px; }
 
   .spHeader .orderedItemListTrigger,
   .spHeader .categoryListTrigger {
     position: absolute;
-    top: 0.75rem; }
+    top: 0.75rem;
+    cursor: pointer; }
   .spHeader .categoryListTrigger {
     left: 0.75rem; }
   .spHeader .orderedItemListTrigger {

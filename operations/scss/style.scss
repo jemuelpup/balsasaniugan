@@ -234,12 +234,14 @@ h3{
 	    width: 100%;
 	    max-width: 280px;
 	    height: 100vh;
+		margin-top: 20px;
 	}
 	.spHeader{
 		.orderedItemListTrigger,
 		.categoryListTrigger{
 		    position: absolute;
 			top: 0.75rem;
+			cursor: pointer;
 		}
 		.categoryListTrigger{
 			left: 0.75rem;

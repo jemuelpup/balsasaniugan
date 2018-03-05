@@ -43,28 +43,23 @@ switch($process){
 	case "RemovePosition":{updateDeletePosition($conn,$data);}break;
 	case "RemoveBranch":{updateDeleteBranch($conn,$data);}break;
 	case "RemoveAccess":{updateDeleteAccess($conn,$data);}break;
+	case "NormalizeDataInOrderTbl":{normalizeDataInOrder_tbl($conn);}break;
 }
-//normalization of table
-function normalize_order_tbl(){
-	$sql = "select distinct order_id_fk from order_line_tbl";
-	/*
-1) get the order id's
-2) run this query: 
-delete from order_tbl WHERE id IN (id1,id2,...,idN))
-
-	*/
+//normalization of data in the order table. delete all the order id not found in order_line_tbl
+function normalizeDataInOrder_tbl($c){
+	$sql = $c->prepare("DELETE FROM order_tbl WHERE id NOT IN(SELECT DISTINCT order_id_fk FROM order_line_tbl)");
+	$sql->execute();
 }
-
 
 /* delete functions */
 function updateDeleteCategory($c,$d){
-	$sql = $c->prepare("UPDATE category_tbl SET active = 0 WHERE id=?"); 
+	$sql = $c->prepare("UPDATE category_tbl SET active = 0 WHERE id=? AND fixed=0"); 
 	$sql->bind_param('i',$d->id);
 	$msg = ($sql->execute() === TRUE) ? "Deleting category success" : "Error: " . $sql . "<br>" . $c->error;
 	$sql->close();
 }
 function updateDeleteEmployee($c,$d){
-	$sql = $c->prepare("UPDATE employee_tbl SET active = 0 WHERE id=?"); 
+	$sql = $c->prepare("UPDATE employee_tbl SET active = 0 WHERE id=? AND fixed=0"); 
 	$sql->bind_param('i',$d->id);
 	$msg = ($sql->execute() === TRUE) ? "Deleting employee success" : "Error: " . $sql . "<br>" . $c->error;
 	$sql->close();
@@ -77,19 +72,19 @@ function updateDeleteProduct($c,$d){
 	$sql->close();
 }
 function updateDeletePosition($c,$d){
-	$sql = $c->prepare("UPDATE position_tbl SET active = 0 WHERE id=?"); 
+	$sql = $c->prepare("UPDATE position_tbl SET active = 0 WHERE id=? AND fixed=0"); 
 	$sql->bind_param('i',$d->id);
 	$msg = ($sql->execute() === TRUE) ? "Deleting position success" : "Error: " . $sql . "<br>" . $c->error;
 	$sql->close();
 }
 function updateDeleteBranch($c,$d){
-	$sql = $c->prepare("UPDATE branch_tbl SET active = 0 WHERE id=?"); 
+	$sql = $c->prepare("UPDATE branch_tbl SET active = 0 WHERE id=? AND fixed=0"); 
 	$sql->bind_param('i',$d->id);
 	$msg = ($sql->execute() === TRUE) ? "Deleting branch success" : "Error: " . $sql . "<br>" . $c->error;
 	$sql->close();
 }
 function updateDeleteAccess($c,$d){
-	$sql = $c->prepare("UPDATE access_tbl SET active = 0 WHERE id=?"); 
+	$sql = $c->prepare("UPDATE access_tbl SET active = 0 WHERE id=? AND fixed=0"); 
 	$sql->bind_param('i',$d->id);
 	$msg = ($sql->execute() === TRUE) ? "Deleting access success" : "Error: " . $sql . "<br>" . $c->error;
 	$sql->close();

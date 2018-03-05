@@ -27,19 +27,26 @@ switch($process){
 		selectTransactionsBetweenDate($conn,$data);}break;
 	case "GetEmployeeAccess":{echo $_SESSION["position"];}break;
 }
+/* 
+Ready this function 
+This function is for reports.
+*/
+function selectProductOrderQuantity(){
+	$sql="SELECT ol.order_id_fk, (SELECT name FROM product_tbl where ol.product_id_fk = id) as productName, SUM(ol.quantity) FROM order_line_tbl ol, order_tbl o WHERE ol.order_id_fk = o.id GROUP BY productName";
 
+}
 // selectEmployee($conn);
 function selectEmployee($c){
-	$sql = "SELECT id,name,picture,address,contact_number,email,position_fk,(SELECT name FROM position_tbl WHERE id=position_fk) as position_name,branch_fk,(SELECT name FROM branch_tbl WHERE id = branch_fk) as branch_name,salary,modified_by_fk,(SELECT name FROM employee_tbl WHERE id=modified_by_fk) as admin_name,birth_day,gender FROM employee_tbl WHERE active=1";
+	$sql = "SELECT id,name,picture,address,contact_number,email,position_fk,(SELECT name FROM position_tbl WHERE id=position_fk) as position_name,branch_fk,(SELECT name FROM branch_tbl WHERE id = branch_fk) as branch_name,salary,modified_by_fk,(SELECT name FROM employee_tbl WHERE id=modified_by_fk) as admin_name,birth_day,gender,fixed FROM employee_tbl WHERE active=1";
 	print_r(hasRows($c,$sql) ? json_encode(selectQuery($c,$sql)) : "");
 }
 
 function selectPosition($c){
-	$sql = "SELECT id,name,description FROM position_tbl WHERE active=1";
+	$sql = "SELECT id,name,description,fixed FROM position_tbl WHERE active=1";
 	print_r(hasRows($c,$sql) ? json_encode(selectQuery($c,$sql)) : "");
 }
 function selectBranch($c){
-	$sql = "SELECT id,name,address,description,branch_code FROM branch_tbl WHERE active=1";
+	$sql = "SELECT id,name,address,description,branch_code,fixed FROM branch_tbl WHERE active=1";
 	print_r(hasRows($c,$sql) ? json_encode(selectQuery($c,$sql)) : "");
 }
 function selectTransactionsBetweenDate($c,$d){

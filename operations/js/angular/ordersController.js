@@ -9,6 +9,7 @@ app.controller("viewOrders",function($scope,dbOperations,$timeout){
 			e.orderDetails.discount_percentage = parseFloat(e.orderDetails.discount_percentage);	
 			e.orderDetails.total_amount = parseFloat(e.orderDetails.total_amount);
 			e.orderDetails.printed = parseInt(e.orderDetails.printed);
+			e.orderDetails.received_date = new Date(e.orderDetails.received_date);
 		});
 		
 	}
@@ -118,5 +119,11 @@ app.controller("viewOrders",function($scope,dbOperations,$timeout){
 	
 });
 app.controller("cashier",function($scope,dbOperations){
-	
+	dbOperations.views("GetEmployeeAccess",{}).then(function(res){
+		$scope.job = res;
+		console.log(res);
+		if (!(parseInt(res)==3)){
+			window.location.href = "/operations";
+		}
+	});
 });

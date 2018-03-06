@@ -94,9 +94,10 @@ h3{
 		position: relative;
 		z-index: 0;
 		.title{
-			max-width: 200px;
+			max-width: 154px;
 		    text-transform: capitalize;
 			color: $themeColor;
+			display: block;
 		}
 		.fullDesc,
 		.desc{

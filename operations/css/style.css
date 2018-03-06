@@ -73,9 +73,10 @@ h3 {
     position: relative;
     z-index: 0; }
     .productList li .title {
-      max-width: 200px;
+      max-width: 154px;
       text-transform: capitalize;
-      color: #4a148c; }
+      color: #4a148c;
+      display: block; }
     .productList li .fullDesc,
     .productList li .desc {
       word-wrap: break-word;

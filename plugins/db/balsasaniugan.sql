@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 05, 2018 at 10:36 AM
+-- Generation Time: Mar 06, 2018 at 11:43 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `category_tbl` (
   `date_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_by_fk` int(11) DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `category_tbl`
@@ -103,12 +103,12 @@ INSERT INTO `category_tbl` (`id`, `name`, `category_code`, `description`, `date_
 (13, 'SOUP', '', '', '2018-03-05 09:34:20', 1, 1),
 (14, 'RICE', '', '', '2018-03-05 09:34:20', 1, 1),
 (15, 'DESSERTS', '', '', '2018-03-05 09:34:20', 1, 1),
-(16, 'JAPANESE MENU', '', '', '2018-03-05 09:34:20', 1, 1),
+(16, 'SASHIMI', '', '', '2018-03-05 09:34:20', 1, 1),
 (17, 'TEMPURA', '', '', '2018-03-05 09:34:20', 1, 1),
 (18, 'MAKI', '', '', '2018-03-05 09:34:20', 1, 1),
 (19, 'FRY', '', '', '2018-03-05 09:34:20', 1, 1),
 (20, 'SALAD', '', '', '2018-03-05 09:34:20', 1, 1),
-(21, 'SOUP', '', '', '2018-03-05 09:34:20', 1, 1),
+(21, 'SUSHI', '', '', '2018-03-05 09:34:20', 1, 1),
 (22, 'TEPANYAKI', '', '', '2018-03-05 09:34:20', 1, 1),
 (23, 'MAKI ROLL MIX PLATIER', '', '', '2018-03-05 09:34:20', 1, 1),
 (24, 'JUICES', '', '', '2018-03-05 09:34:20', 1, 1),
@@ -121,7 +121,9 @@ INSERT INTO `category_tbl` (`id`, `name`, `category_code`, `description`, `date_
 (31, 'VODKA (shot)', '', '', '2018-03-05 09:34:20', 1, 1),
 (32, 'TEQUILA (shot)', '', '', '2018-03-05 09:34:20', 1, 1),
 (33, 'RUM', '', '', '2018-03-05 09:34:20', 1, 1),
-(34, 'BRANDY', '', '', '2018-03-05 09:34:20', 1, 1);
+(34, 'BRANDY', '', '', '2018-03-05 09:34:20', 1, 1),
+(35, 'PLA-PLA', '', '', '2018-03-06 10:24:37', 1, 1),
+(36, 'BLUE MARLIN', '', '', '2018-03-06 10:24:37', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -175,112 +177,7 @@ CREATE TABLE IF NOT EXISTS `order_line_tbl` (
   `price` decimal(11,2) NOT NULL,
   `served` tinyint(4) NOT NULL DEFAULT '0',
   `served_items` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `order_line_tbl`
---
-
-INSERT INTO `order_line_tbl` (`id`, `order_id_fk`, `product_id_fk`, `name`, `code`, `quantity`, `price`, `served`, `served_items`) VALUES
-(3, 2, 1, 'adobo', 'p01', 1, '1123.00', 0, 1),
-(4, 2, 2, 'srimp', '112', 1, '123.00', 0, 1),
-(5, 3, 2, 'srimp', '112', 1, '123.00', 0, 1),
-(6, 4, 1, 'adobo', 'p01', 3, '1123.00', 0, 3),
-(7, 4, 2, 'srimp', '112', 2, '123.00', 0, 2),
-(8, 5, 2, 'srimp', '112', 2, '123.00', 0, 2),
-(11, 1, 10, 'adobong kangkong', '', 1, '123.00', 0, 1),
-(12, 1, 9, 'lecheflan', 'd01', 1, '123.00', 0, 1),
-(13, 2, 10, 'adobong kangkong', '', 1, '123.00', 0, 1),
-(14, 3, 9, 'lecheflan', 'd01', 1, '123.00', 0, 1),
-(15, 3, 10, 'adobong kangkong', '', 1, '123.00', 0, 1),
-(16, 1, 3, 'Test', '', 1, '1234.00', 0, 1),
-(17, 4, 8, 'fried rice', '123', 1, '1.00', 0, 1),
-(18, 6, 4, 'qwe', '', 1, '123.00', 0, 1),
-(19, 6, 6, 'sinigang', '123', 1, '123.00', 0, 1),
-(20, 7, 8, 'fried rice', '123', 1, '1.00', 0, 1),
-(21, 7, 9, 'lecheflan', 'd01', 1, '123.00', 0, 1),
-(22, 7, 10, 'adobong kangkong', '', 1, '123.00', 0, 1),
-(23, 8, 1, 'adobo', 'p01', 1, '1123.00', 0, 1),
-(24, 8, 2, 'srimp', '112', 1, '123.00', 0, 1),
-(25, 8, 3, 'Test', '', 1, '1234.00', 0, 1),
-(26, 9, 1, 'adobo', 'p01', 1, '1123.00', 0, 1),
-(27, 9, 2, 'srimp', '112', 1, '123.00', 0, 1),
-(28, 9, 3, 'Test', '', 1, '1234.00', 0, 1),
-(29, 9, 4, 'qwe', '', 1, '123.00', 0, 1),
-(31, 10, 4, 'qwe', '', 1, '123.00', 0, 1),
-(32, 11, 1, 'adobo', 'p01', 1, '1123.00', 0, 1),
-(34, 12, 1, 'adobo', 'p01', 1, '1123.00', 0, 1),
-(35, 12, 2, 'srimp', '112', 1, '123.00', 0, 1),
-(36, 12, 3, 'Test', '', 1, '1234.00', 0, 1),
-(37, 13, 1, 'adobo', 'p01', 2, '1123.00', 0, 2),
-(38, 14, 2, 'srimp', '112', 1, '123.00', 0, 1),
-(39, 14, 2, 'srimp', '112', 1, '123.00', 0, 1),
-(40, 14, 2, 'srimp', '112', 1, '123.00', 0, 1),
-(41, 15, 1, 'adobo', 'p01', 1, '1123.00', 0, 1),
-(42, 15, 2, 'srimp', '112', 1, '123.00', 0, 1),
-(43, 16, 3, 'Test', '', 5, '1234.00', 0, 5),
-(44, 17, 1, 'adobo', 'p01', 1, '1123.00', 0, 1),
-(45, 17, 2, 'srimp', '112', 1, '123.00', 0, 1),
-(46, 18, 1, 'adobo', 'p01', 1, '1123.00', 0, 1),
-(47, 18, 2, 'srimp', '112', 16, '123.00', 0, 16),
-(48, 18, 3, 'Test', '', 1, '1234.00', 0, 1),
-(49, 18, 9, 'lecheflan', 'd01', 1, '123.00', 0, 1),
-(50, 18, 10, 'adobong kangkong', '', 1, '123.00', 0, 1),
-(52, 19, 2, 'srimp', '112', 1, '123.00', 0, 1),
-(53, 19, 3, 'Test', '', 1, '1234.00', 0, 1),
-(55, 18, 2, 'srimp', '112', 1, '123.00', 0, 1),
-(56, 23, 2, 'srimp', '112', 1, '123.00', 0, 1),
-(57, 24, 2, 'srimp', '112', 1, '123.00', 0, 1),
-(58, 25, 2, 'srimp', '112', 1, '123.00', 0, 1),
-(59, 28, 3, 'Test', '', 1, '1234.00', 0, 1),
-(60, 33, 4, 'qwe', '', 1, '123.00', 0, 1),
-(61, 34, 6, 'sinigang', '123', 1, '123.00', 0, 1),
-(62, 35, 7, 'fried chicken', 'f1', 1, '123.00', 0, 1),
-(63, 34, 2, 'srimp', '112', 1, '123.00', 0, 1),
-(64, 36, 1, 'adobo', 'p01', 5, '1123.00', 0, 5),
-(65, 36, 2, 'srimp', '112', 1, '123.00', 0, 1),
-(66, 36, 3, 'Test', '', 1, '1234.00', 0, 1),
-(67, 37, 1, 'adobo', 'p01', 1, '1123.00', 0, 0),
-(68, 37, 2, 'srimp', '112', 1, '123.00', 0, 0),
-(69, 37, 3, 'Test', '', 1, '1234.00', 0, 0),
-(70, 38, 2, 'srimp', '112', 1, '123.00', 0, 0),
-(71, 38, 3, 'Test', '', 1, '1234.00', 0, 0),
-(72, 39, 1, 'adobo', 'p01', 1, '1123.00', 0, 0),
-(73, 39, 2, 'srimp', '112', 1, '123.00', 0, 0),
-(74, 40, 1, 'adobo', 'p01', 1, '1123.00', 0, 0),
-(75, 40, 2, 'srimp', '112', 1, '123.00', 0, 0),
-(76, 40, 3, 'Test', '', 1, '1234.00', 0, 0),
-(77, 41, 2, 'srimp', '112', 1, '123.00', 0, 0),
-(78, 41, 1, 'adobo', 'p01', 1, '1123.00', 0, 0),
-(79, 42, 1, 'adobo', 'p01', 1, '1123.00', 0, 1),
-(80, 42, 2, 'srimp', '112', 1, '123.00', 0, 1),
-(81, 42, 3, 'Test', '', 1, '1234.00', 0, 1),
-(82, 43, 1, 'adobo', 'p01', 1, '1123.00', 0, 0),
-(83, 43, 2, 'srimp', '112', 1, '123.00', 0, 0),
-(84, 43, 3, 'Test', '', 1, '1234.00', 0, 0),
-(85, 44, 1, 'adobo', 'p01', 2, '1123.00', 0, 2),
-(86, 45, 1, 'adobo', 'p01', 1, '1123.00', 0, 1),
-(87, 45, 2, 'srimp', '112', 1, '123.00', 0, 1),
-(88, 45, 3, 'Test', '', 1, '1234.00', 0, 1),
-(89, 46, 3, 'Test', '', 3, '1234.00', 0, 3),
-(90, 45, 1, 'adobo', 'p01', 1, '1123.00', 0, 1),
-(91, 45, 1, 'adobo', 'p01', 1, '1123.00', 0, 1),
-(92, 45, 1, 'adobo', 'p01', 1, '1123.00', 0, 1),
-(93, 46, 1, 'adobo', 'p01', 1, '1123.00', 0, 1),
-(94, 46, 4, 'qwe', '', 1, '123.00', 0, 1),
-(95, 46, 4, 'qwe', '', 1, '123.00', 0, 1),
-(96, 46, 1, 'adobo', 'p01', 1, '1123.00', 0, 1),
-(97, 47, 1, 'adobo', 'p01', 1, '1123.00', 0, 1),
-(98, 47, 2, 'srimp', '112', 1, '123.00', 0, 1),
-(99, 48, 4, 'qwe', '', 1, '123.00', 0, 1),
-(100, 48, 6, 'sinigang', '123', 1, '123.00', 0, 1),
-(101, 48, 1, 'adobo', 'p01', 1, '1123.00', 0, 1),
-(102, 47, 1, 'adobo', 'p01', 1, '1123.00', 0, 1),
-(103, 47, 6, 'sinigang', '123', 1, '123.00', 0, 1),
-(104, 47, 8, 'fried rice', '123', 1, '1.00', 0, 1),
-(105, 47, 10, 'adobong kangkong', '', 1, '123.00', 0, 1),
-(106, 48, 2, 'srimp', '112', 1, '123.00', 0, 1),
-(107, 48, 5, 'laing', '', 1, '0.00', 0, 1);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -307,52 +204,7 @@ CREATE TABLE IF NOT EXISTS `order_tbl` (
   `discount_percentage` double NOT NULL DEFAULT '0',
   `printed` tinyint(1) NOT NULL DEFAULT '0',
   `done` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `order_tbl`
---
-
-INSERT INTO `order_tbl` (`id`, `order_date`, `seat_number`, `cashier_fk`, `branch_fk`, `waiter_fk`, `void`, `total_amount`, `customer_name`, `payment`, `notes`, `down_payment`, `received_date`, `void_reason`, `discount`, `discount_percentage`, `printed`, `done`) VALUES
-(1, '2018-02-09 03:40:42', '1', NULL, 1, 1, 0, '0.00', NULL, '1480.00', 'Deliver the icecream later wwwwww wwwwww wwwwww wwwwww wwwwww wwwwww wwwwww wwwwww', '1000.00', '2018-02-13 11:06:58', NULL, 0.00, 0, 1, 1),
-(2, '2018-02-09 04:35:23', '2', NULL, 1, 1, 0, '0.00', NULL, '1369.00', '', '0.00', '2018-02-13 11:10:47', NULL, 0.00, 0, 1, 1),
-(3, '2018-02-09 05:09:58', '1', NULL, 1, 1, 0, '0.00', NULL, '369.00', '', '0.00', '2018-02-13 11:16:12', NULL, 0.00, 0, 1, 1),
-(4, '2018-02-09 05:11:44', '1', NULL, 1, 1, 0, '0.00', NULL, '3616.00', '', '0.00', '2018-02-13 11:18:09', NULL, 0.00, 0, 1, 1),
-(5, '2018-02-09 05:14:27', '6', NULL, 1, 1, 0, '0.00', NULL, '246.00', '', '0.00', '2018-02-13 11:19:11', NULL, 0.00, 0, 1, 1),
-(6, '2018-02-13 03:19:55', '5', NULL, 1, 1, 0, '0.00', NULL, '246.00', '', '0.00', '2018-02-13 11:21:07', NULL, 0.00, 0, 1, 1),
-(7, '2018-02-13 03:20:07', '5', NULL, 1, 1, 0, '0.00', NULL, '247.00', '', '0.00', '2018-02-13 11:21:24', NULL, 0.00, 0, 1, 1),
-(8, '2018-02-13 03:20:37', '7', NULL, 1, 1, 0, '0.00', NULL, '2480.00', '', '0.00', '2018-02-13 12:18:29', NULL, 500.00, 0, 1, 1),
-(9, '2018-02-13 08:54:12', '1', NULL, 1, 1, 0, '0.00', NULL, '2603.00', '', '0.00', '2018-02-20 16:12:32', NULL, 0.00, 0, 1, 1),
-(10, '2018-02-13 09:04:06', '5', NULL, 1, 1, 0, '0.00', NULL, '123.00', '', '0.00', '2018-02-20 16:22:33', NULL, 0.00, 0, 1, 1),
-(11, '2018-02-20 07:51:49', '1', NULL, 1, 1, 0, '0.00', NULL, '1123.00', '', '0.00', '2018-02-20 16:22:35', NULL, 0.00, 0, 1, 1),
-(12, '2018-02-20 07:54:49', '4', NULL, 1, 1, 0, '0.00', NULL, '2480.00', '', '0.00', '2018-02-20 16:22:31', NULL, 0.00, 0, 1, 1),
-(13, '2018-02-20 08:23:20', '1', NULL, 1, 1, 0, '0.00', NULL, '2246.00', '', '0.00', '2018-02-20 16:26:37', NULL, 0.00, 0, 1, 1),
-(14, '2018-02-20 08:23:30', '1', NULL, 1, 1, 0, '0.00', NULL, '369.00', '', '0.00', '2018-02-20 16:26:39', NULL, 0.00, 0, 1, 1),
-(15, '2018-02-20 08:55:30', '3', NULL, 1, 1, 0, '0.00', NULL, '1246.00', '', '0.00', '2018-02-20 17:03:16', NULL, 0.00, 0, 1, 1),
-(16, '2018-02-20 08:55:48', '3', NULL, 1, 1, 0, '0.00', NULL, '6170.00', '', '0.00', '2018-02-20 17:03:18', NULL, 0.00, 0, 1, 1),
-(17, '2018-02-20 09:02:21', '4', NULL, 1, 1, 0, '0.00', NULL, '1246.00', '', '0.00', '2018-02-20 17:03:21', NULL, 0.00, 0, 1, 1),
-(18, '2018-02-22 06:38:35', '1', NULL, 1, 1, 0, '4694.00', NULL, '2500.00', '', '0.00', '2018-02-26 14:11:01', NULL, 2347.00, 0, 1, 1),
-(19, '2018-02-22 08:38:11', '1', NULL, 1, 1, 0, '1357.00', NULL, '1500.00', '', '0.00', '2018-02-26 14:26:24', NULL, 0.00, 0, 1, 1),
-(23, '2018-02-26 02:36:05', '5', NULL, 1, 1, 0, '0.00', NULL, '123.00', '', '0.00', '2018-02-26 12:06:00', NULL, 0.00, 0, 1, 1),
-(24, '2018-02-26 02:36:22', '5', NULL, 1, 1, 0, '123.00', NULL, '200.00', '', '0.00', '2018-02-26 14:26:31', NULL, 0.00, 0, 1, 1),
-(25, '2018-02-26 02:36:57', '4', NULL, 1, 1, 0, '123.00', NULL, '200.00', '', '0.00', '2018-02-26 14:26:38', NULL, 0.00, 0, 1, 1),
-(28, '2018-02-26 02:49:52', '5', NULL, 1, 1, 0, '1234.00', NULL, '800.00', '', '0.00', '2018-02-26 17:20:46', NULL, 493.60, 0, 1, 1),
-(33, '2018-02-26 02:59:43', '9', NULL, 1, 1, 0, '123.00', NULL, '500.00', '', '0.00', '2018-02-28 15:14:29', NULL, 0.00, 0, 1, 1),
-(34, '2018-02-26 03:00:09', '10', NULL, 1, 1, 0, '246.00', NULL, '250.00', '', '0.00', '2018-02-28 17:15:08', NULL, 0.00, 0, 1, 1),
-(35, '2018-02-26 03:01:34', '3', NULL, 1, 1, 0, '123.00', NULL, '123.00', '', '0.00', '2018-03-01 15:10:00', NULL, 0.00, 0, 1, 1),
-(36, '2018-02-28 05:22:55', '1', NULL, 1, 1, 0, '6972.00', NULL, '7000.00', '', '0.00', '2018-03-01 17:02:48', NULL, 1673.28, 12, 1, 1),
-(37, '2018-02-28 06:56:34', '1', NULL, 1, 1, 1, '0.00', NULL, '0.00', '', '0.00', NULL, NULL, 0.00, 0, 1, 0),
-(38, '2018-03-01 01:30:54', '1', NULL, 1, 1, 1, '0.00', NULL, '0.00', '', '0.00', NULL, NULL, 0.00, 0, 1, 0),
-(39, '2018-03-01 01:59:01', '5', NULL, 1, 1, 1, '0.00', NULL, '0.00', '', '0.00', NULL, 'Adobo is out of stock. The customer left', 0.00, 0, 0, 0),
-(40, '2018-03-01 07:05:20', '7', NULL, 1, 1, 1, '0.00', NULL, '0.00', '', '0.00', NULL, 'The customer needs to go to the hospital', 0.00, 0, 0, 0),
-(41, '2018-03-01 07:07:34', '7', NULL, 1, 1, 1, '0.00', NULL, '0.00', '', '0.00', NULL, 'meeting is cancelled', 0.00, 0, 0, 0),
-(42, '2018-03-01 07:28:29', '6', NULL, 1, 1, 0, '2480.00', NULL, '2500.00', '', '0.00', '2018-03-01 17:15:14', NULL, 0.00, 5, 1, 1),
-(43, '2018-03-01 07:44:00', '11', NULL, 1, 1, 0, '0.00', NULL, '0.00', '', '0.00', NULL, NULL, 0.00, 0, 1, 1),
-(44, '2018-03-01 07:45:43', '7', NULL, 1, 1, 0, '2246.00', NULL, '2500.00', '', '0.00', '2018-03-01 17:16:00', NULL, 0.00, 0, 1, 1),
-(45, '2018-03-01 09:16:43', '1', NULL, 1, 1, 0, '5849.00', NULL, '6000.00', '', '0.00', '2018-03-01 17:25:55', NULL, 0.00, 0, 1, 1),
-(46, '2018-03-01 09:16:52', '1', NULL, 1, 1, 0, '6194.00', NULL, '7000.00', '', '0.00', '2018-03-02 09:10:08', NULL, 0.00, 0, 1, 1),
-(47, '2018-03-02 01:35:02', '2', NULL, 1, 1, 0, '2616.00', NULL, '2700.00', '', '0.00', '2018-03-02 15:03:03', NULL, 0.00, 0, 1, 1),
-(48, '2018-03-02 01:35:17', '4', NULL, 1, 1, 0, '1492.00', NULL, '1500.00', '', '0.00', '2018-03-05 14:49:08', NULL, 0.00, 0, 1, 0);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -397,23 +249,174 @@ CREATE TABLE IF NOT EXISTS `product_tbl` (
   `price` decimal(11,2) NOT NULL DEFAULT '0.00',
   `stock` int(11) NOT NULL DEFAULT '1',
   `available` tinyint(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=162 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product_tbl`
 --
 
 INSERT INTO `product_tbl` (`id`, `name`, `description`, `picture`, `product_code`, `category_fk`, `date_modified`, `modified_by_fk`, `active`, `price`, `stock`, `available`) VALUES
-(1, 'adobo', 'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww', '/common/images/products/default_food_img.jpg', 'p01', 1, '2018-02-05 06:33:12', 0, 1, '1123.00', 76, 1),
-(2, 'srimp', 'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww', '/common/images/products/default_food_img.jpg', '112', 1, '2018-02-05 06:34:15', 0, 1, '123.00', 584, 1),
-(3, 'Test', '123123123123', '/common/images/products/Desert3.jpg', '', 2, '2018-02-05 06:45:14', 0, 1, '1234.00', 20, 1),
-(4, 'qwe', 'qwerwer', '/common/images/products/Tulips4.jpg', '', 2, '2018-02-05 06:47:30', 0, 1, '123.00', 47, 1),
-(5, 'laing', 'wala pa 123', '/common/images/products/Lighthouse5.jpg', '', 2, '2018-02-05 07:43:25', 0, 1, '0.00', 86, 1),
-(6, 'sinigang', '123123', '/common/images/products/Chrysanthemum6.jpg', '123', 2, '2018-02-05 10:56:30', 0, 1, '123.00', 68, 1),
-(7, 'fried chicken', '1123123', '/common/images/products/Jellyfish7.jpg', 'f1', 1, '2018-02-05 10:59:36', 0, 1, '123.00', 20, 1),
-(8, 'fried rice', '1231231231', '/common/images/products/Hydrangeas8.jpg', '123', 1, '2018-02-05 11:00:48', 1, 1, '1.00', 10, 1),
-(9, 'lecheflan', '213', '/common/images/products/Jellyfish9.jpg', 'd01', 2, '2018-02-05 11:48:26', 0, 1, '123.00', 1, 1),
-(10, 'adobong kangkong', '123', '/common/images/products/Penguins10.jpg', '', 1, '2018-02-05 12:00:33', 1, 1, '123.00', 15, 1);
+(1, 'Sinigang Bangus Belly', 'no desc', '/common/images/products/default_food_img.jpg', '""', 2, '2018-03-06 09:46:48', 1, 1, '260.00', 100, 1),
+(2, 'Sizzling Bangus Belly (4pcs)', 'no desc', '/common/images/products/default_food_img.jpg', '""', 2, '2018-03-06 09:46:48', 1, 1, '220.00', 100, 1),
+(3, 'Bangus La Pobre', 'no desc', '/common/images/products/default_food_img.jpg', '""', 2, '2018-03-06 09:46:48', 1, 1, '240.00', 100, 1),
+(4, 'Bangus w/ Tomato & Cheese Wrap', 'no desc', '/common/images/products/default_food_img.jpg', '""', 2, '2018-03-06 09:46:48', 1, 1, '250.00', 100, 1),
+(5, 'Rellenong Bangus', 'no desc', '/common/images/products/default_food_img.jpg', '""', 2, '2018-03-06 09:46:48', 1, 1, '290.00', 100, 1),
+(6, 'Kare Kare', 'no desc', '/common/images/products/default_food_img.jpg', '""', 3, '2018-03-06 09:46:48', 1, 1, '350.00', 100, 1),
+(7, 'Beef Steak', 'no desc', '/common/images/products/default_food_img.jpg', '""', 3, '2018-03-06 09:46:48', 1, 1, '150.00', 100, 1),
+(8, 'Beef Tapa', 'no desc', '/common/images/products/default_food_img.jpg', '""', 3, '2018-03-06 09:46:48', 1, 1, '140.00', 100, 1),
+(9, 'Sizzling Beef Lind', 'no desc', '/common/images/products/default_food_img.jpg', '""', 3, '2018-03-06 09:46:48', 1, 1, '260.00', 100, 1),
+(10, 'Sizzling Korean Beef', 'no desc', '/common/images/products/default_food_img.jpg', '""', 3, '2018-03-06 09:46:48', 1, 1, '220.00', 100, 1),
+(11, 'Sizzling Tender Join String', 'no desc', '/common/images/products/default_food_img.jpg', '""', 3, '2018-03-06 09:46:48', 1, 1, '190.00', 100, 1),
+(12, 'Sizzling T-Bone Steak', 'no desc', '/common/images/products/default_food_img.jpg', '""', 3, '2018-03-06 09:46:48', 1, 1, '205.00', 100, 1),
+(13, 'Beef Morcon (1roll)', 'no desc', '/common/images/products/default_food_img.jpg', '""', 3, '2018-03-06 09:46:48', 1, 1, '390.00', 100, 1),
+(14, 'Fried Whole', 'no desc', '/common/images/products/default_food_img.jpg', '""', 4, '2018-03-06 09:46:48', 1, 1, '340.00', 100, 1),
+(15, 'Fried Half', 'no desc', '/common/images/products/default_food_img.jpg', '""', 4, '2018-03-06 09:46:48', 1, 1, '190.00', 100, 1),
+(16, 'Buttered Whole', 'no desc', '/common/images/products/default_food_img.jpg', '""', 4, '2018-03-06 09:46:48', 1, 1, '380.00', 100, 1),
+(17, 'Buttered Half', 'no desc', '/common/images/products/default_food_img.jpg', '""', 4, '2018-03-06 09:46:48', 1, 1, '210.00', 100, 1),
+(18, 'Sizzling Chicken', 'no desc', '/common/images/products/default_food_img.jpg', '""', 4, '2018-03-06 09:46:48', 1, 1, '230.00', 100, 1),
+(19, 'Sizzling Spicy Chicken', 'no desc', '/common/images/products/default_food_img.jpg', '""', 4, '2018-03-06 09:46:48', 1, 1, '230.00', 100, 1),
+(20, 'Sizzling Spicy Chicken Feet', 'no desc', '/common/images/products/default_food_img.jpg', '""', 4, '2018-03-06 09:46:48', 1, 1, '136.00', 100, 1),
+(21, 'Sizzling Buffalo Wings (4pcs)', 'no desc', '/common/images/products/default_food_img.jpg', '""', 4, '2018-03-06 09:46:48', 1, 1, '189.00', 100, 1),
+(22, 'Sizzling Atay Balonbalunan', 'no desc', '/common/images/products/default_food_img.jpg', '""', 4, '2018-03-06 09:46:48', 1, 1, '100.00', 100, 1),
+(23, 'Chicken BBQ Legs', 'no desc', '/common/images/products/default_food_img.jpg', '""', 4, '2018-03-06 09:46:48', 1, 1, '120.00', 100, 1),
+(24, 'Sizzing Sisig', 'no desc', '/common/images/products/default_food_img.jpg', '""', 5, '2018-03-06 09:46:48', 1, 1, '198.00', 100, 1),
+(25, 'Crispy Pata', 'no desc', '/common/images/products/default_food_img.jpg', '""', 5, '2018-03-06 09:46:48', 1, 1, '420.00', 100, 1),
+(26, 'Crispy Ulo', 'no desc', '/common/images/products/default_food_img.jpg', '""', 5, '2018-03-06 09:46:48', 1, 1, '490.00', 100, 1),
+(27, 'Pork Liempo BBQ', 'no desc', '/common/images/products/default_food_img.jpg', '""', 5, '2018-03-06 09:46:48', 1, 1, '180.00', 100, 1),
+(28, 'Asado', 'no desc', '/common/images/products/default_food_img.jpg', '""', 5, '2018-03-06 09:46:48', 1, 1, '180.00', 100, 1),
+(29, 'Lechon Kawali', 'no desc', '/common/images/products/default_food_img.jpg', '""', 5, '2018-03-06 09:46:48', 1, 1, '180.00', 100, 1),
+(30, 'Chicharon Bulaklak', 'no desc', '/common/images/products/default_food_img.jpg', '""', 5, '2018-03-06 09:46:48', 1, 1, '130.00', 100, 1),
+(31, 'Sinigang na Liempo', 'no desc', '/common/images/products/default_food_img.jpg', '""', 5, '2018-03-06 09:46:48', 1, 1, '305.00', 100, 1),
+(32, 'Ampalaya con Hipon', 'no desc', '/common/images/products/default_food_img.jpg', '""', 6, '2018-03-06 09:46:48', 1, 1, '198.00', 100, 1),
+(33, 'Beef Ampalaya', 'no desc', '/common/images/products/default_food_img.jpg', '""', 6, '2018-03-06 09:46:48', 1, 1, '210.00', 100, 1),
+(34, 'Chopsuey', 'no desc', '/common/images/products/default_food_img.jpg', '""', 6, '2018-03-06 09:46:48', 1, 1, '230.00', 100, 1),
+(35, 'Pinakbet', 'no desc', '/common/images/products/default_food_img.jpg', '""', 6, '2018-03-06 09:46:48', 1, 1, '245.00', 100, 1),
+(36, 'Vegetable Stick w/ Mayo Dipping', 'no desc', '/common/images/products/default_food_img.jpg', '""', 6, '2018-03-06 09:46:48', 1, 1, '110.00', 100, 1),
+(37, 'Ohonomiyaki(Cabbage Pizza)', 'no desc', '/common/images/products/default_food_img.jpg', '""', 6, '2018-03-06 09:46:48', 1, 1, '200.00', 100, 1),
+(38, 'Pusit Sizzling', 'no desc', '/common/images/products/default_food_img.jpg', '""', 7, '2018-03-06 09:46:48', 1, 1, '210.00', 100, 1),
+(39, 'Pusit Grilled', 'no desc', '/common/images/products/default_food_img.jpg', '""', 7, '2018-03-06 09:46:48', 1, 1, '190.00', 100, 1),
+(40, 'Pusit w/ Onion & Tomato Filling', 'no desc', '/common/images/products/default_food_img.jpg', '""', 7, '2018-03-06 09:46:48', 1, 1, '227.00', 100, 1),
+(41, 'Pusit Calamares', 'no desc', '/common/images/products/default_food_img.jpg', '""', 7, '2018-03-06 09:46:48', 1, 1, '160.00', 100, 1),
+(42, 'Pusit Sizzling Japanese Ika', 'no desc', '/common/images/products/default_food_img.jpg', '""', 7, '2018-03-06 09:46:48', 1, 1, '230.00', 100, 1),
+(43, 'Crispy Squid Head', 'no desc', '/common/images/products/default_food_img.jpg', '""', 7, '2018-03-06 09:46:48', 1, 1, '180.00', 100, 1),
+(44, 'Srimp Sizzling Spicy', 'no desc', '/common/images/products/default_food_img.jpg', '""', 8, '2018-03-06 09:46:48', 1, 1, '240.00', 100, 1),
+(45, 'Srimp Sizzling Gambas', 'no desc', '/common/images/products/default_food_img.jpg', '""', 8, '2018-03-06 09:46:48', 1, 1, '190.00', 100, 1),
+(46, 'Shrimp w/ Oyster Sauce', 'no desc', '/common/images/products/default_food_img.jpg', '""', 8, '2018-03-06 09:46:48', 1, 1, '170.00', 100, 1),
+(47, 'Srimp Sinigang', 'no desc', '/common/images/products/default_food_img.jpg', '""', 8, '2018-03-06 09:46:48', 1, 1, '340.00', 100, 1),
+(48, 'Camara Rebesado', 'no desc', '/common/images/products/default_food_img.jpg', '""', 8, '2018-03-06 09:46:48', 1, 1, '150.00', 100, 1),
+(49, 'Halabis', 'no desc', '/common/images/products/default_food_img.jpg', '""', 8, '2018-03-06 09:46:48', 1, 1, '156.00', 100, 1),
+(50, 'Fry o Fish Fillet', 'no desc', '/common/images/products/default_food_img.jpg', '""', 9, '2018-03-06 09:46:48', 1, 1, '150.00', 100, 1),
+(51, 'Crispy Crablets', 'no desc', '/common/images/products/default_food_img.jpg', '""', 9, '2018-03-06 09:46:48', 1, 1, '160.00', 100, 1),
+(52, 'Kilawen', 'no desc', '/common/images/products/default_food_img.jpg', '""', 9, '2018-03-06 09:46:48', 1, 1, '190.00', 100, 1),
+(53, 'Deep Fried Salmon Head', 'no desc', '/common/images/products/default_food_img.jpg', '""', 9, '2018-03-06 09:46:48', 1, 1, '180.00', 100, 1),
+(54, 'Sinigang sa Miso (Salmon Head)', 'no desc', '/common/images/products/default_food_img.jpg', '""', 9, '2018-03-06 09:46:48', 1, 1, '280.00', 100, 1),
+(55, 'Cheese Stick', 'no desc', '/common/images/products/default_food_img.jpg', '""', 10, '2018-03-06 09:46:48', 1, 1, '110.00', 100, 1),
+(56, 'Chilli Cheese Bite', 'no desc', '/common/images/products/default_food_img.jpg', '""', 10, '2018-03-06 09:46:48', 1, 1, '120.00', 100, 1),
+(57, 'Fish Shanghai Roll', 'no desc', '/common/images/products/default_food_img.jpg', '""', 10, '2018-03-06 09:46:48', 1, 1, '120.00', 100, 1),
+(58, 'French Fries', 'no desc', '/common/images/products/default_food_img.jpg', '""', 10, '2018-03-06 09:46:48', 1, 1, '80.00', 100, 1),
+(59, 'Lumpiang Shanghai', 'no desc', '/common/images/products/default_food_img.jpg', '""', 10, '2018-03-06 09:46:48', 1, 1, '120.00', 100, 1),
+(60, 'Onion Rings', 'no desc', '/common/images/products/default_food_img.jpg', '""', 10, '2018-03-06 09:46:48', 1, 1, '90.00', 100, 1),
+(61, 'Sliced Pipin', 'no desc', '/common/images/products/default_food_img.jpg', '""', 10, '2018-03-06 09:46:48', 1, 1, '70.00', 100, 1),
+(62, 'Fried Tofu', 'no desc', '/common/images/products/default_food_img.jpg', '""', 10, '2018-03-06 09:46:48', 1, 1, '90.00', 100, 1),
+(63, 'Sizzling Sweet Corn', 'no desc', '/common/images/products/default_food_img.jpg', '""', 10, '2018-03-06 09:46:48', 1, 1, '120.00', 100, 1),
+(64, 'Sizzling Hotdog', 'no desc', '/common/images/products/default_food_img.jpg', '""', 10, '2018-03-06 09:46:48', 1, 1, '160.00', 100, 1),
+(65, 'Sizzling 3 Kinds of Mushroom', 'no desc', '/common/images/products/default_food_img.jpg', '""', 10, '2018-03-06 09:46:48', 1, 1, '180.00', 100, 1),
+(66, 'Sizzling Mushroom', 'no desc', '/common/images/products/default_food_img.jpg', '""', 10, '2018-03-06 09:46:48', 1, 1, '170.00', 100, 1),
+(67, 'Sizzling Tofu w/ Special Chinese Sauce', 'no desc', '/common/images/products/default_food_img.jpg', '""', 10, '2018-03-06 09:46:48', 1, 1, '170.00', 100, 1),
+(68, 'Sizzling Young Corn', 'no desc', '/common/images/products/default_food_img.jpg', '""', 10, '2018-03-06 09:46:48', 1, 1, '140.00', 100, 1),
+(69, 'Sizzling Spicy Fried Frog', 'no desc', '/common/images/products/default_food_img.jpg', '""', 11, '2018-03-06 09:46:48', 1, 1, '180.00', 100, 1),
+(70, 'Sizzling Adobong Kambing', 'no desc', '/common/images/products/default_food_img.jpg', '""', 11, '2018-03-06 09:46:48', 1, 1, '260.00', 100, 1),
+(71, 'Sizzling Kalderetang Kambing', 'no desc', '/common/images/products/default_food_img.jpg', '""', 11, '2018-03-06 09:46:48', 1, 1, '280.00', 100, 1),
+(72, 'Adobong Igat', 'no desc', '/common/images/products/default_food_img.jpg', '""', 11, '2018-03-06 09:46:48', 1, 1, '210.00', 100, 1),
+(73, 'Sizzling Adobong Kabayo', 'no desc', '/common/images/products/default_food_img.jpg', '""', 11, '2018-03-06 09:46:48', 1, 1, '230.00', 100, 1),
+(74, 'Tapa Kabayo', 'no desc', '/common/images/products/default_food_img.jpg', '""', 11, '2018-03-06 09:46:48', 1, 1, '160.00', 100, 1),
+(75, 'Crispy Tahong', 'no desc', '/common/images/products/default_food_img.jpg', '""', 11, '2018-03-06 09:46:48', 1, 1, '160.00', 100, 1),
+(76, 'Tortang Talaba', 'no desc', '/common/images/products/default_food_img.jpg', '""', 11, '2018-03-06 09:46:48', 1, 1, '190.00', 100, 1),
+(77, 'Pancit Bihon', 'no desc', '/common/images/products/default_food_img.jpg', '""', 12, '2018-03-06 10:01:59', 1, 1, '138.00', 100, 1),
+(78, 'Pancit Canton', 'no desc', '/common/images/products/default_food_img.jpg', '""', 12, '2018-03-06 10:01:59', 1, 1, '148.00', 100, 1),
+(79, 'Pancit Mike & Bihon', 'no desc', '/common/images/products/default_food_img.jpg', '""', 12, '2018-03-06 10:01:59', 1, 1, '148.00', 100, 1),
+(80, 'Sotangho Guisado', 'no desc', '/common/images/products/default_food_img.jpg', '""', 12, '2018-03-06 10:01:59', 1, 1, '136.00', 100, 1),
+(81, 'Large Pancit Bihon', 'no desc', '/common/images/products/default_food_img.jpg', '""', 12, '2018-03-06 10:01:59', 1, 1, '260.00', 100, 1),
+(82, 'Large Pancit Canton', 'no desc', '/common/images/products/default_food_img.jpg', '""', 12, '2018-03-06 10:01:59', 1, 1, '270.00', 100, 1),
+(83, 'Large Pancit Mike & Bihon', 'no desc', '/common/images/products/default_food_img.jpg', '""', 12, '2018-03-06 10:01:59', 1, 1, '270.00', 100, 1),
+(84, 'Large Sotangho Guisado', 'no desc', '/common/images/products/default_food_img.jpg', '""', 12, '2018-03-06 10:01:59', 1, 1, '260.00', 100, 1),
+(85, 'Lomi Special', 'no desc', '/common/images/products/default_food_img.jpg', '""', 12, '2018-03-06 10:01:59', 1, 1, '200.00', 100, 1),
+(86, 'Crab & Corn', 'no desc', '/common/images/products/default_food_img.jpg', '""', 13, '2018-03-06 10:01:59', 1, 1, '50.00', 100, 1),
+(87, 'Chicken & Corn', 'no desc', '/common/images/products/default_food_img.jpg', '""', 13, '2018-03-06 10:01:59', 1, 1, '45.00', 100, 1),
+(88, 'Nido Oriental', 'no desc', '/common/images/products/default_food_img.jpg', '""', 13, '2018-03-06 10:01:59', 1, 1, '45.00', 100, 1),
+(89, 'Cream of Mushroom', 'no desc', '/common/images/products/default_food_img.jpg', '""', 13, '2018-03-06 10:01:59', 1, 1, '50.00', 100, 1),
+(90, 'Large Crab & Corn', 'no desc', '/common/images/products/default_food_img.jpg', '""', 13, '2018-03-06 10:01:59', 1, 1, '180.00', 100, 1),
+(91, 'Large Chicken & Corn', 'no desc', '/common/images/products/default_food_img.jpg', '""', 13, '2018-03-06 10:01:59', 1, 1, '170.00', 100, 1),
+(92, 'Large Nido Oriental', 'no desc', '/common/images/products/default_food_img.jpg', '""', 13, '2018-03-06 10:01:59', 1, 1, '170.00', 100, 1),
+(93, 'Large Cream of Mushroom', 'no desc', '/common/images/products/default_food_img.jpg', '""', 13, '2018-03-06 10:01:59', 1, 1, '180.00', 100, 1),
+(94, 'Pandan Rice', 'no desc', '/common/images/products/default_food_img.jpg', '""', 14, '2018-03-06 10:16:32', 1, 1, '25.00', 100, 1),
+(95, 'Garlic Rice', 'no desc', '/common/images/products/default_food_img.jpg', '""', 14, '2018-03-06 10:16:32', 1, 1, '28.00', 100, 1),
+(96, 'Fruit Salad', 'no desc', '/common/images/products/default_food_img.jpg', '""', 15, '2018-03-06 10:16:32', 1, 1, '40.00', 100, 1),
+(97, 'Leche Flan Royale', 'no desc', '/common/images/products/default_food_img.jpg', '""', 15, '2018-03-06 10:16:32', 1, 1, '125.00', 100, 1),
+(98, 'Tuna Sashimi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 16, '2018-03-06 10:16:32', 1, 1, '220.00', 100, 1),
+(99, 'Salmon Sashimi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 16, '2018-03-06 10:16:32', 1, 1, '250.00', 100, 1),
+(100, 'Ebi Sashimi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 16, '2018-03-06 10:16:32', 1, 1, '230.00', 100, 1),
+(101, 'Kani Sashimi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 16, '2018-03-06 10:16:32', 1, 1, '190.00', 100, 1),
+(102, 'Tamago Sashimi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 16, '2018-03-06 10:16:32', 1, 1, '120.00', 100, 1),
+(103, 'Ika Sashimi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 16, '2018-03-06 10:16:32', 1, 1, '150.00', 100, 1),
+(104, 'Uni Sashimi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 16, '2018-03-06 10:16:32', 1, 1, '230.00', 100, 1),
+(105, 'Unagi Sashimi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 16, '2018-03-06 10:16:32', 1, 1, '220.00', 100, 1),
+(106, 'Ebiko Sashimi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 16, '2018-03-06 10:16:32', 1, 1, '240.00', 100, 1),
+(107, 'Mixed Sashimi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 16, '2018-03-06 10:16:32', 1, 1, '330.00', 100, 1),
+(108, 'Ebi Tempura (6pcs)', 'no desc', '/common/images/products/default_food_img.jpg', '""', 17, '2018-03-06 10:16:32', 1, 1, '360.00', 100, 1),
+(109, 'Kisu Tempura (6pcs)', 'no desc', '/common/images/products/default_food_img.jpg', '""', 17, '2018-03-06 10:16:32', 1, 1, '330.00', 100, 1),
+(110, 'Kani Tempura (6pcs)', 'no desc', '/common/images/products/default_food_img.jpg', '""', 17, '2018-03-06 10:16:32', 1, 1, '325.00', 100, 1),
+(111, 'Kani Pura Tempura (6pcs)', 'no desc', '/common/images/products/default_food_img.jpg', '""', 17, '2018-03-06 10:16:32', 1, 1, '325.00', 100, 1),
+(112, 'Vegetable Tempura', 'no desc', '/common/images/products/default_food_img.jpg', '""', 17, '2018-03-06 10:16:32', 1, 1, '255.00', 100, 1),
+(113, 'Special Maki', 'no desc', '/common/images/products/default_food_img.jpg', '""', 18, '2018-03-06 10:16:32', 1, 1, '255.00', 100, 1),
+(114, 'Tekka Maki', 'no desc', '/common/images/products/default_food_img.jpg', '""', 18, '2018-03-06 10:16:32', 1, 1, '205.00', 100, 1),
+(115, 'Kuppa Maki', 'no desc', '/common/images/products/default_food_img.jpg', '""', 18, '2018-03-06 10:16:32', 1, 1, '115.00', 100, 1),
+(116, 'Unagi Maki', 'no desc', '/common/images/products/default_food_img.jpg', '""', 18, '2018-03-06 10:16:32', 1, 1, '240.00', 100, 1),
+(117, 'Kani Maki', 'no desc', '/common/images/products/default_food_img.jpg', '""', 18, '2018-03-06 10:16:32', 1, 1, '190.00', 100, 1),
+(118, 'Tamago Maki', 'no desc', '/common/images/products/default_food_img.jpg', '""', 18, '2018-03-06 10:16:32', 1, 1, '140.00', 100, 1),
+(119, 'Salmon Maki', 'no desc', '/common/images/products/default_food_img.jpg', '""', 18, '2018-03-06 10:16:32', 1, 1, '160.00', 100, 1),
+(120, 'Tuna Salad Maki', 'no desc', '/common/images/products/default_food_img.jpg', '""', 18, '2018-03-06 10:16:32', 1, 1, '160.00', 100, 1),
+(121, 'Tc Maki', 'no desc', '/common/images/products/default_food_img.jpg', '""', 18, '2018-03-06 10:16:32', 1, 1, '245.00', 100, 1),
+(122, 'Ebi Fry', 'no desc', '/common/images/products/default_food_img.jpg', '""', 19, '2018-03-06 10:22:27', 1, 1, '335.00', 100, 1),
+(123, 'Kisu Fry', 'no desc', '/common/images/products/default_food_img.jpg', '""', 19, '2018-03-06 10:22:27', 1, 1, '325.00', 100, 1),
+(124, 'Kani Fry', 'no desc', '/common/images/products/default_food_img.jpg', '""', 19, '2018-03-06 10:22:27', 1, 1, '315.00', 100, 1),
+(125, 'Kani Salad', 'no desc', '/common/images/products/default_food_img.jpg', '""', 20, '2018-03-06 10:22:27', 1, 1, '250.00', 100, 1),
+(126, 'Tuna Salad', 'no desc', '/common/images/products/default_food_img.jpg', '""', 20, '2018-03-06 10:22:27', 1, 1, '275.00', 100, 1),
+(127, 'Miso Soup', 'no desc', '/common/images/products/default_food_img.jpg', '""', 13, '2018-03-06 10:22:27', 1, 1, '250.00', 100, 1),
+(128, 'Japanese Salmon Head Miso Soup', 'no desc', '/common/images/products/default_food_img.jpg', '""', 13, '2018-03-06 10:22:27', 1, 1, '275.00', 100, 1),
+(129, 'Shrimp Tepanyaki', 'no desc', '/common/images/products/default_food_img.jpg', '""', 22, '2018-03-06 10:22:27', 1, 1, '240.00', 100, 1),
+(130, 'Tuna Tepanyaki', 'no desc', '/common/images/products/default_food_img.jpg', '""', 22, '2018-03-06 10:22:27', 1, 1, '220.00', 100, 1),
+(131, 'Ika Tepanyaki', 'no desc', '/common/images/products/default_food_img.jpg', '""', 22, '2018-03-06 10:22:27', 1, 1, '220.00', 100, 1),
+(132, 'California Maki Plater', 'no desc', '/common/images/products/default_food_img.jpg', '""', 23, '2018-03-06 10:22:27', 1, 1, '850.00', 100, 1),
+(133, 'Crazy Maki  Plater', 'no desc', '/common/images/products/default_food_img.jpg', '""', 23, '2018-03-06 10:22:27', 1, 1, '750.00', 100, 1),
+(134, 'Tamago Maki Plater', 'no desc', '/common/images/products/default_food_img.jpg', '""', 23, '2018-03-06 10:22:27', 1, 1, '750.00', 100, 1),
+(135, 'Salmon Maki Plater', 'no desc', '/common/images/products/default_food_img.jpg', '""', 23, '2018-03-06 10:22:27', 1, 1, '700.00', 100, 1),
+(136, 'Tekka Maki Plater', 'no desc', '/common/images/products/default_food_img.jpg', '""', 23, '2018-03-06 10:22:27', 1, 1, '650.00', 100, 1),
+(137, 'Futo Maki Plater', 'no desc', '/common/images/products/default_food_img.jpg', '""', 23, '2018-03-06 10:22:27', 1, 1, '600.00', 100, 1),
+(138, 'Tuna Sushi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 21, '2018-03-06 10:22:27', 1, 1, '75.00', 100, 1),
+(139, 'Salmon Sushi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 21, '2018-03-06 10:22:27', 1, 1, '50.00', 100, 1),
+(140, 'Ebi Sushi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 21, '2018-03-06 10:22:27', 1, 1, '65.00', 100, 1),
+(141, 'Kani Sushi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 21, '2018-03-06 10:22:27', 1, 1, '55.00', 100, 1),
+(142, 'Tamago Sushi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 21, '2018-03-06 10:22:27', 1, 1, '45.00', 100, 1),
+(143, 'Ika Sushi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 21, '2018-03-06 10:22:27', 1, 1, '65.00', 100, 1),
+(144, 'Lui Sushi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 21, '2018-03-06 10:22:27', 1, 1, '125.00', 100, 1),
+(145, 'Unagi Sushi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 21, '2018-03-06 10:22:27', 1, 1, '90.00', 100, 1),
+(146, 'Ebiko Sushi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 21, '2018-03-06 10:22:27', 1, 1, '115.00', 100, 1),
+(147, 'Mixed Sushi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 21, '2018-03-06 10:22:27', 1, 1, '625.00', 100, 1),
+(148, 'Tilapia Sisig', 'no desc', '/common/images/products/default_food_img.jpg', '""', 35, '2018-03-06 10:30:54', 1, 1, '180.00', 100, 1),
+(149, 'Sizzling Tilapia', 'no desc', '/common/images/products/default_food_img.jpg', '""', 35, '2018-03-06 10:30:54', 1, 1, '170.00', 100, 1),
+(150, 'Steamed Tilapia', 'no desc', '/common/images/products/default_food_img.jpg', '""', 35, '2018-03-06 10:30:54', 1, 1, '170.00', 100, 1),
+(151, 'Tilapia w/ Oyster & Garlic', 'no desc', '/common/images/products/default_food_img.jpg', '""', 35, '2018-03-06 10:30:54', 1, 1, '180.00', 100, 1),
+(152, 'Tilapia w/ Mayonnaise & Cheese', 'no desc', '/common/images/products/default_food_img.jpg', '""', 35, '2018-03-06 10:30:54', 1, 1, '190.00', 100, 1),
+(153, 'Tilapia Deep Fried w/ Garlic', 'no desc', '/common/images/products/default_food_img.jpg', '""', 35, '2018-03-06 10:30:54', 1, 1, '130.00', 100, 1),
+(154, 'Tilapia Pinaputok w/ Onion & Tomato', 'no desc', '/common/images/products/default_food_img.jpg', '""', 35, '2018-03-06 10:30:54', 1, 1, '198.00', 100, 1),
+(155, 'Sizzling Blue Marlin ', 'no desc', '/common/images/products/default_food_img.jpg', '""', 36, '2018-03-06 10:30:54', 1, 1, '280.00', 100, 1),
+(156, 'Blue Marlin In Spicy Veggetables ', 'no desc', '/common/images/products/default_food_img.jpg', '""', 36, '2018-03-06 10:30:54', 1, 1, '280.00', 100, 1),
+(157, 'Blue Marlin w/ Butter & Garlic ', 'no desc', '/common/images/products/default_food_img.jpg', '""', 36, '2018-03-06 10:30:54', 1, 1, '280.00', 100, 1),
+(158, 'Blue Marlin w/ Lemon Sauce ', 'no desc', '/common/images/products/default_food_img.jpg', '""', 36, '2018-03-06 10:30:54', 1, 1, '280.00', 100, 1),
+(159, 'Grilled Blue Marlin', 'no desc', '/common/images/products/default_food_img.jpg', '""', 36, '2018-03-06 10:30:54', 1, 1, '280.00', 100, 1),
+(160, 'Plain Blue Marlin ', 'no desc', '/common/images/products/default_food_img.jpg', '""', 36, '2018-03-06 10:30:54', 1, 1, '238.00', 100, 1),
+(161, 'Blue Marlin Wrapped w/ Onion & Tomato', 'no desc', '/common/images/products/default_food_img.jpg', '""', 36, '2018-03-06 10:30:54', 1, 1, '308.00', 100, 1);
 
 --
 -- Indexes for dumped tables
@@ -480,7 +483,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `category_tbl`
 --
 ALTER TABLE `category_tbl`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=35;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT for table `employee_tbl`
 --
@@ -490,12 +493,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 -- AUTO_INCREMENT for table `order_line_tbl`
 --
 ALTER TABLE `order_line_tbl`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=108;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `order_tbl`
 --
 ALTER TABLE `order_tbl`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=49;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `position_tbl`
 --
@@ -505,7 +508,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT for table `product_tbl`
 --
 ALTER TABLE `product_tbl`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=162;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

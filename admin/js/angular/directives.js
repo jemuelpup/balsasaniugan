@@ -263,10 +263,6 @@ app.directive("updateCategory",function(){
 			        <div class="modal-content">
 			            <h4>Edit Category</h4>
 			            <div class="input-field col s12">
-			                <input ng-model="editCategoryFields.id" name="id" value="" type="number" class="validate" maxlength="50" required placeholder="">
-			                <label for="id">id</label>
-			            </div>
-			            <div class="input-field col s12">
 			                <input ng-model="editCategoryFields.name" name="name" value="" type="text" class="validate" maxlength="50" required placeholder="">
 			                <label for="name">name</label>
 			            </div>

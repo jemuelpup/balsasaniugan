@@ -171,6 +171,7 @@ app.controller("productManagement",function($http,$scope,$timeout,dbOperations){
 	$scope.editCategory = function(){
 		// console.log($scope.editCategoryFields);
 		dbOperations.processData("EditCategory",$scope.editCategoryFields).then(function(res){
+			console.log(res);
 			getcategories();
 			$("#edit-category").modal("close");
 		});

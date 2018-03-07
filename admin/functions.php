@@ -53,7 +53,7 @@ function normalizeDataInOrder_tbl($c){
 
 /* delete functions */
 function updateDeleteCategory($c,$d){
-	$sql = $c->prepare("UPDATE category_tbl SET active = 0 WHERE id=? AND fixed=0"); 
+	$sql = $c->prepare("UPDATE category_tbl SET active = 0 WHERE id=?"); 
 	$sql->bind_param('i',$d->id);
 	$msg = ($sql->execute() === TRUE) ? "Deleting category success" : "Error: " . $sql . "<br>" . $c->error;
 	$sql->close();
@@ -144,7 +144,7 @@ function insertProduct($c,$d){
 	$sql->close();
 }
 function updateProduct($c,$d){
-	$adminId = 1;
+	$adminId = $_SESSION["employeeID"];
 	$sql = $c->prepare("UPDATE product_tbl SET name = ?, description = ?, picture = ?, product_code = ?, category_fk = ?, modified_by_fk = ?, price = ? WHERE id = ?");
 	$sql->bind_param('ssssiidi',$d->name,$d->description,$d->picture,$d->product_code,$d->category_fk,$d->$adminId,$d->price,$d->id);
 	$msg = ($sql->execute() === TRUE) ? "Editting Product success" : "Error: " . $sql . "<br>" . $c->error;
@@ -152,14 +152,16 @@ function updateProduct($c,$d){
 }
 //category functions
 function insertCategory($c,$d){
-	$sql = $c->prepare("INSERT INTO category_tbl(name,category_code,description)VALUES(?,?,?)");
-	$sql->bind_param('sss',$d->name,$d->category_code,$d->description);
+	$adminId = $_SESSION["employeeID"];
+	$sql = $c->prepare("INSERT INTO category_tbl(name,category_code,description,modified_by_fk)VALUES(?,?,?,?)");
+	$sql->bind_param('sssi',$d->name,$d->category_code,$d->description,$adminId);
 	$msg = ($sql->execute() === TRUE) ? "Adding Category success" : "Error: " . $sql . "<br>" . $c->error;
 	$sql->close();
 }
 function updateCategory($c,$d){
-	$sql = $c->prepare("UPDATE category_tbl SET name = ?, category_code = ?, description = ? WHERE id = ?");
-	$sql->bind_param('sssi',$d->name,$d->category_code,$d->description,$d->id);
+	$adminId = $_SESSION["employeeID"];
+	$sql = $c->prepare("UPDATE category_tbl SET name = ?, category_code = ?, description = ?,modified_by_fk=? WHERE id = ?");
+	$sql->bind_param('sssii',$d->name,$d->category_code,$d->description,$adminId,$d->id);
 	$msg = ($sql->execute() === TRUE) ? "Editting Category success" : "Error: " . $sql . "<br>" . $c->error;
 	$sql->close();
 }

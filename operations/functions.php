@@ -148,7 +148,7 @@ function insertOrder($c,$d){
 	// print_r($d);
 	
 	$sql = $c->prepare("INSERT INTO order_tbl(seat_number,branch_fk,waiter_fk,customer_name,notes,down_payment)VALUES(?,?,?,?,?,?)");
-	$sql->bind_param('siissd',$d->seatID,$branch,$waiterID,$d->customer_name,$d->orderNotes,$d->downPayment);
+	$sql->bind_param('siissd',$d->seatID,$branch,$waiterID,$d->customerName,$d->orderNotes,$d->downPayment);
 	$dataInserted = ($sql->execute() === TRUE) ? true : false;
 	if($dataInserted){
 		insertOrderLine($c,$d->orderedItems,$sql->insert_id);

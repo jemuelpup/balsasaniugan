@@ -116,7 +116,7 @@ app.controller("employeeManagement",function($scope,dbOperations,$compile){
 	*/
 	getEmployees();
 });
-app.controller("productManagement",function($http,$scope,dbOperations){
+app.controller("productManagement",function($http,$scope,$timeout,dbOperations){
 	/*
 		Variables
 	*/
@@ -141,10 +141,16 @@ app.controller("productManagement",function($http,$scope,dbOperations){
 		dbOperations.views("GetCategory",{}).then(function(res){
 			$scope.categories = res;
 			formatCategoryData();
+			$timeout(function () {
+		       $('select').material_select();
+		    }, 500);
 			// console.log("dumaan sa get categories");
 			// $('select').material_select();
 		});
 	}
+	// $('select').click(function(){
+	// 	$('select').material_select();
+	// });
 	/*
 		$scope functions. These functions are like event handlers
 	*/

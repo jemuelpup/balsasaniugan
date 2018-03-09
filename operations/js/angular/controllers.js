@@ -162,6 +162,7 @@ app.controller("operations",function($scope,dbOperations,$timeout,$window){
 			$window.location.href = "/operations/";
 		}
 	}
+
 	getCategories();
 	getProducts();
 });

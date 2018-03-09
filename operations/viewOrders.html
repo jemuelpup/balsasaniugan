@@ -19,6 +19,25 @@
 		<div class="container">
 			<div class="row">
 				<div class="col s12">
+
+
+					<div id="edit-order-seat-id" class="modal">
+						<form ng-submit="editSeatID()">
+							<div class="modal-content">
+								<h3>SeatID</h3>
+								<div class="input-field col s12">
+									<input ng-model="seatID" name="SeatID" value="" type="text" class="validate" maxlength="50" required>
+									<label for="SeatID">SeatID</label>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button class="waves-effect waves-light btn" ng-click="updateSeatID(seatID)" type="submit">Update</button>
+							</div>
+						</form>
+					</div>
+
+
+
 					<div class="spHeader">
 						<h1>Customer Order List Orders</h1>	
 					</div>
@@ -51,6 +70,7 @@
 								<div class="row">
 									<div class="input-field col s12">
 										<button class="addProduct wave btn z-depth-1" ng-click="addProductsToOrder(order.orderDetails.id)">Add<br>Order</button>
+										<button class="addProduct wave btn z-depth-1" ng-click="updateSeatIDModal(order.orderDetails)">Change Seat ID</button>
 									</div>
 								</div>
 							</div>

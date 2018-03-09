@@ -41,8 +41,16 @@ switch($process){
 	case "UpdateStocks":{updateStocks($conn,$data);}break;
 	case "SetOrderPrinted":{updateOrderPrinted($conn,$data);}break;
 	case "SetOrderVoid":{updateOrderVoid($conn,$data);}break;
-
+	case "EditSeatID":{updateSeatID($conn,$data);}break;
 }
+function updateSeatID($c,$d){
+	$sql = $c->prepare("UPDATE order_tbl SET seat_number = ? WHERE id = ?");
+	$sql->bind_param('si',$d->selectedOrder->seat_number,$d->selectedOrder->id);
+	$msg = ($sql->execute() === TRUE) ? "Order ID $d->id Seat changed" : "Error: " . $sql . "<br>" . $c->error;
+	echo $msg;
+	$sql->close();
+}
+
 function updateOrderVoid($c,$d){
 	$sql = $c->prepare("UPDATE order_tbl SET void_reason=?, void = 1 WHERE (SELECT COUNT(order_id_fk) FROM order_line_tbl WHERE order_id_fk = ? AND served_items > 0) = 0 AND id=? AND printed = 0");
 	$sql->bind_param('sii',$d->voidReason,$d->orderID,$d->orderID);

@@ -24,6 +24,7 @@ app.directive("productList",function(){
 				ng-class="(x.available && x.stock>0) ? '':'outOfStock'">
 					<img src="{{x.picture}}" alt="" class="circle">
 					<span class="title">{{x.name}}</span>
+					<span>PCode: {{x.product_code}}</span>
 					<p class="desc" ng-show="!expand" ng-click="expand = !expand">{{x.description | limitTo: 20 }}{{x.description.length > 20 ? '...' : ''}}</p>
 					<p class="fullDesc" ng-show="expand" ng-click="expand = !expand">{{x.description}}</p>
 					<p class="price">Php. {{x.price}}</p>

@@ -208,6 +208,7 @@ app.controller("productManagement",function($http,$scope,$timeout,dbOperations){
 	function getProducts(){
 		dbOperations.views("GetProduct",{}).then(function(res){
 			$scope.products = res;
+			console.log(res);
 			formatProductData();
 			
 		});

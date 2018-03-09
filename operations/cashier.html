@@ -19,9 +19,11 @@
 			<div class="row">
 				<div class="col s12">
 					<div class="showOnPrint">
-						<h1>Balsa sa niugan Receipt</h1>
-						<p>Customer name: <span class="b">{{orderPrint.orderDetails.customer_name}}</span><br>Order ID: <span class="b">{{orderPrint.orderDetails.id}}</span><br>Seat ID: <span class="b">{{orderPrint.orderDetails.seat_number}}</span></p>
-						<p>Order date: <span class="b">{{orderPrint.orderDetails.received_date | date : "medium"}}</span></p>
+						<h1>Balsa Sa Niugan Receipt</h1>
+						<p class="tac">3 M. Aquino St, Niugan, Malabon, 1470 Metro Manila</p>
+						<p class="tac">VAT REG TIN: 168-985-772-000</p>
+						<p>OR Number <span class="b">{{orderPrint.orderDetails.id}}</span></p>
+						<p>Customer name: <span class="b">{{orderPrint.orderDetails.customer_name}}</span><br>Seat ID: <span class="b">{{orderPrint.orderDetails.seat_number}}</span></p>
 						<p>Order Details</p>
 						<table>
 							<p></p>
@@ -42,9 +44,16 @@
 						<p class="mt0"><span class="b">Discount percentage: </span>{{discountPercentagePrint}}%</p>
 						<p class="mt0"><span class="b">Fixed Discount: </span>Php. {{discountPrint}}</p>
 						<p class="mt0"><span class="b">Total discount: </span>Php. {{totalDiscount}}</p>
-						<p class="mt0"><span class="b">Amount Due: </span>Php. {{totalPricePrint-discountPrint}}</p>
+						<p class="mt0"><span class="b">VAT: </span>Php. {{(totalPricePrint-discountPrint)*.12 | number:2}}</p>
+						<p class="mt0"><span class="b">Vatable: </span>Php. {{(totalPricePrint-discountPrint)*.88 | number:2}}</p>
+						<p class="mt0"><span class="b">Amount Due: </span>Php. {{(totalPricePrint-discountPrint) | number:2}}</p>
 						<p class="mt0"><span class="b">Payment: </span>Php. {{paymentPrint}}</p>
 						<p class="mt0"><span class="b">Change: </span>Php. {{paymentPrint-totalPricePrint+totalDiscount | number:2}}</p>
+						<div class="receiptFooter">
+							<p>THIS SERVES AS YOUR SALES INVOICE.<br>THIS INVOICE SHALL BE VALID FOR FIVE(5) YEARS FROM THE DATE OF PERMIT TO USE</p>
+							<p>Thank you. Please come again</p>
+						</div>
+						<p>Date: <span class="b">{{orderPrint.orderDetails.received_date | date : "medium"}}</span></p>
 					</div>
 
 					<h1>Customer Order List Orders</h1>

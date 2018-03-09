@@ -1,6 +1,8 @@
 app.controller("viewOrders",function($scope,dbOperations,$timeout){
 	$scope.orders = [];
 	var serveLocked = false;
+	var selectedOrder = {}
+	$('.modal').modal();
 
 	function formatData(){
 		($scope.orders).forEach(function(e){
@@ -114,6 +116,21 @@ app.controller("viewOrders",function($scope,dbOperations,$timeout){
 		return order.reduce(function(acc,curr){
 			return acc + parseInt(curr.served_items);
 		},0) > 0;
+	}
+	$scope.updateSeatIDModal = function(orderDetails){
+		selectedOrder = orderDetails;
+		console.log(selectedOrder);
+		$('#edit-order-seat-id').modal('open');
+		// console.log( $('#edit-order-seat-id'));
+	}
+	$scope.updateSeatID = function(newOrderID){
+		selectedOrder.seat_number = newOrderID;
+		dbOperations.processData("EditSeatID",{selectedOrder}).then(function(res){
+			// console.log(res);
+			getOrders();
+			$('#edit-order-seat-id').modal('close');
+		});
+		// console.log(selectedOrder);
 	}
 
 	

@@ -91,6 +91,9 @@ h3{
 	max-height: 400px;
     overflow-y: scroll;
 	li{
+		img{
+			cursor:pointer;
+		}
 		position: relative;
 		z-index: 0;
 		.title{

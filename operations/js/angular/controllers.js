@@ -43,6 +43,7 @@ app.controller("operations",function($scope,dbOperations,$timeout,$window){
 			formatProduct();
 			console.log("nasa GetProducts");
 			console.log($scope.products);
+			$('.modal').modal();
 			
 		});
 	}
@@ -53,22 +54,32 @@ app.controller("operations",function($scope,dbOperations,$timeout,$window){
 		});
 	}
 	/* Scope functions */
-	$scope.addProductOrder = function(id,name,qty,price,p_code){
+	$scope.addProductOrder = function(id,name,qty,price,p_code,stock){
 		if(qty==null){
 			qty = 1
 		}
-		if(dbOperations.isConvertibleToInteger(qty)){
-			$scope.orderList.push({id:id,name:name,quantity:qty,price:price,productCode:p_code});
-			console.log({id:id,name:name,quantity:qty,price:price,productCode:p_code});
+		if(stock>=qty){
+			if(dbOperations.isConvertibleToInteger(qty)){
+				$scope.orderList.push({id:id,name:name,quantity:qty,price:price,productCode:p_code});
+				console.log({id:id,name:name,quantity:qty,price:price,productCode:p_code});
+			}
+			else{
+				alert("Invalid data input");
+			}
 		}
 		else{
-			alert("invalid dat input");
+			alert("Ordered quantity is greater than the available stock.");
 		}
 	}
 	$scope.updateStocks = function(prodID,stock){
-		dbOperations.processData("UpdateStocks",{prodID: prodID,stock:stock}).then(function(res){
-			getProducts();
-		});
+		if(stock>-1){
+			dbOperations.processData("UpdateStocks",{prodID: prodID,stock:stock}).then(function(res){
+				getProducts();
+			});
+		}
+		else{
+			alert("Available stocks cannot be negative");
+		}
 	}
 	$scope.setProductNotAvailable = function(prodID){
 		dbOperations.processData("SetProductNotAvailable",{prodID: prodID}).then(function(res){
@@ -129,7 +140,7 @@ app.controller("operations",function($scope,dbOperations,$timeout,$window){
 			}
 		}
 		else{
-			alert("Please add the seat ID");
+			alert("Please add the table number");
 		}
 	}
 	$scope.addToOrderLine = function(){
@@ -165,6 +176,15 @@ app.controller("operations",function($scope,dbOperations,$timeout,$window){
 
 	getCategories();
 	getProducts();
+
+
+	$scope.showPicture = function(src,name,desc){
+		$scope.zoomedImg = src;
+		$scope.zoomedImgName = name;
+		$scope.zoomedImgDesc = desc;
+		console.log(src);
+		$('#modal1').modal('open');
+	}
 });
 
 app.controller("viewOrderLine",function($scope,dbOperations){

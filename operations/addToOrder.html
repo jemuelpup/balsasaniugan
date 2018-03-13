@@ -8,6 +8,7 @@
 	<link href="/plugins/materialize/" rel="stylesheet">
 	<link rel="stylesheet" href="/plugins/materialize/css/materialFont.css">
 	<link rel="stylesheet" href="/operations/css/style.css">
+	<link rel="stylesheet" href="/common/css/common.css">
 	<script src="/plugins/angular/angular.min.js"></script>
 </head>
 
@@ -16,21 +17,25 @@
 		<div class="container" ng-controller="viewOrderLine">
 			<div class="row">
 				<div class="col s12">
-					<h1>ADD TO ORDER</h1>
-					<div class="searchFields">
-						<button class="waves-effect waves-light btn">categories</button>
-						<button class="waves-effect waves-light btn">ordered items</button>
-					</div>			
+					<div class="spHeader">
+						<h1>Add to order</h1>	
+						<div class="searchFields showInSP">
+							<i class="material-icons categoryListTrigger" ng-init="showCategories=false" ng-click="showCategories=(!showCategories);showOrderedItems=false">format_list_bulleted</i>
+							<i class="material-icons orderedItemListTrigger" ng-init="showOrderedItems=false" ng-click="showOrderedItems=(!showOrderedItems);showCategories=false">shopping_cart</i>
+						</div>
+					</div>
 				</div>
 				<div class="col s12">
 					<div class="row">
-						<div class="col m3 s12">
+						<div class="col m3 s12 slideLeftOnSP" ng-class="showCategories ? 'active':''">
 							<category-list></category-list>
 						</div>
 						<div class="col m5 s12">
-							<product-list></product-list>
+							<div class="productListContainer">
+								<product-list></product-list>
+							</div>
 						</div>
-						<div class="col m4 s12">
+						<div class="col m4 s12 slideRightOnSP" ng-class="showOrderedItems ? 'active':''">
 							<order-list></order-list>
 							<div class="row">
 								<div class="input-field col s12">
@@ -38,16 +43,40 @@
 								</div>
 							</div>
 						</div>
+						<button class="back btn-floating btn-medium waves-effect waves-light z-depth-2" ng-click="backToMainPage()"><i class="material-icons">arrow_back</i></button>
 					</div>
 				</div>
 			</div>
+			<div id="sidenav-overlay" ng-class="showCategories || showOrderedItems ? 'active' : ''" ng-click="showCategories = false;showOrderedItems = false;"></div>
 		</div>
+
+				<!--  -->
+		<div id="modal1" class="modal">
+			<div class="modal-header">
+			  <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">X</a>
+			</div>
+			<div class="modal-content">
+				<div class="row">
+			   		<div class="col s12">
+			   			<p class="enlargedImage"><img src="{{zoomedImg}}" alt="{{zoomedImgName}}"></p>
+		  			</div>
+				</div>
+			</div>
+			<div class="modal-header">
+			   	<div class="row">
+			   		<div class="col s12">
+			   			<p>{{zoomedImgName}}</p>
+						<p>{{zoomedImgDesc}}</p>
+			   		</div>
+			   	</div>
+			</div>
+		</div>
+		<!--  -->
 	</main>
 	<script src="/plugins/jquery/jquery-3.2.1.min.js"></script>
 	<script src="/plugins/materialize/js/materialize.min.js"></script>
 	<script src="/operations/js/angular/modules.js"></script>
 	<script src="/operations/js/angular/service.js"></script>
-
 	<script src="/operations/js/angular/directives.js"></script>
 	<script src="/operations/js/angular/controllers.js"></script>
 	

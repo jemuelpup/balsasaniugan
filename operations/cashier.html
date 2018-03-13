@@ -23,7 +23,7 @@
 						<p class="tac">3 M. Aquino St, Niugan, Malabon, 1470 Metro Manila</p>
 						<p class="tac">VAT REG TIN: 168-985-772-000</p>
 						<p>OR Number <span class="b">{{orderPrint.orderDetails.id}}</span></p>
-						<p>Customer name: <span class="b">{{orderPrint.orderDetails.customer_name}}</span><br>Seat ID: <span class="b">{{orderPrint.orderDetails.seat_number}}</span></p>
+						<p>Customer name: <span class="b">{{orderPrint.orderDetails.customer_name}}</span><br>Table #: <span class="b">{{orderPrint.orderDetails.seat_number}}</span></p>
 						<p>Order Details</p>
 						<table>
 							<p></p>
@@ -40,14 +40,14 @@
 								<td>{{oLine.price*oLine.quantity}}</td>
 							</tr>
 						</table>
-						<p class="mt0"><span class="b">TotalPrice: </span>Php. {{totalPricePrint}}</p>
+						<p class="mt0"><span class="b">TotalPrice: </span>Php. {{totalPricePrint | number:2}}</p>
 						<p class="mt0"><span class="b">Discount percentage: </span>{{discountPercentagePrint}}%</p>
 						<p class="mt0"><span class="b">Fixed Discount: </span>Php. {{discountPrint}}</p>
-						<p class="mt0"><span class="b">Total discount: </span>Php. {{totalDiscount}}</p>
-						<p class="mt0"><span class="b">VAT: </span>Php. {{(totalPricePrint-discountPrint)*.12 | number:2}}</p>
-						<p class="mt0"><span class="b">Vatable: </span>Php. {{(totalPricePrint-discountPrint)*.88 | number:2}}</p>
+						<p class="mt0"><span class="b">Total discount: </span>Php. {{totalDiscount | number:2}}</p>
+						<p class="mt0"><span class="b">VAT: </span>Php. {{(totalPricePrint-totalDiscount)*.12 | number:2}}</p>
+						<p class="mt0"><span class="b">Vatable: </span>Php. {{(totalPricePrint-totalDiscount)*.88 | number:2}}</p>
 						<p class="mt0"><span class="b">Amount Due: </span>Php. {{(totalPricePrint-discountPrint) | number:2}}</p>
-						<p class="mt0"><span class="b">Payment: </span>Php. {{paymentPrint}}</p>
+						<p class="mt0"><span class="b">Payment: </span>Php. {{paymentPrint | number:2}}</p>
 						<p class="mt0"><span class="b">Change: </span>Php. {{paymentPrint-totalPricePrint+totalDiscount | number:2}}</p>
 						<div class="receiptFooter">
 							<p>THIS SERVES AS YOUR SALES INVOICE.<br>THIS INVOICE SHALL BE VALID FOR FIVE(5) YEARS FROM THE DATE OF PERMIT TO USE</p>
@@ -57,11 +57,11 @@
 					</div>
 
 					<h1>Customer Order List Orders</h1>
-						<input id="seat_number" ng-model="seatNumberSearch" type="text" class="validate" placeholder="Seat ID">
+						<input id="seat_number" ng-model="seatNumberSearch" type="text" class="validate" placeholder="Table #">
 						
 					<ul class="orderList">
 						<li class="order" ng-repeat="order in orders | seatIDFilter: 'orderDetails.seat_number' : seatNumberSearch">
-							<p>Customer name: <span class="b">{{order.orderDetails.customer_name}}</span><br>Order ID: <span class="b">{{order.orderDetails.id}}</span><br>Seat ID: <span class="b">{{order.orderDetails.seat_number}}</span></p>
+							<p>Customer name: <span class="b">{{order.orderDetails.customer_name}}</span><br>Order ID: <span class="b">{{order.orderDetails.id}}</span><br>Table #: <span class="b">{{order.orderDetails.seat_number}}</span></p>
 							<div>
 								<p>Order Details</p>
 								<table>
@@ -83,10 +83,10 @@
 							</div>
 							<div class="orderInfoBlock">
 								<p class="orderNotes mt0"><span class="b">Notes: </span>{{order.orderDetails.notes}}</p>
-								<p class="mt0"><span class="b">TotalPrice: </span>Php. {{totalPrice = getTotalPrice(order.orderLine)}}</p>
+								<p class="mt0"><span class="b">TotalPrice: </span>Php. {{totalPrice = getTotalPrice(order.orderLine) | number:2}}</p>
 								<p class="mt0"><span class="b">discount: </span>Php. {{discount = (totalPrice*(+order.orderDetails.discount_percentage)/100)+order.orderDetails.discount | number:2}}</p>
 								<!-- (+) in variable is used to convert anything to number -->
-								<p class="mt0"><span class="b">Payment: </span>Php. {{order.orderDetails.payment}}</p>
+								<p class="mt0"><span class="b">Payment: </span>Php. {{order.orderDetails.payment | number:2}}</p>
 								<p class="mt0"><span class="b">Change: </span>Php. {{order.orderDetails.payment-totalPrice+discount | number:2}}</p>
 								<div class="row">
 									<div class="input-field col m6 s12">

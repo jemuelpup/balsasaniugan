@@ -72,6 +72,8 @@ h3 {
   .productList li {
     position: relative;
     z-index: 0; }
+    .productList li img {
+      cursor: pointer; }
     .productList li .title {
       max-width: 154px;
       text-transform: capitalize;

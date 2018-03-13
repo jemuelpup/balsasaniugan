@@ -40,7 +40,7 @@
 									<li class="collection-item avatar" 
 									ng-repeat="x in products | filter:productFilter | filter:{category_fk:selectedCategory}" 
 									ng-init="expand=0">
-										<img src="{{x.picture}}" alt="" class="circle">
+										<img src="{{x.picture}}" ng-click="showPicture(x.picture,x.name,x.description)" alt="" class="circle">
 										<span class="title">{{x.name}}</span>
 										<p class="desc" ng-show="!expand" ng-click="expand = !expand">{{x.description | limitTo: 20 }}{{x.description.length > 20 ? '...' : ''}}</p>
 										<p class="fullDesc" ng-show="expand" ng-click="expand = !expand">{{x.description}}</p>
@@ -56,6 +56,23 @@
 							<!-- <product-list></product-list> -->
 						</div>
 						<a href="/operations/" class="back btn-floating btn-medium waves-effect waves-light z-depth-2"><i class="material-icons">arrow_back</i></a>
+					</div>
+				</div>
+				<div id="modal1" class="modal">
+					<div class="modal-content">
+						<div class="row">
+					   		<div class="col s12">
+					   			<p class="enlargedImage"><img src="{{zoomedImg}}" alt="{{zoomedImgName}}"></p>
+				  			</div>
+						</div>
+					</div>
+					<div class="modal-header">
+					   	<div class="row">
+					   		<div class="col s12">
+					   			<p>{{zoomedImgName}}</p>
+								<p>{{zoomedImgDesc}}</p>
+					   		</div>
+					   	</div>
 					</div>
 				</div>
 			</div>

@@ -412,24 +412,29 @@ app.controller("reports",function($scope,dbOperations){
 	}
 	function getTotalSales(){
 		$scope.sales = ($scope.transactions).reduce(function(acc,cur){
-			return acc+(cur.orderDetails.payment+cur.orderDetails.down_payment);
+			return acc+(cur.orderDetails.total_amount);
 		},0);
 	}
 	$scope.getTransactionData = function(){
-		console.log("pumasok here");
-		dbOperations.views("GetTransactionsFromTo",{
-			from:$scope.fromdateInput,
-			to:$scope.todateInput
-		}).then(function(res){
-			console.log(res);
-			$scope.transactions = res;
-			formatData();
-			getTotalSales();
-		});
+		if($scope.fromdateInput<$scope.todateInput){
+			dbOperations.views("GetTransactionsFromTo",{
+				from:$scope.fromdateInput,
+				to:$scope.todateInput
+			}).then(function(res){
+				console.log(res);
+				$scope.transactions = res;
+				formatData();
+				getTotalSales();
+			});
+		}
+		else{
+			alert("Invalid Date Input.");
+		}
 	}
 	$scope.getTransactionData();
 });
 app.controller("userInterface",function($scope,$http){
+	$scope.tabTitle = "Reports";
 	$scope.sideNavActive = false;
 
 	function hideSections(){
@@ -438,16 +443,16 @@ app.controller("userInterface",function($scope,$http){
 		$scope.buisnessManagement = false;
 		$scope.reports = false;
 	}
-	$scope.showemployeeManagement = function(){
+	$scope.showemployeeManagement = function(){$scope.tabTitle ="Employee management";
 		hideSections();$scope.sideNavActive = false;$scope.employeeManagement = true;
 	}
-	$scope.showproductManagement = function(){
+	$scope.showproductManagement = function(){$scope.tabTitle ="Product management";
 		hideSections();$scope.sideNavActive = false;$scope.productManagement = true;
 	}
-	$scope.showbuisnessManagement = function(){
+	$scope.showbuisnessManagement = function(){$scope.tabTitle ="Buisness management";
 		hideSections();$scope.sideNavActive = false;$scope.buisnessManagement = true;
 	}
-	$scope.showreports = function(){
+	$scope.showreports = function(){$scope.tabTitle ="Reports";
 		hideSections();$scope.sideNavActive = false;$scope.reports = true;
 	}
 	$scope.reports = true;

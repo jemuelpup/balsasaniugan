@@ -44,7 +44,7 @@
 					<div class="orderListContainer">
 					<ul class="orderList">
 						<li class="order" ng-repeat="order in orders">
-							<p>Customer name: <span class="b">{{order.orderDetails.customer_name}}</span><br>Order ID: <span class="b">{{order.orderDetails.id}}</span><br>Seat ID: <span class="b">{{order.orderDetails.seat_number}}</span></p>
+							<p>Customer name: <span class="b">{{order.orderDetails.customer_name}}</span><br>Order ID: <span class="b">{{order.orderDetails.id}}</span><br>Table #: <span class="b">{{order.orderDetails.seat_number}}</span></p>
 							<div>
 								<p>Order Details</p>
 								<table>
@@ -70,7 +70,7 @@
 								<div class="row">
 									<div class="input-field col s12">
 										<button class="addProduct wave btn z-depth-1" ng-click="addProductsToOrder(order.orderDetails.id)">Add<br>Order</button>
-										<button class="addProduct wave btn z-depth-1" ng-click="updateSeatIDModal(order.orderDetails)">Change Seat ID</button>
+										<button class="addProduct wave btn z-depth-1" ng-click="updateSeatIDModal(order.orderDetails)">Change Table #</button>
 									</div>
 								</div>
 							</div>

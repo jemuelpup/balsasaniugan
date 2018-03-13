@@ -23,10 +23,6 @@
 							<i class="material-icons orderedItemListTrigger" ng-init="showOrderedItems=false" ng-click="showOrderedItems=(!showOrderedItems);showCategories=false">shopping_cart</i>
 						</div>
 					</div>
-					<!-- <div class="searchFields showInSP">
-						
-						<button class="common waves-effect waves-light btn" ng-click="showOrderedItems=true">ordered items</button>
-					</div>			 -->
 				</div>
 				<div class="col s12">
 					<div class="row">
@@ -42,10 +38,10 @@
 							<order-list></order-list>
 							<div class="row">
 								<div class="input-field col s12">
-							    <input class="mb0" name="customer_name" type="text" ng-model="customerName" placeholder="Customer Name">
-							    <input class="mb0" name="order_notes" type="text" ng-model="orderNotes" placeholder="Order Notes">
-							    <input name="seat_id" type="text" ng-model="seatID" placeholder="Seat ID">
-							    <input name="down_payment" type="number" ng-model="downPayment" placeholder="Down Payment">
+								<input class="mb0" name="customer_name" type="text" ng-model="customerName" placeholder="Customer Name">
+								<input class="mb0" name="order_notes" type="text" ng-model="orderNotes" placeholder="Order Notes">
+								<input name="seat_id" type="text" ng-model="seatID" placeholder="Table #">
+								<input name="down_payment" type="number" ng-model="downPayment" placeholder="Down Payment">
 									<button class="waves-effect waves-light btn" ng-click="saveOrders()">Save</button>
 								</div>
 							</div>
@@ -56,15 +52,30 @@
 			</div>
 		</div>
 		<div id="sidenav-overlay" ng-class="showCategories || showOrderedItems ? 'active' : ''" ng-click="sideNavOverlayClicked()"></div>
+		<!--  -->
+		<div id="modal1" class="modal">
+			<div class="modal-content">
+				<div class="row">
+			   		<div class="col s12">
+			   			<p class="enlargedImage"><img src="{{zoomedImg}}" alt="{{zoomedImgName}}"></p>
+		  			</div>
+				</div>
+			</div>
+			<div class="modal-header">
+			   	<div class="row">
+			   		<div class="col s12">
+			   			<p>{{zoomedImgName}}</p>
+						<p>{{zoomedImgDesc}}</p>
+			   		</div>
+			   	</div>
+			</div>
+		</div>
+		<!--  -->
 	</main>
 	<script src="/plugins/jquery/jquery-3.2.1.min.js"></script>
 	<script src="/plugins/materialize/js/materialize.min.js"></script>
-	<script>
-		
-	</script>
 	<script src="/operations/js/angular/modules.js"></script>
 	<script src="/operations/js/angular/service.js"></script>
-
 	<script src="/operations/js/angular/directives.js"></script>
 	<script src="/operations/js/angular/controllers.js"></script>
 	

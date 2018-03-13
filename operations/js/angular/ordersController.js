@@ -60,7 +60,10 @@ app.controller("viewOrders",function($scope,dbOperations,$timeout){
 	}
 	getOrders();
 	$scope.setDataToPrint = function(order,totalPrice,discountPercentage,discountAmount,payment,discount){
-		if(totalPrice-discount<=payment){
+		totalDiscount=totalPrice-(totalPrice*discountPercentage)*discountAmount;
+		console.log(discount)
+		console.log(totalPrice-discount+"<="+payment)
+		if(totalPrice-totalDiscount<=payment){
 			$scope.orderPrint = order;
 			$scope.totalPricePrint = totalPrice;
 			$scope.discountPercentagePrint = discountPercentage;
@@ -132,8 +135,6 @@ app.controller("viewOrders",function($scope,dbOperations,$timeout){
 		});
 		// console.log(selectedOrder);
 	}
-
-	
 });
 app.controller("cashier",function($scope,dbOperations){
 	dbOperations.views("GetEmployeeAccess",{}).then(function(res){

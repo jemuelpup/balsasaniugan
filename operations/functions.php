@@ -52,8 +52,9 @@ function updateSeatID($c,$d){
 }
 
 function updateOrderVoid($c,$d){
-	$sql = $c->prepare("UPDATE order_tbl SET void_reason=?, void = 1 WHERE (SELECT COUNT(order_id_fk) FROM order_line_tbl WHERE order_id_fk = ? AND served_items > 0) = 0 AND id=? AND printed = 0");
-	$sql->bind_param('sii',$d->voidReason,$d->orderID,$d->orderID);
+	$empId = $_SESSION["employeeID"];
+	$sql = $c->prepare("UPDATE order_tbl SET void_reason=?, void = 1, cashier_fk=? WHERE (SELECT COUNT(order_id_fk) FROM order_line_tbl WHERE order_id_fk = ? AND served_items > 0) = 0 AND id=? AND printed = 0");
+	$sql->bind_param('siii',$d->voidReason,$empId,$d->orderID,$d->orderID);
 	$msg = "error in mysql";
 	if($sql->execute() === TRUE){
 		if($sql->affected_rows == 0){
@@ -67,8 +68,9 @@ function updateOrderVoid($c,$d){
 	$sql->close();
 }
 function setOrderPaid($c,$d){
-	$sql = $c->prepare("UPDATE order_tbl SET done=1 WHERE id = ? AND printed=1");
-	$sql->bind_param('i',$d->orderID);
+	$empId = $_SESSION["employeeID"];
+	$sql = $c->prepare("UPDATE order_tbl SET done=1, cashier_fk=? WHERE id = ? AND printed=1");
+	$sql->bind_param('ii',$empId,$d->orderID);
 	$msg = ($sql->execute() === TRUE) ? "Order ID $d->orderID Paid" : "Error: " . $sql . "<br>" . $c->error;
 	$sql->close();
 }

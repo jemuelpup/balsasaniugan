@@ -155,7 +155,7 @@ app.directive("addPosition",function(){
 	return {
 		template:`
 			<div class="position">
-				<h3>position_tbl</h3>
+				<h3>Positions</h3>
 				<form ng-submit="addPosition()">
 					<div class="input-field col s12">
 					    <input ng-model="positionFields.name" name="name" value="" type="text" class="validate" maxlength="50" required>

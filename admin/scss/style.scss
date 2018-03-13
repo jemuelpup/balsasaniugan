@@ -157,6 +157,24 @@ h4{
 		display:block;
 	}
 }
+.reportDateInput{
+	.inputField{
+		float: left;
+		margin-right: 20px;
+		p{
+			margin: 0;
+			b{
+				margin-right: 10px;
+			}
+			input{
+				width: 150px;
+			}
+		}
+		button{
+			margin-top: 10px;
+		}
+	}
+}
 @media screen and (max-width: 900px) {
 	h2{
 		font-size: 2.2rem;

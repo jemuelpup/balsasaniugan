@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 06, 2018 at 11:43 AM
+-- Generation Time: Mar 14, 2018 at 09:58 AM
 -- Server version: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -177,7 +177,38 @@ CREATE TABLE IF NOT EXISTS `order_line_tbl` (
   `price` decimal(11,2) NOT NULL,
   `served` tinyint(4) NOT NULL DEFAULT '0',
   `served_items` int(11) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `order_line_tbl`
+--
+
+INSERT INTO `order_line_tbl` (`id`, `order_id_fk`, `product_id_fk`, `name`, `code`, `quantity`, `price`, `served`, `served_items`) VALUES
+(1, 1, 161, 'Blue Marlin Wrapped w/ Onion & Tomato', '""', 1, '308.00', 0, 1),
+(2, 1, 160, 'Plain Blue Marlin ', '""', 1, '238.00', 0, 1),
+(3, 1, 159, 'Grilled Blue Marlin', '""', 1, '280.00', 0, 1),
+(4, 2, 158, 'Blue Marlin w/ Lemon Sauce ', '""', 1, '280.00', 0, 1),
+(5, 2, 157, 'Blue Marlin w/ Butter & Garlic ', '""', 1, '280.00', 0, 1),
+(6, 2, 156, 'Blue Marlin In Spicy Veggetables ', '""', 1, '280.00', 0, 1),
+(7, 2, 153, 'Tilapia Deep Fried w/ Garlic', '""', 1, '130.00', 0, 1),
+(8, 2, 154, 'Tilapia Pinaputok w/ Onion & Tomato', '""', 1, '198.00', 0, 1),
+(9, 2, 155, 'Sizzling Blue Marlin ', '""', 10, '280.00', 0, 10),
+(10, 3, 152, 'Tilapia w/ Mayonnaise & Cheese', '""', 1, '190.00', 0, 1),
+(11, 3, 151, 'Tilapia w/ Oyster & Garlic', '""', 1, '180.00', 0, 1),
+(12, 3, 151, 'Tilapia w/ Oyster & Garlic', '""', 1, '180.00', 0, 1),
+(13, 3, 151, 'Tilapia w/ Oyster & Garlic', '""', 1, '180.00', 0, 1),
+(14, 3, 151, 'Tilapia w/ Oyster & Garlic', '""', 1, '180.00', 0, 1),
+(15, 3, 152, 'Tilapia w/ Mayonnaise & Cheese', '""', 1, '190.00', 0, 1),
+(16, 3, 152, 'Tilapia w/ Mayonnaise & Cheese', '""', 1, '190.00', 0, 1),
+(17, 4, 150, 'Steamed Tilapia', '""', 1, '170.00', 0, 0),
+(18, 4, 150, 'Steamed Tilapia', '""', 1, '170.00', 0, 0),
+(19, 4, 150, 'Steamed Tilapia', '""', 1, '170.00', 0, 0),
+(20, 5, 161, 'Blue Marlin Wrapped w/ Onion & Tomato', '""', 1, '308.00', 0, 0),
+(21, 5, 161, 'Blue Marlin Wrapped w/ Onion & Tomato', '""', 1, '308.00', 0, 0),
+(22, 5, 161, 'Blue Marlin Wrapped w/ Onion & Tomato', '""', 1, '308.00', 0, 0),
+(23, 5, 161, 'Blue Marlin Wrapped w/ Onion & Tomato', '""', 1, '308.00', 0, 0),
+(24, 6, 155, 'Sizzling Blue Marlin ', '""', 1, '280.00', 0, 0),
+(25, 7, 155, 'Sizzling Blue Marlin ', '""', 1, '280.00', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -204,7 +235,20 @@ CREATE TABLE IF NOT EXISTS `order_tbl` (
   `discount_percentage` double NOT NULL DEFAULT '0',
   `printed` tinyint(1) NOT NULL DEFAULT '0',
   `done` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `order_tbl`
+--
+
+INSERT INTO `order_tbl` (`id`, `order_date`, `seat_number`, `cashier_fk`, `branch_fk`, `waiter_fk`, `void`, `total_amount`, `customer_name`, `payment`, `notes`, `down_payment`, `received_date`, `void_reason`, `discount`, `discount_percentage`, `printed`, `done`) VALUES
+(1, '2018-03-09 01:09:25', '12', NULL, 1, 1, 0, '826.00', '', '1000.00', '', '0.00', '2018-03-13 18:29:32', NULL, 0.00, 0, 1, 1),
+(2, '2018-03-13 10:29:16', '1', NULL, 1, 1, 0, '3968.00', '', '500.25', '', '0.00', '2018-03-13 20:02:02', NULL, 0.00, 50, 1, 1),
+(3, '2018-03-13 12:00:49', '5', 3, 1, 1, 0, '1290.00', '', '1300.00', '', '0.00', '2018-03-13 20:36:34', NULL, 0.00, 0, 1, 1),
+(4, '2018-03-13 12:01:46', '5', 3, 1, 1, 1, '0.00', '', '0.00', '', '0.00', NULL, 'walang bayad', 0.00, 0, 0, 0),
+(5, '2018-03-13 12:05:48', '1', NULL, 1, 1, 0, '0.00', '', '0.00', '', '0.00', NULL, NULL, 0.00, 0, 0, 0),
+(6, '2018-03-13 12:06:34', '6', NULL, 1, 1, 0, '0.00', '', '0.00', '', '0.00', NULL, NULL, 0.00, 0, 0, 0),
+(7, '2018-03-13 12:07:15', '3', NULL, 1, 1, 0, '0.00', '', '0.00', '', '0.00', NULL, NULL, 0.00, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -256,11 +300,11 @@ CREATE TABLE IF NOT EXISTS `product_tbl` (
 --
 
 INSERT INTO `product_tbl` (`id`, `name`, `description`, `picture`, `product_code`, `category_fk`, `date_modified`, `modified_by_fk`, `active`, `price`, `stock`, `available`) VALUES
-(1, 'Sinigang Bangus Belly', 'no desc', '/common/images/products/default_food_img.jpg', '""', 2, '2018-03-06 09:46:48', 1, 1, '260.00', 100, 1),
-(2, 'Sizzling Bangus Belly (4pcs)', 'no desc', '/common/images/products/default_food_img.jpg', '""', 2, '2018-03-06 09:46:48', 1, 1, '220.00', 100, 1),
-(3, 'Bangus La Pobre', 'no desc', '/common/images/products/default_food_img.jpg', '""', 2, '2018-03-06 09:46:48', 1, 1, '240.00', 100, 1),
-(4, 'Bangus w/ Tomato & Cheese Wrap', 'no desc', '/common/images/products/default_food_img.jpg', '""', 2, '2018-03-06 09:46:48', 1, 1, '250.00', 100, 1),
-(5, 'Rellenong Bangus', 'no desc', '/common/images/products/default_food_img.jpg', '""', 2, '2018-03-06 09:46:48', 1, 1, '290.00', 100, 1),
+(1, 'Sinigang Bangus Belly', 'no desc', '/common/images/products/default_food_img.jpg', 'B01', 2, '2018-03-06 09:46:48', 0, 1, '260.00', 0, 1),
+(2, 'Sizzling Bangus Belly (4pcs)', 'no desc', '/common/images/products/default_food_img.jpg', 'B02', 2, '2018-03-06 09:46:48', 0, 1, '220.00', 100, 1),
+(3, 'Bangus La Pobre', 'no desc', '/common/images/products/default_food_img.jpg', 'B03', 2, '2018-03-06 09:46:48', 0, 1, '240.00', 100, 1),
+(4, 'Bangus w/ Tomato & Cheese Wrap', 'no desc', '/common/images/products/default_food_img.jpg', 'B04', 2, '2018-03-06 09:46:48', 0, 1, '250.00', 100, 1),
+(5, 'Rellenong Bangus', 'no desc', '/common/images/products/default_food_img.jpg', 'B05', 2, '2018-03-06 09:46:48', 0, 1, '290.00', 100, 1),
 (6, 'Kare Kare', 'no desc', '/common/images/products/default_food_img.jpg', '""', 3, '2018-03-06 09:46:48', 1, 1, '350.00', 100, 1),
 (7, 'Beef Steak', 'no desc', '/common/images/products/default_food_img.jpg', '""', 3, '2018-03-06 09:46:48', 1, 1, '150.00', 100, 1),
 (8, 'Beef Tapa', 'no desc', '/common/images/products/default_food_img.jpg', '""', 3, '2018-03-06 09:46:48', 1, 1, '140.00', 100, 1),
@@ -405,18 +449,18 @@ INSERT INTO `product_tbl` (`id`, `name`, `description`, `picture`, `product_code
 (147, 'Mixed Sushi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 21, '2018-03-06 10:22:27', 1, 1, '625.00', 100, 1),
 (148, 'Tilapia Sisig', 'no desc', '/common/images/products/default_food_img.jpg', '""', 35, '2018-03-06 10:30:54', 1, 1, '180.00', 100, 1),
 (149, 'Sizzling Tilapia', 'no desc', '/common/images/products/default_food_img.jpg', '""', 35, '2018-03-06 10:30:54', 1, 1, '170.00', 100, 1),
-(150, 'Steamed Tilapia', 'no desc', '/common/images/products/default_food_img.jpg', '""', 35, '2018-03-06 10:30:54', 1, 1, '170.00', 100, 1),
-(151, 'Tilapia w/ Oyster & Garlic', 'no desc', '/common/images/products/default_food_img.jpg', '""', 35, '2018-03-06 10:30:54', 1, 1, '180.00', 100, 1),
-(152, 'Tilapia w/ Mayonnaise & Cheese', 'no desc', '/common/images/products/default_food_img.jpg', '""', 35, '2018-03-06 10:30:54', 1, 1, '190.00', 100, 1),
-(153, 'Tilapia Deep Fried w/ Garlic', 'no desc', '/common/images/products/default_food_img.jpg', '""', 35, '2018-03-06 10:30:54', 1, 1, '130.00', 100, 1),
-(154, 'Tilapia Pinaputok w/ Onion & Tomato', 'no desc', '/common/images/products/default_food_img.jpg', '""', 35, '2018-03-06 10:30:54', 1, 1, '198.00', 100, 1),
-(155, 'Sizzling Blue Marlin ', 'no desc', '/common/images/products/default_food_img.jpg', '""', 36, '2018-03-06 10:30:54', 1, 1, '280.00', 100, 1),
-(156, 'Blue Marlin In Spicy Veggetables ', 'no desc', '/common/images/products/default_food_img.jpg', '""', 36, '2018-03-06 10:30:54', 1, 1, '280.00', 100, 1),
-(157, 'Blue Marlin w/ Butter & Garlic ', 'no desc', '/common/images/products/default_food_img.jpg', '""', 36, '2018-03-06 10:30:54', 1, 1, '280.00', 100, 1),
-(158, 'Blue Marlin w/ Lemon Sauce ', 'no desc', '/common/images/products/default_food_img.jpg', '""', 36, '2018-03-06 10:30:54', 1, 1, '280.00', 100, 1),
-(159, 'Grilled Blue Marlin', 'no desc', '/common/images/products/default_food_img.jpg', '""', 36, '2018-03-06 10:30:54', 1, 1, '280.00', 100, 1),
-(160, 'Plain Blue Marlin ', 'no desc', '/common/images/products/default_food_img.jpg', '""', 36, '2018-03-06 10:30:54', 1, 1, '238.00', 100, 1),
-(161, 'Blue Marlin Wrapped w/ Onion & Tomato', 'no desc', '/common/images/products/default_food_img.jpg', '""', 36, '2018-03-06 10:30:54', 1, 1, '308.00', 100, 1);
+(150, 'Steamed Tilapia', 'no desc', '/common/images/products/default_food_img.jpg', '""', 35, '2018-03-06 10:30:54', 1, 1, '170.00', 97, 1),
+(151, 'Tilapia w/ Oyster & Garlic', 'no desc', '/common/images/products/default_food_img.jpg', '""', 35, '2018-03-06 10:30:54', 1, 1, '180.00', 96, 1),
+(152, 'Tilapia w/ Mayonnaise & Cheese', 'no desc', '/common/images/products/default_food_img.jpg', '""', 35, '2018-03-06 10:30:54', 1, 1, '190.00', 97, 1),
+(153, 'Tilapia Deep Fried w/ Garlic', 'no desc', '/common/images/products/default_food_img.jpg', '""', 35, '2018-03-06 10:30:54', 1, 1, '130.00', 99, 1),
+(154, 'Tilapia Pinaputok w/ Onion & Tomato', 'no desc', '/common/images/products/default_food_img.jpg', '""', 35, '2018-03-06 10:30:54', 1, 1, '198.00', 99, 1),
+(155, 'Sizzling Blue Marlin ', 'no desc', '/common/images/products/default_food_img.jpg', '""', 36, '2018-03-06 10:30:54', 1, 1, '280.00', 88, 1),
+(156, 'Blue Marlin In Spicy Veggetables ', 'no desc', '/common/images/products/default_food_img.jpg', '""', 36, '2018-03-06 10:30:54', 1, 1, '280.00', 99, 1),
+(157, 'Blue Marlin w/ Butter & Garlic ', 'no desc', '/common/images/products/default_food_img.jpg', '""', 36, '2018-03-06 10:30:54', 1, 1, '280.00', 99, 1),
+(158, 'Blue Marlin w/ Lemon Sauce ', 'no desc', '/common/images/products/default_food_img.jpg', '""', 36, '2018-03-06 10:30:54', 1, 1, '280.00', 99, 1),
+(159, 'Grilled Blue Marlin', 'no desc', '/common/images/products/default_food_img.jpg', '""', 36, '2018-03-06 10:30:54', 1, 1, '280.00', 99, 1),
+(160, 'Plain Blue Marlin ', 'no desc', '/common/images/products/default_food_img.jpg', '""', 36, '2018-03-06 10:30:54', 1, 1, '238.00', 99, 1),
+(161, 'Blue Marlin Wrapped w/ Onion & Tomato', 'no desc', '/common/images/products/default_food_img.jpg', '""', 36, '2018-03-06 10:30:54', 1, 1, '308.00', 95, 1);
 
 --
 -- Indexes for dumped tables
@@ -493,12 +537,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 -- AUTO_INCREMENT for table `order_line_tbl`
 --
 ALTER TABLE `order_line_tbl`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT for table `order_tbl`
 --
 ALTER TABLE `order_tbl`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `position_tbl`
 --

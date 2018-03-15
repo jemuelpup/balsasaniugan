@@ -408,12 +408,16 @@ app.controller("reports",function($scope,dbOperations){
 		($scope.transactions).forEach(function(e){
 			e.orderDetails.payment = parseFloat(e.orderDetails.payment);
 			e.orderDetails.down_payment = parseFloat(e.orderDetails.down_payment);
+			e.orderDetails.total_amount = parseFloat(e.orderDetails.total_amount);
+			e.orderDetails.vat = parseFloat(e.orderDetails.vat);
+			e.orderDetails.service_charge = parseFloat(e.orderDetails.service_charge);
 		});
 	}
 	function getTotalSales(){
 		$scope.sales = ($scope.transactions).reduce(function(acc,cur){
 			return acc+(cur.orderDetails.total_amount);
 		},0);
+		console.log($scope.sales+" ito yun");
 	}
 	$scope.getTransactionData = function(){
 		if($scope.fromdateInput<$scope.todateInput){

@@ -251,6 +251,29 @@
 							</div>
 						</div>
 					</div>
+					<div class="col s12">
+						<div class="branch">
+						    <h3>Price configuration</h3>
+						    <div class="input-field col s6">
+							    <form ng-submit="updateVat()">
+							        <div class="input-field col s12">
+									  <input ng-model="branchFields.vat" name="vat" value="" type="text" class="validate" maxlength="50" required>
+									  <label for="vat">VAT</label>
+							        </div>
+							        <button class="waves-effect waves-light btn" type="submit">Update</button>
+							    </form>
+							</div>
+							<div class="input-field col s6">
+							    <form ng-submit="updateServiceCharge()">
+							        <div class="input-field col s12">
+									  <input ng-model="branchFields.service_charge" name="service_charge" value="" type="text" class="validate" maxlength="50" required>
+									  <label for="service_charge">Service Charge</label>
+							        </div>
+							        <button class="waves-effect waves-light btn" type="submit">Update</button>
+							    </form>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</section>
@@ -296,7 +319,7 @@
 										<td>{{x.orderDetails.customer_name}}</td>
 										<td>Php {{x.orderDetails.payment | number:2}}</td>
 										<td>{{x.orderDetails.received_date}}</td>
-										<td>{{x.orderDetails.discount}}</td>
+										<td>Php{{x.orderDetails.discount | number:2}}</td>
 									</tr>
 								</tbody>
 							</table>

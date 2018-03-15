@@ -40,10 +40,11 @@
 
 					<div class="spHeader">
 						<h1>Customer Order List Orders</h1>	
+						<input id="seat_number" ng-model="seatNumberSearch" type="text" class="validate" placeholder="Table #">
 					</div>
 					<div class="orderListContainer">
 					<ul class="orderList">
-						<li class="order" ng-repeat="order in orders">
+						<li class="order" ng-repeat="order in orders | seatIDFilter: 'orderDetails.seat_number' : seatNumberSearch">
 							<p>Customer name: <span class="b">{{order.orderDetails.customer_name}}</span><br>Order ID: <span class="b">{{order.orderDetails.id}}</span><br>Table #: <span class="b">{{order.orderDetails.seat_number}}</span></p>
 							<div>
 								<p>Order Details</p>
@@ -70,7 +71,7 @@
 								<div class="row">
 									<div class="input-field col s12">
 										<button class="addProduct wave btn z-depth-1" ng-click="addProductsToOrder(order.orderDetails.id)">Add<br>Order</button>
-										<button class="addProduct wave btn z-depth-1" ng-click="updateSeatIDModal(order.orderDetails)">Change Table #</button>
+										<button class="addProduct wave btn z-depth-1" ng-click="updateSeatIDModal(order.orderDetails)" ng-if="job!=3">Change Table #</button>
 									</div>
 								</div>
 							</div>

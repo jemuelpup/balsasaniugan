@@ -33,7 +33,7 @@ function executeOrdersQuery($c,$sql){
 			else{ // if same id, push it to the category
 				array_push($catArray,$orderLine);
 			}
-			$orderDetails = array("id"=>$row['order_id'],"date"=>$row['order_date'],"seat_number"=>$row['order_seat_number'],"cashier_fk"=>$row['order_cashier_fk'],"branch_fk"=>$row['order_branch_fk'],"waiter_fk"=>$row['order_waiter_fk'],"void"=>$row['order_void_fk'],"total_amount"=>$row['order_total_amount'],"customer_name"=>$row['order_customer_name'],"payment"=>$row['order_payment'],"notes"=>$row['order_notes'],"down_payment"=>$row['order_down_payment'],"received_date"=>$row['order_received_date'],"void_reason"=>$row['order_void_reason'],"printed"=>$row['printed'],"discount"=>$row['order_discount'],"discount_percentage"=>$row['discount_percentage']);
+			$orderDetails = array("id"=>$row['order_id'],"date"=>$row['order_date'],"seat_number"=>$row['order_seat_number'],"cashier_fk"=>$row['order_cashier_fk'],"branch_fk"=>$row['order_branch_fk'],"waiter_fk"=>$row['order_waiter_fk'],"void"=>$row['order_void_fk'],"total_amount"=>$row['order_total_amount'],"customer_name"=>$row['order_customer_name'],"payment"=>$row['order_payment'],"notes"=>$row['order_notes'],"down_payment"=>$row['order_down_payment'],"received_date"=>$row['order_received_date'],"void_reason"=>$row['order_void_reason'],"printed"=>$row['printed'],"discount"=>$row['order_discount'],"discount_percentage"=>$row['discount_percentage'],"vat"=>$row['vat'],"service_charge"=>$row['service_charge']);
 		}
 		array_push($structuredDataArray,array("orderDetails"=>$orderDetails,"orderLine"=>$catArray));
 	}

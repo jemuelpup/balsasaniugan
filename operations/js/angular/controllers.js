@@ -1,7 +1,6 @@
 app.controller("operations",function($scope,dbOperations,$timeout,$window){
 	$scope.job = 0;
-	console.log("dumaan operations");
-
+	$scope.vat = 12;
 	dbOperations.views("GetEmployeeAccess",{}).then(function(res){
 		$scope.job = res;
 		console.log(res);

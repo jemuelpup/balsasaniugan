@@ -3,6 +3,10 @@ app.controller("viewOrders",function($scope,dbOperations,$timeout){
 	var serveLocked = false;
 	var selectedOrder = {}
 	$('.modal').modal();
+	$scope.job = 0;
+	dbOperations.views("GetEmployeeAccess",{}).then(function(res){
+		$scope.job = parseInt(res);
+	});
 
 	function formatData(){
 		($scope.orders).forEach(function(e){

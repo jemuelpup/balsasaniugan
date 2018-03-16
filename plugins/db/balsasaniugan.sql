@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.4.1
+-- version 4.2.11
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2018 at 07:53 AM
--- Server version: 5.5.32
--- PHP Version: 5.4.19
+-- Generation Time: Mar 16, 2018 at 02:03 PM
+-- Server version: 5.6.21
+-- PHP Version: 5.6.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `balsasaniugan`
 --
-CREATE DATABASE IF NOT EXISTS `balsasaniugan` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `balsasaniugan`;
 
 -- --------------------------------------------------------
 
@@ -33,9 +31,7 @@ CREATE TABLE IF NOT EXISTS `access_tbl` (
   `username` varchar(50) NOT NULL,
   `password` varchar(50) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
-  `fixed` tinyint(1) NOT NULL DEFAULT '0',
-  UNIQUE KEY `employee_id_fk` (`employee_id_fk`),
-  UNIQUE KEY `username` (`username`)
+  `fixed` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -54,16 +50,15 @@ INSERT INTO `access_tbl` (`employee_id_fk`, `username`, `password`, `active`, `f
 --
 
 CREATE TABLE IF NOT EXISTS `branch_tbl` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `address` varchar(200) DEFAULT NULL,
   `description` varchar(200) DEFAULT NULL,
   `branch_code` varchar(10) NOT NULL,
   `modified_by_fk` int(11) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
-  `fixed` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `fixed` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `branch_tbl`
@@ -79,15 +74,14 @@ INSERT INTO `branch_tbl` (`id`, `name`, `address`, `description`, `branch_code`,
 --
 
 CREATE TABLE IF NOT EXISTS `category_tbl` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `category_code` varchar(10) DEFAULT NULL,
   `description` varchar(500) DEFAULT NULL,
   `date_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified_by_fk` int(11) DEFAULT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=37 ;
+  `active` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `category_tbl`
@@ -138,7 +132,7 @@ INSERT INTO `category_tbl` (`id`, `name`, `category_code`, `description`, `date_
 --
 
 CREATE TABLE IF NOT EXISTS `employee_tbl` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `picture` varchar(100) DEFAULT NULL,
   `address` varchar(50) DEFAULT NULL,
@@ -152,9 +146,8 @@ CREATE TABLE IF NOT EXISTS `employee_tbl` (
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `birth_day` date DEFAULT NULL,
   `gender` tinyint(1) NOT NULL DEFAULT '1',
-  `fixed` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+  `fixed` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `employee_tbl`
@@ -175,7 +168,7 @@ INSERT INTO `employee_tbl` (`id`, `name`, `picture`, `address`, `contact_number`
 --
 
 CREATE TABLE IF NOT EXISTS `order_line_tbl` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `order_id_fk` int(11) NOT NULL,
   `product_id_fk` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
@@ -183,9 +176,8 @@ CREATE TABLE IF NOT EXISTS `order_line_tbl` (
   `quantity` int(11) NOT NULL,
   `price` decimal(11,2) NOT NULL,
   `served` tinyint(4) NOT NULL DEFAULT '0',
-  `served_items` int(11) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
+  `served_items` int(11) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `order_line_tbl`
@@ -211,12 +203,15 @@ INSERT INTO `order_line_tbl` (`id`, `order_id_fk`, `product_id_fk`, `name`, `cod
 (17, 4, 150, 'Steamed Tilapia', '""', 1, '170.00', 0, 0),
 (18, 4, 150, 'Steamed Tilapia', '""', 1, '170.00', 0, 0),
 (19, 4, 150, 'Steamed Tilapia', '""', 1, '170.00', 0, 0),
-(20, 5, 161, 'Blue Marlin Wrapped w/ Onion & Tomato', '""', 1, '308.00', 0, 0),
-(21, 5, 161, 'Blue Marlin Wrapped w/ Onion & Tomato', '""', 1, '308.00', 0, 0),
-(22, 5, 161, 'Blue Marlin Wrapped w/ Onion & Tomato', '""', 1, '308.00', 0, 0),
-(23, 5, 161, 'Blue Marlin Wrapped w/ Onion & Tomato', '""', 1, '308.00', 0, 0),
-(24, 6, 155, 'Sizzling Blue Marlin ', '""', 1, '280.00', 0, 0),
-(25, 7, 155, 'Sizzling Blue Marlin ', '""', 1, '280.00', 0, 0);
+(20, 5, 161, 'Blue Marlin Wrapped w/ Onion & Tomato', '""', 1, '308.00', 0, 1),
+(21, 5, 161, 'Blue Marlin Wrapped w/ Onion & Tomato', '""', 1, '308.00', 0, 1),
+(22, 5, 161, 'Blue Marlin Wrapped w/ Onion & Tomato', '""', 1, '308.00', 0, 1),
+(23, 5, 161, 'Blue Marlin Wrapped w/ Onion & Tomato', '""', 1, '308.00', 0, 1),
+(24, 6, 155, 'Sizzling Blue Marlin ', '""', 1, '280.00', 0, 1),
+(25, 7, 155, 'Sizzling Blue Marlin ', '""', 1, '280.00', 0, 1),
+(26, 9, 149, 'Sizzling Tilapia', '""', 2, '170.00', 0, 2),
+(27, 10, 147, 'Mixed Sushi', '""', 1, '625.00', 0, 1),
+(28, 10, 146, 'Ebiko Sushi', '""', 1, '115.00', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -225,7 +220,7 @@ INSERT INTO `order_line_tbl` (`id`, `order_id_fk`, `product_id_fk`, `name`, `cod
 --
 
 CREATE TABLE IF NOT EXISTS `order_tbl` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `order_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `seat_number` varchar(11) DEFAULT '0',
   `cashier_fk` int(11) DEFAULT NULL,
@@ -244,9 +239,8 @@ CREATE TABLE IF NOT EXISTS `order_tbl` (
   `printed` tinyint(1) NOT NULL DEFAULT '0',
   `done` tinyint(1) NOT NULL DEFAULT '0',
   `vat` decimal(11,2) NOT NULL DEFAULT '12.00',
-  `service_charge` decimal(11,2) NOT NULL DEFAULT '0.00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+  `service_charge` decimal(11,2) NOT NULL DEFAULT '0.00'
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `order_tbl`
@@ -257,9 +251,11 @@ INSERT INTO `order_tbl` (`id`, `order_date`, `seat_number`, `cashier_fk`, `branc
 (2, '2018-03-13 10:29:16', '1', NULL, 1, 1, 0, '3968.00', '', '500.25', '', '0.00', '2018-03-13 20:02:02', NULL, 0.00, 50, 1, 1, '12.00', '0.00'),
 (3, '2018-03-13 12:00:49', '5', 3, 1, 1, 0, '1290.00', '', '1300.00', '', '0.00', '2018-03-13 20:36:34', NULL, 0.00, 0, 1, 1, '12.00', '0.00'),
 (4, '2018-03-13 12:01:46', '5', 3, 1, 1, 1, '0.00', '', '0.00', '', '0.00', NULL, 'walang bayad', 0.00, 0, 0, 0, '12.00', '0.00'),
-(5, '2018-03-13 12:05:48', '1', NULL, 1, 1, 0, '0.00', '', '0.00', '', '0.00', NULL, NULL, 0.00, 0, 0, 0, '12.00', '0.00'),
-(6, '2018-03-13 12:06:34', '6', NULL, 1, 1, 0, '0.00', '', '0.00', '', '0.00', NULL, NULL, 0.00, 0, 0, 0, '12.00', '0.00'),
-(7, '2018-03-13 12:07:15', '3', NULL, 1, 1, 0, '0.00', '', '0.00', '', '0.00', NULL, NULL, 0.00, 0, 0, 0, '12.00', '0.00');
+(5, '2018-03-13 12:05:48', '1', 3, 1, 1, 0, '1232.00', '', '1555.00', '', '0.00', '2018-03-16 19:24:13', NULL, 0.00, 0, 1, 1, '12.00', '0.00'),
+(6, '2018-03-13 12:06:34', '6', NULL, 1, 1, 0, '280.00', '', '1000.00', '', '0.00', '2018-03-16 20:53:05', NULL, 100.00, 12, 1, 0, '12.00', '0.00'),
+(7, '2018-03-13 12:07:15', '3', NULL, 1, 1, 0, '280.00', '', '0.00', '', '0.00', '2018-03-16 20:21:48', NULL, 0.00, 0, 1, 0, '12.00', '0.00'),
+(9, '2018-03-16 11:06:23', '1', NULL, 1, 1, 0, '340.00', '', '0.00', '', '0.00', '2018-03-16 20:22:01', NULL, 0.00, 0, 1, 0, '15.00', '0.00'),
+(10, '2018-03-16 12:22:26', '2', NULL, 1, 1, 0, '740.00', '', '1000.00', '', '0.00', '2018-03-16 20:30:25', NULL, 0.00, 0, 1, 0, '12.00', '0.00');
 
 -- --------------------------------------------------------
 
@@ -268,13 +264,12 @@ INSERT INTO `order_tbl` (`id`, `order_date`, `seat_number`, `cashier_fk`, `branc
 --
 
 CREATE TABLE IF NOT EXISTS `position_tbl` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `description` varchar(500) DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
-  `fixed` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+  `fixed` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `position_tbl`
@@ -293,17 +288,16 @@ INSERT INTO `position_tbl` (`id`, `name`, `description`, `active`, `fixed`) VALU
 --
 
 CREATE TABLE IF NOT EXISTS `pricing_config_tbl` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `value` decimal(11,2) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `percentage` decimal(11,2) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `pricing_config_tbl`
 --
 
-INSERT INTO `pricing_config_tbl` (`id`, `name`, `value`) VALUES
+INSERT INTO `pricing_config_tbl` (`id`, `name`, `percentage`) VALUES
 (1, 'vat', '12.00'),
 (2, 'service_charge', '0.00');
 
@@ -314,7 +308,7 @@ INSERT INTO `pricing_config_tbl` (`id`, `name`, `value`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `product_tbl` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+`id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `description` varchar(300) NOT NULL DEFAULT 'no desc',
   `picture` varchar(100) DEFAULT '/common/images/products/default_food_img.jpg',
@@ -325,9 +319,8 @@ CREATE TABLE IF NOT EXISTS `product_tbl` (
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `price` decimal(11,2) NOT NULL DEFAULT '0.00',
   `stock` int(11) NOT NULL DEFAULT '1',
-  `available` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=162 ;
+  `available` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB AUTO_INCREMENT=162 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `product_tbl`
@@ -479,10 +472,10 @@ INSERT INTO `product_tbl` (`id`, `name`, `description`, `picture`, `product_code
 (143, 'Ika Sushi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 21, '2018-03-06 10:22:27', 1, 1, '65.00', 100, 1),
 (144, 'Lui Sushi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 21, '2018-03-06 10:22:27', 1, 1, '125.00', 100, 1),
 (145, 'Unagi Sushi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 21, '2018-03-06 10:22:27', 1, 1, '90.00', 100, 1),
-(146, 'Ebiko Sushi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 21, '2018-03-06 10:22:27', 1, 1, '115.00', 100, 1),
-(147, 'Mixed Sushi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 21, '2018-03-06 10:22:27', 1, 1, '625.00', 100, 1),
+(146, 'Ebiko Sushi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 21, '2018-03-06 10:22:27', 1, 1, '115.00', 99, 1),
+(147, 'Mixed Sushi', 'no desc', '/common/images/products/default_food_img.jpg', '""', 21, '2018-03-06 10:22:27', 1, 1, '625.00', 99, 1),
 (148, 'Tilapia Sisig', 'no desc', '/common/images/products/default_food_img.jpg', '""', 35, '2018-03-06 10:30:54', 1, 1, '180.00', 100, 1),
-(149, 'Sizzling Tilapia', 'no desc', '/common/images/products/default_food_img.jpg', '""', 35, '2018-03-06 10:30:54', 1, 1, '170.00', 100, 1),
+(149, 'Sizzling Tilapia', 'no desc', '/common/images/products/default_food_img.jpg', '""', 35, '2018-03-06 10:30:54', 1, 1, '170.00', 98, 1),
 (150, 'Steamed Tilapia', 'no desc', '/common/images/products/default_food_img.jpg', '""', 35, '2018-03-06 10:30:54', 1, 1, '170.00', 97, 1),
 (151, 'Tilapia w/ Oyster & Garlic', 'no desc', '/common/images/products/default_food_img.jpg', '""', 35, '2018-03-06 10:30:54', 1, 1, '180.00', 96, 1),
 (152, 'Tilapia w/ Mayonnaise & Cheese', 'no desc', '/common/images/products/default_food_img.jpg', '""', 35, '2018-03-06 10:30:54', 1, 1, '190.00', 97, 1),
@@ -496,6 +489,108 @@ INSERT INTO `product_tbl` (`id`, `name`, `description`, `picture`, `product_code
 (160, 'Plain Blue Marlin ', 'no desc', '/common/images/products/default_food_img.jpg', '""', 36, '2018-03-06 10:30:54', 1, 1, '238.00', 99, 1),
 (161, 'Blue Marlin Wrapped w/ Onion & Tomato', 'no desc', '/common/images/products/default_food_img.jpg', '""', 36, '2018-03-06 10:30:54', 1, 1, '308.00', 95, 1);
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `access_tbl`
+--
+ALTER TABLE `access_tbl`
+ ADD UNIQUE KEY `employee_id_fk` (`employee_id_fk`), ADD UNIQUE KEY `username` (`username`);
+
+--
+-- Indexes for table `branch_tbl`
+--
+ALTER TABLE `branch_tbl`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `category_tbl`
+--
+ALTER TABLE `category_tbl`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `employee_tbl`
+--
+ALTER TABLE `employee_tbl`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `order_line_tbl`
+--
+ALTER TABLE `order_line_tbl`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `order_tbl`
+--
+ALTER TABLE `order_tbl`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `position_tbl`
+--
+ALTER TABLE `position_tbl`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `pricing_config_tbl`
+--
+ALTER TABLE `pricing_config_tbl`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `product_tbl`
+--
+ALTER TABLE `product_tbl`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `branch_tbl`
+--
+ALTER TABLE `branch_tbl`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `category_tbl`
+--
+ALTER TABLE `category_tbl`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=37;
+--
+-- AUTO_INCREMENT for table `employee_tbl`
+--
+ALTER TABLE `employee_tbl`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `order_line_tbl`
+--
+ALTER TABLE `order_line_tbl`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
+--
+-- AUTO_INCREMENT for table `order_tbl`
+--
+ALTER TABLE `order_tbl`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT for table `position_tbl`
+--
+ALTER TABLE `position_tbl`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `pricing_config_tbl`
+--
+ALTER TABLE `pricing_config_tbl`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `product_tbl`
+--
+ALTER TABLE `product_tbl`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=162;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

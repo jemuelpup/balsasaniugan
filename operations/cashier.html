@@ -16,9 +16,9 @@
 <body ng-app="operations">
 	<main ng-controller="viewOrders">
 		<div class="container" ng-controller="cashier">
-			<div class="row">
-				<div class="col s12">
-					<div class="showOnPrint">
+			<div class="showOnPrint">
+				<div class="row">
+					<div class="col s12">
 						<h1>Balsa Sa Niugan Receipt</h1>
 						<p class="tac">3 M. Aquino St, Niugan, Malabon, 1470 Metro Manila</p>
 						<p class="tac">VAT REG TIN: 168-985-772-000</p>
@@ -44,80 +44,92 @@
 						<p class="mt0"><span class="b">Discount percentage: </span>{{discountPercentagePrint}}%</p>
 						<p class="mt0"><span class="b">Fixed Discount: </span>Php. {{discountPrint}}</p>
 						<p class="mt0"><span class="b">Total discount: </span>Php. {{totalDiscount | number:2}}</p>
-						<p class="mt0"><span class="b">VAT: </span>Php. {{(totalPricePrint-totalDiscount)*.12 | number:2}}</p>
-						<p class="mt0"><span class="b">Vatable: </span>Php. {{(totalPricePrint-totalDiscount)*.88 | number:2}}</p>
-						<p class="mt0"><span class="b">Amount Due: </span>Php. {{(totalPricePrint-discountPrint) | number:2}}</p>
-						<p class="mt0"><span class="b">Payment: </span>Php. {{paymentPrint | number:2}}</p>
-						<p class="mt0"><span class="b">Change: </span>Php. {{paymentPrint-totalPricePrint+totalDiscount | number:2}}</p>
+						<p class="mt0"><span class="b">VAT: </span>Php. {{(totalPricePrint-totalDiscount)*vat/100 | number:2}}</p>
+						<p class="mt0"><span class="b">Vatable sales: </span>Php. {{(totalPricePrint-totalDiscount)*vatable/100 | number:2}}</p>
+						<p class="mt0"><span class="b">Amount Due: </span>Php. {{amountDuePrint+service_charge | number:2}}</p>
+						<p class="mt0"><span class="b">Cash tenderdized: </span>Php. {{paymentPrint | number:2}}</p>
+						<p class="mt0"><span class="b">Change: </span>Php. {{paymentPrint-amountDuePrint | number:2}}</p>
+						<p class="mt0"><span class="b">Service charge: </span>Php. {{service_charge | number:2}}</p>
+						<p>Date issued: <span class="b">{{orderPrint.orderDetails.received_date | date : "medium"}}</span></p>
+						<p>Valid until: <span class="b">{{receiptValidUntil | date : " MMMM d, y"}}</span></p>
+
+						
 						<div class="receiptFooter">
-							<p>THIS SERVES AS YOUR SALES INVOICE.<br>THIS INVOICE SHALL BE VALID FOR FIVE(5) YEARS FROM THE DATE OF PERMIT TO USE</p>
+							<p>THIS RECEIPT SHALL BE VALID FOR FIVE (5)<br>YEARS FROM THE DATE OF THE PERMIT TO USE</p>
 							<p>Thank you. Please come again</p>
 						</div>
-						<p>Date: <span class="b">{{orderPrint.orderDetails.received_date | date : "medium"}}</span></p>
-					</div>
-
-					<h1>Customer Order List Orders</h1>
-						<input id="seat_number" ng-model="seatNumberSearch" type="text" class="validate" placeholder="Table #">
 						
-					<ul class="orderList">
-						<li class="order" ng-repeat="order in orders | seatIDFilter: 'orderDetails.seat_number' : seatNumberSearch">
-							<p>Customer name: <span class="b">{{order.orderDetails.customer_name}}</span><br>Order ID: <span class="b">{{order.orderDetails.id}}</span><br>Table #: <span class="b">{{order.orderDetails.seat_number}}</span></p>
-							<div>
-								<p>Order Details</p>
-								<table>
-									<tr>
-										<th>Prod</th>
-										<th>Price</th>
-										<th>Qty</th>
-										<th>Total</th>
-										<th>Served</th>
-									</tr>
-									<tr ng-repeat="oLine in order.orderLine">
-										<td>{{oLine.name}}</td>
-										<td>{{oLine.price}}</td>
-										<td>{{oLine.quantity}}</td>
-										<td>{{oLine.price*oLine.quantity}}</td>
-										<td>{{oLine.served_items}}</td>
-									</tr>
-								</table>
-							</div>
-							<div class="orderInfoBlock">
-								<p class="orderNotes mt0"><span class="b">Notes: </span>{{order.orderDetails.notes}}</p>
-								<p class="mt0"><span class="b">TotalPrice: </span>Php. {{totalPrice = getTotalPrice(order.orderLine) | number:2}}</p>
-								<p class="mt0"><span class="b">discount: </span>Php. {{discount = (totalPrice*(+order.orderDetails.discount_percentage)/100)+order.orderDetails.discount | number:2}}</p>
-								<!-- (+) in variable is used to convert anything to number -->
-								<p class="mt0"><span class="b">Payment: </span>Php. {{order.orderDetails.payment | number:2}}</p>
-								<p class="mt0"><span class="b">Change: </span>Php. {{order.orderDetails.payment-totalPrice+discount | number:2}}</p>
-								<div class="row">
-									<div class="input-field col m6 s12">
-										<input type="number" class="validate" ng-model="order.orderDetails.payment">
-										<label for="payment" class="active">Payment</label>
-									</div>
-									<div class="input-field col m3 s12">
-										<input type="number" class="validate" ng-model="order.orderDetails.discount_percentage">
-										<label for="order.orderDetails.discount_percentage" class="active">Discount Percentage</label>
-									</div>
-									<div class="input-field col m3 s12">
-										<input type="number" class="validate" ng-model="order.orderDetails.discount">
-										<label for="order.orderDetails.discount" class="active">Discount Amount</label>
-									</div>
-									<div class="input-field col s12">
-										<input type="text" class="validate" ng-model="voidReason">
-										<label for="order.orderDetails.discount">Void reason</label>
-									</div>
-									<div class="input-field col s12">
-										<button class="left paidProduct wave btn" ng-click="orderPaid(order.orderDetails)">Paid</button>
-										<button class="left paidProduct wave btn"
-										ng-click="setDataToPrint(order,totalPrice,order.orderDetails.discount_percentage,order.orderDetails.discount,order.orderDetails.payment,order.orderDetails.discount)">Print receipt</button>
-										<button class="left paidProduct wave btn"
-										ng-click="orderVoid(voidReason,order.orderLine,order.orderDetails)">Void</button>
-										<button class="right addProduct wave btn" ng-click="addProductsToOrder(order.orderDetails.id)">Add<br>Order</button>
+					</div>
+				</div>
+			</div>
+			<div class="hideOnPrint">
+				<div class="row">
+					<div class="col s12">
+						
+
+						<h1>Customer Order List Orders</h1>
+							<input id="seat_number" ng-model="seatNumberSearch" type="text" class="validate" placeholder="Table #">
+							
+						<ul class="orderList">
+							<li class="order" ng-repeat="order in orders | seatIDFilter: 'orderDetails.seat_number' : seatNumberSearch">
+								<p>Customer name: <span class="b">{{order.orderDetails.customer_name}}</span><br>Order ID: <span class="b">{{order.orderDetails.id}}</span><br>Table #: <span class="b">{{order.orderDetails.seat_number}}</span></p>
+								<div>
+									<p>Order Details</p>
+									<table>
+										<tr>
+											<th>Prod</th>
+											<th>Price</th>
+											<th>Qty</th>
+											<th>Total</th>
+											<th>Served</th>
+										</tr>
+										<tr ng-repeat="oLine in order.orderLine">
+											<td>{{oLine.name}}</td>
+											<td>{{oLine.price}}</td>
+											<td>{{oLine.quantity}}</td>
+											<td>{{oLine.price*oLine.quantity}}</td>
+											<td>{{oLine.served_items}}</td>
+										</tr>
+									</table>
+								</div>
+								<div class="orderInfoBlock">
+									<p class="orderNotes mt0"><span class="b">Notes: </span>{{order.orderDetails.notes}}</p>
+									<p class="mt0"><span class="b">TotalPrice: </span>Php. {{totalPrice = getTotalPrice(order.orderLine) | number:2}}</p>
+									<p class="mt0"><span class="b">discount: </span>Php. {{discount = (totalPrice*(+order.orderDetails.discount_percentage)/100)+order.orderDetails.discount | number:2}}</p>
+									<!-- (+) in variable is used to convert anything to number -->
+									<p class="mt0"><span class="b">Payment: </span>Php. {{order.orderDetails.payment | number:2}}</p>
+									<p class="mt0"><span class="b">Change: </span>Php. {{order.orderDetails.payment-totalPrice+discount | number:2}}</p>
+									<div class="row">
+										<div class="input-field col m6 s12">
+											<input type="number" class="validate" ng-model="order.orderDetails.payment">
+											<label for="payment" class="active">Payment</label>
+										</div>
+										<div class="input-field col m3 s12">
+											<input type="number" class="validate" ng-model="order.orderDetails.discount_percentage">
+											<label for="order.orderDetails.discount_percentage" class="active">Discount Percentage</label>
+										</div>
+										<div class="input-field col m3 s12">
+											<input type="number" class="validate" ng-model="order.orderDetails.discount">
+											<label for="order.orderDetails.discount" class="active">Discount Amount</label>
+										</div>
+										<div class="input-field col s12">
+											<input type="text" class="validate" ng-model="voidReason">
+											<label for="order.orderDetails.discount">Void reason</label>
+										</div>
+										<div class="input-field col s12">
+											<button class="left paidProduct wave btn" ng-click="orderPaid(order.orderDetails)">Paid</button>
+											<button class="left paidProduct wave btn"
+											ng-click="setDataToPrint(order,totalPrice,order.orderDetails.discount_percentage,order.orderDetails.discount,order.orderDetails.payment,order.orderDetails.discount)">Print receipt</button>
+											<button class="left paidProduct wave btn"
+											ng-click="orderVoid(voidReason,order.orderLine,order.orderDetails)">Void</button>
+											<button class="right addProduct wave btn" ng-click="addProductsToOrder(order.orderDetails.id)">Add<br>Order</button>
+										</div>
 									</div>
 								</div>
-							</div>
-						</li>					
-					</ul>
-					<a href="/operations/" class="back btn-floating btn-medium waves-effect waves-light z-depth-2"><i class="material-icons">arrow_back</i></a>			
+							</li>					
+						</ul>
+						<a href="/operations/" class="back btn-floating btn-medium waves-effect waves-light z-depth-2"><i class="material-icons">arrow_back</i></a>			
+					</div>
 				</div>
 			</div>
 		</div>

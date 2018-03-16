@@ -49,19 +49,11 @@
   .container {
     width: 100%; } }
 @media print {
-  body * {
-    visibility: hidden; }
+  .hideOnPrint {
+    display: none; }
 
   .showOnPrint {
-    display: block;
-    visibility: visible !important; }
-    .showOnPrint table {
-      margin-bottom: 10px; }
-    .showOnPrint p.mt0 {
-      margin-bottom: 3px; }
-
-  .showOnPrint * {
-    visibility: visible !important; }
+    display: block; }
 
   @page {
     size: auto;

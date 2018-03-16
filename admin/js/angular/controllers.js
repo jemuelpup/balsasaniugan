@@ -277,6 +277,8 @@ app.controller("buisnessManagement",function($scope,dbOperations){
 	$scope.editPositionFields = {};
 	$scope.positionFields = {}; //means object
 	$scope.positionSelected = {};
+	$scope.vat = 12;
+	$scope.service_charge=0;
 	/*
 		functions
 	*/
@@ -351,6 +353,16 @@ app.controller("buisnessManagement",function($scope,dbOperations){
 			});
 		}
 	}
+	function getVAT(){
+		dbOperations.views("GetVAT",{}).then(function(res){
+			$scope.vat = parseFloat(res[0].percentage);
+		});
+	}
+	function getServiceCharge(){
+		dbOperations.views("GetServiceCharge",{}).then(function(res){
+			$scope.service_charge = parseFloat(res[0].percentage);
+		});
+	}
 	//get the pusitions data()
 	function getBranches(){
 		dbOperations.views("GetBranch",{}).then(function(res){
@@ -372,7 +384,6 @@ app.controller("buisnessManagement",function($scope,dbOperations){
 		$scope.editBranchFields = (($scope.branches)[branchData]);
 		// console.log($scope.editBranchFields);
 	}
-
 	$scope.editBranch = function(){
 		// console.log($scope.editBranchFields);
 		dbOperations.processData("EditBranch",$scope.editBranchFields).then(function(res){
@@ -393,9 +404,24 @@ app.controller("buisnessManagement",function($scope,dbOperations){
 			}
 		}
 	}
+	$scope.updateVat = function(){
+		console.log($scope.vat);
+		dbOperations.processData("EditVAT",{"vat":$scope.vat}).then(function(res){
+			getVAT();
+		});
+	}
+	$scope.updateServiceCharge = function(){
+		console.log($scope.service_charge);
+		dbOperations.processData("EditServiceCharge",{"service_charge":$scope.service_charge}).then(function(res){
+			getServiceCharge();
+		});
+	}
+
 	/*
 		Function calls
 	*/
+	getVAT();
+	getServiceCharge();
 	getBranches();
 });
 app.controller("reports",function($scope,dbOperations){

@@ -111,12 +111,12 @@
 									<table class="data-clickable">
 										<tbody>
 											<tr>
-												<th>picture</th>
-												<th>name</th>
-												<th>description</th>
-												<th>product_code</th>
-												<th>category_fk</th>
-												<th>price</th>
+												<th>Picture</th>
+												<th>Name</th>
+												<th>Description</th>
+												<th>Prod code</th>
+												<th>Category</th>
+												<th>Price</th>
 											</tr>
 											<tr ng-repeat="x in products" ng-click="productIndex($index)" ng-class="{'active': x.selected}">
 												<td class="imgData">
@@ -126,7 +126,7 @@
 												<td>{{x.description}}</td>
 												<td>{{x.product_code}}</td>
 												<td>{{x.category_name}}</td>
-												<td>{{x.price}}</td>
+												<td>Php. {{x.price | number:2}}</td>
 											</tr>
 										</tbody>
 									</table>
@@ -147,9 +147,9 @@
 								    <table class="data-clickable">
 								      <tbody>
 								        <tr>
-										<th>name</th>
-										<th>category_code</th>
-										<th>description</th>
+										<th>Name</th>
+										<th>Category code</th>
+										<th>Description</th>
 								        </tr>
 								        <tr ng-repeat="x in categories" ng-click="categoryIndex($index)" ng-class="{'active': x.selected}">
 										<td>{{x.name}}</td>
@@ -184,8 +184,8 @@
 								    <table class="data-clickable">
 								        <tbody>
 										  <tr>
-										      <th>name</th>
-										      <th>description</th>
+										      <th>Name</th>
+										      <th>Description</th>
 										  </tr>
 										  <tr ng-repeat="x in positions" ng-click="positionIndex($index)" ng-class="{'active': x.selected}">
 										      <td>{{x.name}}</td>
@@ -235,7 +235,7 @@
 										      <th>name</th>
 										      <th>address</th>
 										      <th>description</th>
-										      <th>branch_code</th>
+										      <th>branch code</th>
 										  </tr>
 										  <tr ng-repeat="x in branches" ng-click="branchIndex($index)" ng-class="{'active': x.selected}">
 										      <td>{{x.name}}</td>
@@ -257,8 +257,8 @@
 						    <div class="input-field col s6">
 							    <form ng-submit="updateVat()">
 							        <div class="input-field col s12">
-									  <input ng-model="branchFields.vat" name="vat" value="" type="text" class="validate" maxlength="50" required>
-									  <label for="vat">VAT</label>
+											  <input ng-model="vat" name="vat" type="number" class="validate" maxlength="50">
+											  <label for="vat">VAT percentage</label>
 							        </div>
 							        <button class="waves-effect waves-light btn" type="submit">Update</button>
 							    </form>
@@ -266,8 +266,8 @@
 							<div class="input-field col s6">
 							    <form ng-submit="updateServiceCharge()">
 							        <div class="input-field col s12">
-									  <input ng-model="branchFields.service_charge" name="service_charge" value="" type="text" class="validate" maxlength="50" required>
-									  <label for="service_charge">Service Charge</label>
+											  <input ng-model="service_charge" name="service_charge" type="number" class="validate" maxlength="50">
+											  <label for="service_charge">Service Charge percentage</label>
 							        </div>
 							        <button class="waves-effect waves-light btn" type="submit">Update</button>
 							    </form>

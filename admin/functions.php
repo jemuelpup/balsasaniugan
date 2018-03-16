@@ -44,7 +44,21 @@ switch($process){
 	case "RemoveBranch":{updateDeleteBranch($conn,$data);}break;
 	case "RemoveAccess":{updateDeleteAccess($conn,$data);}break;
 	case "NormalizeDataInOrderTbl":{normalizeDataInOrder_tbl($conn);}break;
+	case "EditVAT":{updateVAT($conn,$data);}break;
+	case "EditServiceCharge":{updateServiceCharge($conn,$data);}break;
 }
+
+function updateVAT($c,$d){
+	$sql = $c->prepare("UPDATE pricing_config_tbl SET percentage = ? WHERE id=1");
+	$sql->bind_param('d',$d->vat);
+		$sql->execute();
+	}
+function updateServiceCharge($c,$d){
+	$sql = $c->prepare("UPDATE pricing_config_tbl SET percentage = ? WHERE id=2");
+	$sql->bind_param('d',$d->service_charge);
+	$sql->execute();
+}
+
 //normalization of data in the order table. delete all the order id not found in order_line_tbl
 function normalizeDataInOrder_tbl($c){
 	$sql = $c->prepare("DELETE FROM order_tbl WHERE id NOT IN(SELECT DISTINCT order_id_fk FROM order_line_tbl)");

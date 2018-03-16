@@ -26,7 +26,11 @@ switch($process){
 	case "GetTransactionsFromTo":{
 		selectTransactionsBetweenDate($conn,$data);}break;
 	case "GetEmployeeAccess":{echo $_SESSION["position"];}break;
+
+	case "GetVAT":{selectVat($conn);}break;
+	case "GetServiceCharge":{selectServiceCharge($conn);}break;
 }
+
 /* 
 Ready this function 
 This function is for reports.

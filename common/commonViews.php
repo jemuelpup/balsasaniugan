@@ -8,6 +8,14 @@ function selectProduct($c){
 	$sql = "SELECT id,name,description,picture,product_code,category_fk,stock,(SELECT name FROM category_tbl WHERE id=category_fk) as category_name ,price,available FROM product_tbl WHERE active=1";
 	print_r(hasRows($c,$sql) ? json_encode(selectQuery($c,$sql)) : "");
 }
+function selectVat($c){
+	$sql = "SELECT name,percentage FROM pricing_config_tbl WHERE id=1";
+	print_r(hasRows($c,$sql) ? json_encode(selectQuery($c,$sql)) : "");
+}
+function selectServiceCharge($c){
+	$sql = "SELECT name,percentage FROM pricing_config_tbl WHERE id=2";
+	print_r(hasRows($c,$sql) ? json_encode(selectQuery($c,$sql)) : "");
+}
 
 function executeOrdersQuery($c,$sql){
 	$structuredDataArray = array();

@@ -4,10 +4,22 @@ app.controller("viewOrders",function($scope,dbOperations,$timeout){
 	var selectedOrder = {}
 	$('.modal').modal();
 	$scope.job = 0;
-	dbOperations.views("GetEmployeeAccess",{}).then(function(res){
-		$scope.job = parseInt(res);
-	});
-
+	$scope.vat = 12;
+	$scope.vatable = 88;
+	$scope.service_charge = 0;
+	function getVAT(){
+		dbOperations.views("GetVAT",{}).then(function(res){
+			$scope.vat = parseFloat(res[0].percentage);
+			$scope.vatable = 100 - $scope.vat;
+		});
+	}
+	getVAT();
+	function getServiceCharge(){
+		dbOperations.views("GetServiceCharge",{}).then(function(res){
+			$scope.service_charge = parseFloat(res[0].percentage);
+		});
+	}
+	getServiceCharge();
 	function formatData(){
 		($scope.orders).forEach(function(e){
 			e.orderDetails.payment = parseFloat(e.orderDetails.payment);	
@@ -63,10 +75,26 @@ app.controller("viewOrders",function($scope,dbOperations,$timeout){
 		}
 	}
 	getOrders();
+	function getDateFiveYears(){
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth(); //January is 0!
+		var yyyy = today.getFullYear()+5;
+
+		if(dd<10) {
+		    dd = '0'+dd
+		} 
+
+		if(mm<10) {
+		    mm = '0'+mm
+		} 
+		return new Date(yyyy,mm,dd);
+		// return mm + '/' + dd + '/' + yyyy;
+
+	}
 	$scope.setDataToPrint = function(order,totalPrice,discountPercentage,discountAmount,payment,discount){
-		totalDiscount=totalPrice-(totalPrice*discountPercentage)*discountAmount;
-		console.log(discount)
-		console.log(totalPrice-discount+"<="+payment)
+		totalDiscount=totalPrice-(totalPrice*discountPercentage/100)-discountAmount;
+
 		if(totalPrice-totalDiscount<=payment){
 			$scope.orderPrint = order;
 			$scope.totalPricePrint = totalPrice;
@@ -75,6 +103,13 @@ app.controller("viewOrders",function($scope,dbOperations,$timeout){
 			$scope.totalDiscount = $scope.discountAmountPrint+($scope.totalPricePrint*$scope.discountPercentagePrint/100);
 			$scope.paymentPrint = payment;
 			$scope.discountPrint = discount;
+			$scope.amountDuePrint = $scope.totalPricePrint-$scope.totalDiscount;
+			$scope.dateIssued = order.orderDetails.received_date;
+			$scope.receiptValidUntil = getDateFiveYears();
+
+
+
+
 			dbOperations.processData("SetOrderPrinted",{orderID:order.orderDetails.id,totalPrice:totalPrice,discount:discount,discountPercentage:discountPercentage,payment:payment}).then(function(res){
 				console.log(res.data);
 				getOrders();

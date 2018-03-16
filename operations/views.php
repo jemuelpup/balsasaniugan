@@ -23,6 +23,8 @@ switch($process){
 	case "GetProduct":{selectProduct($conn);}break;
 	case "GetUnservedOrders":{selectUnservedOrders($conn);}break;
 	case "GetEmployeeAccess":{echo $_SESSION["position"];}break;
+	case "GetVAT":{selectVat($conn);}break;
+	case "GetServiceCharge":{selectServiceCharge($conn);}break;
 }
 
 

@@ -95,8 +95,9 @@ app.controller("viewOrders",function($scope,dbOperations,$timeout){
 		// return mm + '/' + dd + '/' + yyyy;
 
 	}
-	$scope.setDataToPrint = function(order,totalPrice,discountPercentage,discountAmount,payment,discount){
-		
+	$scope.setDataToPrint = function(order,totalPrice,discountPercentage,discountAmount,payment,discount,message){
+		$scope.receiptType = message;
+		// console.log(message);
 		var totalDiscount=(totalPrice*discountPercentage/100)+discountAmount;
 
 		if(totalPrice-totalDiscount<=payment){

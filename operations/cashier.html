@@ -19,7 +19,7 @@
 			<div class="showOnPrint">
 				<div class="row">
 					<div class="col s12">
-						<h1>Balsa Sa Niugan Receipt</h1>
+						<h1 style="text-align: center;">{{receiptType}}</h1>
 						<p class="tac">3 M. Aquino St, Niugan, Malabon, 1470 Metro Manila</p>
 						<p class="tac">VAT REG TIN: 168-985-772-000</p>
 						<p>OR Number <span class="b">{{orderPrint.orderDetails.id}}</span></p>
@@ -119,7 +119,9 @@
 										<div class="input-field col s12">
 											<button class="left paidProduct wave btn" ng-click="orderPaid(order.orderDetails)">Paid</button>
 											<button class="left paidProduct wave btn"
-											ng-click="setDataToPrint(order,totalPrice,order.orderDetails.discount_percentage,order.orderDetails.discount,order.orderDetails.payment,order.orderDetails.discount)">Print receipt</button>
+											ng-click="setDataToPrint(order,totalPrice,order.orderDetails.discount_percentage,order.orderDetails.discount,order.orderDetails.payment,order.orderDetails.discount,'Balsa Sa Niugan Official Receipt')">Print receipt</button>
+											<button class="left paidProduct wave btn"
+											ng-click="setDataToPrint(order,totalPrice,order.orderDetails.discount_percentage,order.orderDetails.discount,order.orderDetails.payment,order.orderDetails.discount,'Bills')">Print Bills</button>
 											<button class="left paidProduct wave btn"
 											ng-click="orderVoid(voidReason,order.orderLine,order.orderDetails)">Void</button>
 											<button class="right addProduct wave btn" ng-click="addProductsToOrder(order.orderDetails.id)">Add<br>Order</button>

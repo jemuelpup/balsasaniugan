@@ -46,15 +46,15 @@
 						<p class="mt0"><span class="b">Total discount: </span>Php. {{totalDiscount | number:2}}</p>
 						<p class="mt0"><span class="b">VAT: </span>Php. {{(totalPricePrint-totalDiscount)*vat/100 | number:2}}</p>
 						<p class="mt0"><span class="b">Vatable sales: </span>Php. {{(totalPricePrint-totalDiscount)*vatable/100 | number:2}}</p>
-						<p class="mt0"><span class="b">Amount Due: </span>Php. {{amountDuePrint+service_charge | number:2}}</p>
-						<p class="mt0"><span class="b">Cash tenderdized: </span>Php. {{paymentPrint | number:2}}</p>
 						<p class="mt0"><span class="b">Service charge: </span>Php. {{service_charge | number:2}}</p>
-						<p class="mt0"><span class="b">Change: </span>Php. {{paymentPrint-amountDuePrint | number:2}}</p>
-						<p>Date issued: <span class="b">{{orderPrint.orderDetails.received_date | date : "medium"}}</span></p>
-						<p>Valid until: <span class="b">{{receiptValidUntil | date : " MMMM d, y"}}</span></p>
+						<p class="mt0"><span class="b">Amount Due: </span>Php. {{amountDuePrint+service_charge | number:2}}</p>
+						<p class="mt0" ng-if="showData"><span class="b">Cash tenderdized: </span>Php. {{paymentPrint | number:2}}</p>
+						<p class="mt0" ng-if="showData"><span class="b">Change: </span>Php. {{paymentPrint-amountDuePrint | number:2}}</p>
+						<p ng-if="showData">Date issued: <span class="b">{{orderPrint.orderDetails.received_date | date : "medium"}}</span></p>
+						<p ng-if="showData">Valid until: <span class="b">{{receiptValidUntil | date : " MMMM d, y"}}</span></p>
 
 						
-						<div class="receiptFooter">
+						<div class="receiptFooter" ng-if="showData">
 							<p>THIS RECEIPT SHALL BE VALID FOR FIVE (5)<br>YEARS FROM THE DATE OF THE PERMIT TO USE</p>
 							<p>Thank you. Please come again</p>
 						</div>

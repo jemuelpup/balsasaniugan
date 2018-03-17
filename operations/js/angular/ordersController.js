@@ -97,10 +97,14 @@ app.controller("viewOrders",function($scope,dbOperations,$timeout){
 	}
 	$scope.setDataToPrint = function(order,totalPrice,discountPercentage,discountAmount,payment,discount,message){
 		$scope.receiptType = message;
+		$scope.showData = true;
+		if(message=="Bills"){
+			$scope.showData = false;
+		}
 		// console.log(message);
 		var totalDiscount=(totalPrice*discountPercentage/100)+discountAmount;
 
-		if(totalPrice-totalDiscount<=payment){
+		if((totalPrice-totalDiscount<=payment)||message=="Bills"){
 			$scope.orderPrint = order;
 			$scope.totalPricePrint = totalPrice;
 			$scope.discountPercentagePrint = discountPercentage;

@@ -48,8 +48,8 @@
 						<p class="mt0"><span class="b">Vatable sales: </span>Php. {{(totalPricePrint-totalDiscount)*vatable/100 | number:2}}</p>
 						<p class="mt0"><span class="b">Amount Due: </span>Php. {{amountDuePrint+service_charge | number:2}}</p>
 						<p class="mt0"><span class="b">Cash tenderdized: </span>Php. {{paymentPrint | number:2}}</p>
-						<p class="mt0"><span class="b">Change: </span>Php. {{paymentPrint-amountDuePrint | number:2}}</p>
 						<p class="mt0"><span class="b">Service charge: </span>Php. {{service_charge | number:2}}</p>
+						<p class="mt0"><span class="b">Change: </span>Php. {{paymentPrint-amountDuePrint | number:2}}</p>
 						<p>Date issued: <span class="b">{{orderPrint.orderDetails.received_date | date : "medium"}}</span></p>
 						<p>Valid until: <span class="b">{{receiptValidUntil | date : " MMMM d, y"}}</span></p>
 

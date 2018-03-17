@@ -291,7 +291,7 @@
 								<p><b>To</b> <input type="date" ng-model="todateInput" class="datepicker"></p>
 							</div>
 							<div class="inputField">
-								<button class="waves-effect waves-light btn" ng-click="getTransactionData()">VIEW</button>
+								<button class="waves-effect waves-light btn" ng-click="getTransactionData();getProductOrderQuantity()">VIEW</button>
 							</div>
 						</div>
 					</div>
@@ -327,6 +327,21 @@
 							</table>
 						</div>
 						<p><b>Total sales: Php {{sales | number:2}}</b></p>
+					</div>
+					<div class="col s12">
+						<h3>Sold Items</h3>
+						<table>
+							<tbody>
+								<tr>
+									<th>Product Name</th>
+									<th>Sold Items</th>
+								</tr>
+								<tr ng-repeat="x in productOrderQuantity"">
+									<td>{{x.productName}}</td>
+									<td>{{x.sold}}</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>

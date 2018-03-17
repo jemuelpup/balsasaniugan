@@ -96,23 +96,20 @@ app.controller("viewOrders",function($scope,dbOperations,$timeout){
 
 	}
 	$scope.setDataToPrint = function(order,totalPrice,discountPercentage,discountAmount,payment,discount){
-		totalDiscount=totalPrice-(totalPrice*discountPercentage/100)-discountAmount;
+		
+		var totalDiscount=(totalPrice*discountPercentage/100)+discountAmount;
 
 		if(totalPrice-totalDiscount<=payment){
 			$scope.orderPrint = order;
 			$scope.totalPricePrint = totalPrice;
 			$scope.discountPercentagePrint = discountPercentage;
 			$scope.discountAmountPrint = discountAmount;
-			$scope.totalDiscount = $scope.discountAmountPrint+($scope.totalPricePrint*$scope.discountPercentagePrint/100);
+			$scope.totalDiscount = totalDiscount;
 			$scope.paymentPrint = payment;
 			$scope.discountPrint = discount;
-			$scope.amountDuePrint = $scope.totalPricePrint-$scope.totalDiscount;
+			$scope.amountDuePrint = $scope.totalPricePrint-totalDiscount;
 			$scope.dateIssued = order.orderDetails.received_date;
 			$scope.receiptValidUntil = getDateFiveYears();
-
-
-
-
 			dbOperations.processData("SetOrderPrinted",{orderID:order.orderDetails.id,totalPrice:totalPrice,discount:discount,discountPercentage:discountPercentage,payment:payment}).then(function(res){
 				console.log(res.data);
 				getOrders();

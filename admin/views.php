@@ -26,17 +26,18 @@ switch($process){
 	case "GetTransactionsFromTo":{
 		selectTransactionsBetweenDate($conn,$data);}break;
 	case "GetEmployeeAccess":{echo $_SESSION["position"];}break;
-
 	case "GetVAT":{selectVat($conn);}break;
 	case "GetServiceCharge":{selectServiceCharge($conn);}break;
+	case "GetProductOrderQuantity":{selectProductOrderQuantity($conn,$data);}break;
 }
 
 /* 
 Ready this function 
 This function is for reports.
 */
-function selectProductOrderQuantity(){
-	$sql="SELECT ol.order_id_fk, (SELECT name FROM product_tbl where ol.product_id_fk = id) as productName, SUM(ol.quantity) FROM order_line_tbl ol, order_tbl o WHERE ol.order_id_fk = o.id GROUP BY productName";
+function selectProductOrderQuantity($c,$d){
+	$sql="SELECT ol.order_id_fk, (SELECT name FROM product_tbl where ol.product_id_fk = id) as productName, SUM(ol.quantity) as sold FROM order_line_tbl ol, order_tbl o WHERE ol.order_id_fk = o.id AND o.received_date BETWEEN '".substr($d->from,0,10)."' AND '".substr($d->to,0,10)."'"." GROUP BY productName ORDER BY sold DESC";
+	print_r(hasRows($c,$sql) ? json_encode(selectQuery($c,$sql)) : "");
 
 }
 // selectEmployee($conn);

@@ -430,6 +430,7 @@ app.controller("reports",function($scope,dbOperations){
 	$scope.todateInput = new Date(($scope.fromdateInput).getTime() + (24 * 60 * 60 * 1000));
 	$scope.transactions = [];
 	$scope.sales = 0;
+	$scope.productOrderQuantity=[];
 	function formatData(){
 		($scope.transactions).forEach(function(e){
 			e.orderDetails.payment = parseFloat(e.orderDetails.payment);
@@ -443,6 +444,16 @@ app.controller("reports",function($scope,dbOperations){
 		$scope.sales = ($scope.transactions).reduce(function(acc,cur){
 			return acc+(cur.orderDetails.total_amount);
 		},0);
+	}
+	$scope.getProductOrderQuantity = function(){
+		dbOperations.views("GetProductOrderQuantity",{
+			from:$scope.fromdateInput,
+			to:$scope.todateInput
+		}).then(function(res){
+			console.log("getProductOrderQuantity nandito");
+			console.log(res);
+			$scope.productOrderQuantity = res;
+		});
 	}
 	$scope.getTransactionData = function(){
 		if($scope.fromdateInput<$scope.todateInput){
@@ -460,6 +471,7 @@ app.controller("reports",function($scope,dbOperations){
 			alert("Invalid Date Input.");
 		}
 	}
+	$scope.getProductOrderQuantity();
 	$scope.getTransactionData();
 });
 app.controller("userInterface",function($scope,$http){

@@ -443,7 +443,6 @@ app.controller("reports",function($scope,dbOperations){
 		$scope.sales = ($scope.transactions).reduce(function(acc,cur){
 			return acc+(cur.orderDetails.total_amount);
 		},0);
-		console.log($scope.sales+" ito yun");
 	}
 	$scope.getTransactionData = function(){
 		if($scope.fromdateInput<$scope.todateInput){

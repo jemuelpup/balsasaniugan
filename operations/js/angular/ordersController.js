@@ -7,6 +7,9 @@ app.controller("viewOrders",function($scope,dbOperations,$timeout){
 	$scope.vat = 12;
 	$scope.vatable = 88;
 	$scope.service_charge = 0;
+	dbOperations.views("GetEmployeeAccess",{}).then(function(res){
+		$scope.job = res;
+	});
 	function getVAT(){
 		dbOperations.views("GetVAT",{}).then(function(res){
 			$scope.vat = parseFloat(res[0].percentage);

@@ -184,6 +184,7 @@ app.controller("operations",function($scope,dbOperations,$timeout,$window){
 		console.log(src);
 		$('#modal1').modal('open');
 	}
+	
 });
 
 app.controller("viewOrderLine",function($scope,dbOperations){

@@ -309,6 +309,7 @@
 										<th>Payment</th>
 										<th>Received date</th>
 										<th>Discount</th>
+										<th>Cashier</th>
 									</tr>
 									<tr ng-repeat="x in transactions" ng-click="transactionsIndex($index)" ng-class="{'active': x.selected}">
 										<td>{{x.orderDetails.id}}</td>
@@ -320,6 +321,7 @@
 										<td>Php {{x.orderDetails.payment | number:2}}</td>
 										<td>{{x.orderDetails.received_date}}</td>
 										<td>Php{{x.orderDetails.discount | number:2}}</td>
+										<td>{{x.orderDetails.cashier_name}}</td>
 									</tr>
 								</tbody>
 							</table>

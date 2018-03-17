@@ -146,8 +146,17 @@ h1{
 			text-align: center;
 			margin: 0.75rem 0 1rem 0;
 		}
+		input[type=text]{
+			padding: 0 0.75rem;
+			color: #fff;
+		}
 	}
 	.orderListContainer{
 		padding-top: 4rem;
+	}
+	.back.btn-floating{
+		&.hideOnScrollTop{
+			bottom: -20%;
+		}
 	}
 }

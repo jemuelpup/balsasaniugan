@@ -111,8 +111,14 @@ h1 {
     .spHeader h1 {
       text-align: center;
       margin: 0.75rem 0 1rem 0; }
+    .spHeader input[type=text] {
+      padding: 0 0.75rem;
+      color: #fff; }
 
   .orderListContainer {
-    padding-top: 4rem; } }
+    padding-top: 4rem; }
+
+  .back.btn-floating.hideOnScrollTop {
+    bottom: -20%; } }
 
 /*# sourceMappingURL=common.css.map */

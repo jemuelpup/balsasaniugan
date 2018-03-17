@@ -471,6 +471,9 @@ app.controller("reports",function($scope,dbOperations){
 			alert("Invalid Date Input.");
 		}
 	}
+	$scope.printReports = function(){
+		window.print();
+	}
 	$scope.getProductOrderQuantity();
 	$scope.getTransactionData();
 });

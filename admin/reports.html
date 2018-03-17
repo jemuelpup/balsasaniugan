@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Admin</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/plugins/materialize/css/materialize.css">
+	<link rel="stylesheet" href="/common/css/common.css">
+	<link rel="stylesheet" href="/admin/css/style.css">
+	<link rel="stylesheet" href="/plugins/materialize/css/materialFont.css">
+	<style>
+	@media print {
+	 	.hideOnPrint { display: none; }
+		.showOnPrint { display: block; } 
+		table{
+			font-size: 12px;
+		}
+		table th,table td{
+			padding: 0 2px;
+		}
+		h3{
+	 		margin-top: 5px!important;
+	 		margin-bottom: 0!important;
+	 	}
+	 	main{
+	 		padding-top: 2em;
+	 	}
+	 	@page { 
+	 	 	size: auto; /* auto is the initial value */ 
+	 	 	margin: 0; /* this affects the margin in the printer settings */
+	 	}
+	}
+	</style>
+	<script src="/plugins/angular/angular.min.js"></script>
+</head>
+
+<body ng-app="balsasaniuganPointOfSale" ng-controller="userInterface">
+	<main style="padding-left: 0">
+		<section class="reports" ng-controller="reports" ng-class="reports ? 'active':''">
+			<div class="container">
+				<!-- <h2>Reports</h2> -->
+				<div class="row">
+					<div class="col s12">
+						<div class="reportDateInput hideOnPrint">
+							<div class="inputField">
+								<p><b>From</b> <input type="date" ng-model="fromdateInput" class="datepicker"></p>
+							</div>
+							<div class="inputField">
+								<p><b>To</b> <input type="date" ng-model="todateInput" class="datepicker"></p>
+							</div>
+							<div class="inputField">
+								<button class="waves-effect waves-light btn" ng-click="getTransactionData();getProductOrderQuantity()">VIEW</button>
+							</div>
+							<div class="inputField">
+								<button class="waves-effect waves-light btn" ng-click="printReports()">PRINT</button>
+							</div>
+						</div>
+					</div>
+					<div class="col s12">
+						<h3>Sales</h3>
+						<div class="data-table-container" style="overflow: auto;">
+							<table class="data-clickable">
+								<tbody>
+									<tr>
+										<th>OR #</th>
+										<th>Order date</th>
+										<th>Table #</th>
+										<th>Void</th>
+										<th>Total amount</th>
+										<th>Customer name</th>
+										<th>Payment</th>
+										<th>Received date</th>
+										<th>Discount</th>
+										<th>Cashier</th>
+									</tr>
+									<tr ng-repeat="x in transactions" ng-click="transactionsIndex($index)" ng-class="{'active': x.selected}">
+										<td>{{x.orderDetails.id}}</td>
+										<td>{{x.orderDetails.date}}</td>
+										<td>{{x.orderDetails.seat_number}}</td>
+										<td>{{x.orderDetails.void}}</td>
+										<td>Php {{x.orderDetails.total_amount | number:2}}</td>
+										<td>{{x.orderDetails.customer_name}}</td>
+										<td>Php {{x.orderDetails.payment | number:2}}</td>
+										<td>{{x.orderDetails.received_date}}</td>
+										<td>Php{{x.orderDetails.discount | number:2}}</td>
+										<td>{{x.orderDetails.cashier_name}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<p><b>Total sales: Php {{sales | number:2}}</b></p>
+					</div>
+					<div class="col s12">
+						<h3>Sold Items</h3>
+						<table>
+							<tbody>
+								<tr>
+									<th>Product Name</th>
+									<th>Sold Items</th>
+								</tr>
+								<tr ng-repeat="x in productOrderQuantity"">
+									<td>{{x.productName}}</td>
+									<td>{{x.sold}}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</section>
+
+
+	</main>
+	<script src="/plugins/jquery/jquery-3.2.1.min.js"></script>
+	<script src="/plugins/materialize-src/js/bin/materialize.min.js"></script>
+	
+	<script src="/admin/js/angular/modules.js"></script>
+	<script src="/admin/js/angular/directives.js"></script>
+	<script src="/admin/js/angular/services.js"></script>
+	<script src="/admin/js/angular/controllers.js"></script>
+
+	<!-- other scripts -->
+	
+	<script src="/admin/js/main.js"></script>
+</body>
+
+</html>

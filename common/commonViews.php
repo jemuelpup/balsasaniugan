@@ -25,7 +25,7 @@ function executeOrdersQuery($c,$sql){
 	$res = $c->query($sql);
 	if(hasRows($c,$sql)){
 		while($row = $res->fetch_assoc()){
-			$orderLine = array("productImg"=>$row["productImg"],"order_line_id"=>$row["order_line_id"],"order_id_fk"=>$row['oLine_order_id_fk'],"product_id_fk"=>$row['oLine_product_id_fk'],"name"=>$row['oLine_name'],"code"=>$row['oLine_code'],"quantity"=>$row['oLine_quantity'],"price"=>$row['oLine_price'],"served"=>$row['oLine_served'],"served_items"=>$row['served_items']);
+			$orderLine = array("productImg"=>$row["productImg"],"productValue"=>$row["productValue"],"order_line_id"=>$row["order_line_id"],"order_id_fk"=>$row['oLine_order_id_fk'],"product_id_fk"=>$row['oLine_product_id_fk'],"name"=>$row['oLine_name'],"code"=>$row['oLine_code'],"quantity"=>$row['oLine_quantity'],"price"=>$row['oLine_price'],"served"=>$row['oLine_served'],"served_items"=>$row['served_items'],"ready"=>$row['ready']);
 
 			if($iterationStart){// at first set the category and add the array
 				$iterationStart = false;

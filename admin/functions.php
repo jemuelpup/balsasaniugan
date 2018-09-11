@@ -51,8 +51,25 @@ switch($process){
 function updateVAT($c,$d){
 	$sql = $c->prepare("UPDATE pricing_config_tbl SET percentage = ? WHERE id=1");
 	$sql->bind_param('d',$d->vat);
-		$sql->execute();
+	if($sql->execute() === TRUE) {
+		updateProductPriceByVat($c,$d->vat);
 	}
+	
+}
+function getVat($c){
+	$res = $c->query("SELECT percentage FROM pricing_config_tbl WHERE name='vat'");
+	while($row = $res->fetch_assoc()){
+		return (float)$row["percentage"];
+	}
+		
+}
+function updateProductPriceByVat($c,$vat){
+	$sql = $c->prepare("
+		UPDATE product_tbl
+		SET price=value+value*$vat/100
+	");
+	$sql->execute();
+}
 function updateServiceCharge($c,$d){
 	$sql = $c->prepare("UPDATE pricing_config_tbl SET percentage = ? WHERE id=2");
 	$sql->bind_param('d',$d->service_charge);
@@ -144,10 +161,12 @@ function updatePosition($c,$d){
 }
 //product functions - return the id of the image after insert....
 function insertProduct($c,$d){
+	$vat = getVat($c);
+	$productValue = (100*$d->price)/(100+$vat);
 	$adminId = 1;
 	$dataInserted = true;
-	$sql = $c->prepare("INSERT INTO product_tbl(name,description,product_code,category_fk,modified_by_fk,price)VALUES(?,?,?,?,?,?)");
-	$sql->bind_param('sssiid',$d->name,$d->description,$d->product_code,$d->category_fk,$adminId,$d->price);
+	$sql = $c->prepare("INSERT INTO product_tbl(name,description,product_code,category_fk,modified_by_fk,price,value)VALUES(?,?,?,?,?,?,?)");
+	$sql->bind_param('sssiidd',$d->name,$d->description,$d->product_code,$d->category_fk,$adminId,$d->price,$productValue);
 	$dataInserted = ($sql->execute() === TRUE) ? true : false;
 	if($dataInserted){
 		print_r(json_encode(array("id"=>$sql->insert_id)));
@@ -158,9 +177,11 @@ function insertProduct($c,$d){
 	$sql->close();
 }
 function updateProduct($c,$d){
+	$vat = getVat($c);
+	$productValue = (100*$d->price)/(100+$vat);
 	$adminId = $_SESSION["employeeID"];
-	$sql = $c->prepare("UPDATE product_tbl SET name = ?, description = ?, picture = ?, product_code = ?, category_fk = ?, modified_by_fk = ?, price = ? WHERE id = ?");
-	$sql->bind_param('ssssiidi',$d->name,$d->description,$d->picture,$d->product_code,$d->category_fk,$d->$adminId,$d->price,$d->id);
+	$sql = $c->prepare("UPDATE product_tbl SET name = ?, description = ?, picture = ?, product_code = ?, category_fk = ?, modified_by_fk = ?, price = ?, value = ? WHERE id = ?");
+	$sql->bind_param('ssssiiddi',$d->name,$d->description,$d->picture,$d->product_code,$d->category_fk,$d->$adminId,$d->price,$productValue,$d->id);
 	$msg = ($sql->execute() === TRUE) ? "Editting Product success" : "Error: " . $sql . "<br>" . $c->error;
 	$sql->close();
 }

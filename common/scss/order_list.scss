@@ -6,6 +6,7 @@
 		&:nth-child(2n){
 			background-color: #f8f8f8;
 		}
+
 		td:first-child{
 			width: 80px;
 			padding-right: 10px;
@@ -40,6 +41,9 @@
 			}
 		}
 	}
+}
+.ready{
+	background-color: #00df00;
 }
 .paidProduct{
 	margin: 0 1em 1em 0;

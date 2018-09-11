@@ -57,7 +57,10 @@ app.controller("operations",function($scope,dbOperations,$timeout,$window){
 		if(qty==null){
 			qty = 1
 		}
-		if(stock>=qty){
+		if(qty==0||qty<0){
+			alert('quantity cannot be 0 or negative');
+		}
+		else if(stock>=qty){
 			if(dbOperations.isConvertibleToInteger(qty)){
 				$scope.orderList.push({id:id,name:name,quantity:qty,price:price,productCode:p_code});
 				console.log({id:id,name:name,quantity:qty,price:price,productCode:p_code});

@@ -11,7 +11,7 @@ app.controller("login",function($scope,$http,$timeout){
 			if(res.data=="1"){
 				window.location.href = "/admin";
 			}
-			if(res.data=="2" || res.data=="3"){
+			else if(res.data=="2" || res.data=="3"){
 				window.location.href = "/operations";
 			}
 			else{

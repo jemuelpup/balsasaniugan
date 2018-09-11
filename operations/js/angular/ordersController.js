@@ -7,6 +7,7 @@ app.controller("viewOrders",function($scope,dbOperations,$timeout){
 	$scope.vat = 12;
 	$scope.vatable = 88;
 	$scope.service_charge = 0;
+	$scope.dateIssued = new Date();
 	dbOperations.views("GetEmployeeAccess",{}).then(function(res){
 		$scope.job = res;
 	});
@@ -26,6 +27,7 @@ app.controller("viewOrders",function($scope,dbOperations,$timeout){
 	function formatData(){
 		($scope.orders).forEach(function(e){
 			e.orderDetails.payment = parseFloat(e.orderDetails.payment);	
+			e.orderDetails.productValue = parseFloat(e.orderDetails.productValue);
 			e.orderDetails.discount = parseFloat(e.orderDetails.discount);	
 			e.orderDetails.discount_percentage = parseFloat(e.orderDetails.discount_percentage);	
 			e.orderDetails.total_amount = parseFloat(e.orderDetails.total_amount);
@@ -36,6 +38,7 @@ app.controller("viewOrders",function($scope,dbOperations,$timeout){
 	}
 	function getOrders(){
 		dbOperations.views("GetOrders",{}).then(function(res){
+			console.log("Nasa get orders");
 			$scope.orders = res;
 			formatData();
 			console.log(res);
@@ -43,6 +46,11 @@ app.controller("viewOrders",function($scope,dbOperations,$timeout){
 	}
 	function getOrderTotalPrice(orderLineArray){
 		return (orderLineArray).reduce(function(p,c){ return p+(parseFloat(c.price)*parseInt(c.quantity)); },0);
+	}
+	function getOrderTotalValue(orderLineArray){
+		return (orderLineArray).reduce(function(p,c){
+			return p+(parseFloat(c.productValue)*parseInt(c.quantity));
+		},0);
 	}
 	
 	$scope.addProductsToOrder = function(orderID){
@@ -53,6 +61,9 @@ app.controller("viewOrders",function($scope,dbOperations,$timeout){
 	}
 	$scope.getTotalPrice = function(orderLineArray){
 		return getOrderTotalPrice(orderLineArray);
+	}
+	$scope.getTotalValue = function(orderLineArray){
+		return getOrderTotalValue(orderLineArray);
 	}
 	$scope.removeFromOrderLine = function(orderLineID){
 		if(confirm("Do you want to remove this from orderline?")){
@@ -95,32 +106,49 @@ app.controller("viewOrders",function($scope,dbOperations,$timeout){
 		// return mm + '/' + dd + '/' + yyyy;
 
 	}
-	$scope.setDataToPrint = function(order,totalPrice,discountPercentage,discountAmount,payment,discount,message){
+	/* UNDER CONSTRUCTION - VAT */
+	$scope.setDataToPrint = function(order,totalPrice,totalValue,discountPercentage,discountAmount,payment,discount,message){
 		$scope.receiptType = message;
 		$scope.showData = true;
 		if(message=="Bills"){
 			$scope.showData = false;
 		}
+		console.log("Ito yung order data");
+		console.log(order);
 		// console.log(message);
 		var totalDiscount=(totalPrice*discountPercentage/100)+discountAmount;
 
 		if((totalPrice-totalDiscount<=payment)||message=="Bills"){
+			console.log("ito yung mga orders");
+			console.log(order)
 			$scope.orderPrint = order;
-			$scope.totalPricePrint = totalPrice;
+			$scope.totalPricePrint = totalPrice-totalDiscount;
+			$scope.totalValuePrint = totalValue-totalDiscount;
 			$scope.discountPercentagePrint = discountPercentage;
 			$scope.discountAmountPrint = discountAmount;
 			$scope.totalDiscount = totalDiscount;
 			$scope.paymentPrint = payment;
 			$scope.discountPrint = discount;
 			$scope.amountDuePrint = $scope.totalPricePrint-totalDiscount;
-			$scope.dateIssued = order.orderDetails.received_date;
 			$scope.receiptValidUntil = getDateFiveYears();
-			dbOperations.processData("SetOrderPrinted",{orderID:order.orderDetails.id,totalPrice:totalPrice,discount:discount,discountPercentage:discountPercentage,payment:payment}).then(function(res){
-				console.log(res.data);
-				getOrders();
-				window.print();
-			});
-			
+			if(message=='Balsa Sa Niugan Official Receipt'){
+				dbOperations.processData("SetOrderPrinted",{orderID:order.orderDetails.id,totalPrice:totalPrice,discount:discount,discountPercentage:discountPercentage,payment:payment}).then(function(res){
+					dbOperations.views("GetOrders",{}).then(function(res){	
+						console.log(res);
+						$scope.dateIssued = res[0].orderDetails.received_date;
+						$scope.orders = res;
+						formatData();
+						window.print();
+					});
+				});
+			}
+			else{
+				$scope.dateIssued = new Date();
+				formatData();
+				setTimeout(function(){
+					window.print();	
+				});
+			}
 		}
 		else{
 			alert("Not enough money.");
@@ -134,7 +162,7 @@ app.controller("viewOrders",function($scope,dbOperations,$timeout){
 			});
 		}
 		else{
-			alert("Printed order first");
+			alert("Print order first");
 		}
 	}
 	$scope.orderVoid = function(voidReason,orderLine,orderDetails){

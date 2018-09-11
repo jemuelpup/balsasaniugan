@@ -8,9 +8,9 @@ app.controller("OrderWindowController",function($scope,dbOperations,$interval){
 			console.log(res);
 		});
 	}
-	$interval(function(){
-		console.log("dumaan dito");
-		getUnservedOrders();
-	}, 5000);   
+	// $interval(function(){
+	// 	console.log("dumaan dito");
+	// 	getUnservedOrders();
+	// }, 5000);   
 	getUnservedOrders();
 });

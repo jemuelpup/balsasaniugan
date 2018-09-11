@@ -31,7 +31,7 @@
 										<th>Qty</th>
 										<th>Served</th>
 									</tr>
-									<tr ng-repeat="oLine in order.orderLine">
+									<tr ng-repeat="oLine in order.orderLine" ng-class="oLine.ready=='1' ? 'ready':''">
 										<td>
 											<div class="imgContainer">
 												<img src="{{oLine.productImg}}" alt="">

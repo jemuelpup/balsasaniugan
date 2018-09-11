@@ -219,12 +219,14 @@ app.controller("productManagement",function($http,$scope,$timeout,dbOperations){
 	// add product to the database
 	$scope.addProduct = function(){
 		$scope.productFields.category_fk = $("select#poductCategory").val();
-		// console.log($scope.productFields);
-		dbOperations.processData("AddProduct",$scope.productFields).then(function(res){
-			uploadImageSaveToDB(res.data.id,"");
-			getProducts();
-			// console.log(res);
-		});
+		console.log("Nasa add product");
+		console.log($scope.productFields);
+
+		// dbOperations.processData("AddProduct",$scope.productFields).then(function(res){
+		// 	uploadImageSaveToDB(res.data.id,"");
+		// 	getProducts();
+		// 	console.log(res);
+		// });
 	}
 	// nakuha lang sa youtube yung process na ito... replace this if success in adding in service
 	function uploadImageSaveToDB(productID,oldImg){
@@ -260,6 +262,7 @@ app.controller("productManagement",function($http,$scope,$timeout,dbOperations){
 			getProducts();
 			$("#edit-product").modal("close");
 			$('input:file').val("");
+			console.log(res);
 		});
 	}
 	$scope.deleteProduct = function(){
@@ -407,6 +410,7 @@ app.controller("buisnessManagement",function($scope,dbOperations){
 	$scope.updateVat = function(){
 		console.log($scope.vat);
 		dbOperations.processData("EditVAT",{"vat":$scope.vat}).then(function(res){
+			console.log(res);
 			getVAT();
 		});
 	}
@@ -427,7 +431,7 @@ app.controller("buisnessManagement",function($scope,dbOperations){
 app.controller("reports",function($scope,dbOperations){
 	console.log("nasa reports");
 	$scope.fromdateInput = new Date();
-	$scope.todateInput = new Date(($scope.fromdateInput).getTime() + (24 * 60 * 60 * 1000));
+	$scope.todateInput = new Date();
 	$scope.transactions = [];
 	$scope.sales = 0;
 	$scope.productOrderQuantity=[];
@@ -448,7 +452,7 @@ app.controller("reports",function($scope,dbOperations){
 	$scope.getProductOrderQuantity = function(){
 		dbOperations.views("GetProductOrderQuantity",{
 			from:$scope.fromdateInput,
-			to:$scope.todateInput
+			to:new Date(($scope.todateInput).getTime() + (24 * 60 * 60 * 1000))
 		}).then(function(res){
 			console.log("getProductOrderQuantity nandito");
 			console.log(res);
@@ -456,10 +460,10 @@ app.controller("reports",function($scope,dbOperations){
 		});
 	}
 	$scope.getTransactionData = function(){
-		if($scope.fromdateInput<$scope.todateInput){
+		if($scope.fromdateInput<=$scope.todateInput){
 			dbOperations.views("GetTransactionsFromTo",{
 				from:$scope.fromdateInput,
-				to:$scope.todateInput
+				to:new Date(($scope.todateInput).getTime() + (24 * 60 * 60 * 1000))
 			}).then(function(res){
 				console.log(res);
 				$scope.transactions = res;

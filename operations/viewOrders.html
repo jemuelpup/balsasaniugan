@@ -50,13 +50,17 @@
 										<th>Served</th>
 										<th>Void</th>
 										<th>Serve</th>
+										<th>Ready</th>
 									</tr>
-									<tr ng-repeat="oLine in order.orderLine">
+									<tr
+									ng-repeat="oLine in order.orderLine"
+									ng-class="oLine.ready=='1' ? 'ready':''">
 										<td>{{oLine.name}}</td>
 										<td>{{oLine.quantity}}</td>
 										<td>{{oLine.served_items}}</td>
 										<td><button ng-if="(oLine.quantity-oLine.served_items)>0"  ng-click="removeFromOrderLine(oLine.order_line_id)">Remove</button></td>
 										<td><button ng-if="(oLine.quantity-oLine.served_items)>0" ng-click="serveItem(oLine.order_line_id,oLine.quantity,oLine.served_items)">Serve</button></td>
+										<td><button ng-if="(oLine.quantity-oLine.served_items)>0" ng-click="setOrderReady(oLine)">Ready</button></td>
 									</tr>
 								</table>
 							</div>

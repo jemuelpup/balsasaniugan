@@ -5,12 +5,11 @@ app.controller("OrderWindowController",function($scope,dbOperations,$interval){
 	function getUnservedOrders(){
 		dbOperations.views("GetUnservedOrders",{}).then(function(res){
 			$scope.unservedOrders = res;
-			console.log(res);
+			// console.log(res);
 		});
 	}
-	// $interval(function(){
-	// 	console.log("dumaan dito");
-	// 	getUnservedOrders();
-	// }, 5000);   
+	$interval(function(){
+		getUnservedOrders();
+	}, 5000);   
 	getUnservedOrders();
 });

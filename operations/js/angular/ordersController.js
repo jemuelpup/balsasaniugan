@@ -207,6 +207,20 @@ app.controller("viewOrders",function($scope,dbOperations,$timeout){
 		});
 		// console.log(selectedOrder);
 	}
+	$scope.setOrderReady = function(orderLine){
+		// console.log(orderLine)
+		// if(0)
+		dbOperations.processData("OrderReadyToServed",
+		{
+			orderLineId: orderLine.order_line_id,
+			status: orderLine.ready=="1" ? 0 : 1
+		}).then(function(res){
+			console.log(res);
+			getOrders();
+			// $('#edit-order-seat-id').modal('close');
+		});
+		// console.log(orderLine);
+	}
 });
 app.controller("cashier",function($scope,dbOperations){
 	dbOperations.views("GetEmployeeAccess",{}).then(function(res){

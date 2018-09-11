@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 11, 2018 at 04:56 PM
+-- Generation Time: Sep 11, 2018 at 05:51 PM
 -- Server version: 5.5.32
 -- PHP Version: 5.4.19
 
@@ -154,7 +154,7 @@ CREATE TABLE IF NOT EXISTS `order_line_tbl` (
   `served_items` int(11) NOT NULL DEFAULT '0',
   `ready` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=50 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=51 ;
 
 --
 -- Dumping data for table `order_line_tbl`
@@ -209,7 +209,8 @@ INSERT INTO `order_line_tbl` (`id`, `order_id_fk`, `product_id_fk`, `name`, `cod
 (46, 25, 129, 'Shrimp Tepanyaki', '""', 1, '480.00', 0, 1, 0),
 (47, 26, 128, 'Japanese Salmon Head Miso Soup', '""', 1, '550.00', 0, 1, 0),
 (48, 27, 127, 'Miso Soup', '""', 1, '500.00', 0, 1, 0),
-(49, 28, 126, 'Tuna Salad', '""', 1, '550.00', 0, 0, 0);
+(49, 28, 126, 'Tuna Salad', '""', 1, '550.00', 0, 1, 0),
+(50, 29, 125, 'Kani Salad', '""', 1, '500.00', 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -239,7 +240,7 @@ CREATE TABLE IF NOT EXISTS `order_tbl` (
   `vat` decimal(11,2) NOT NULL DEFAULT '12.00',
   `service_charge` decimal(11,2) NOT NULL DEFAULT '0.00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
 
 --
 -- Dumping data for table `order_tbl`
@@ -272,7 +273,8 @@ INSERT INTO `order_tbl` (`id`, `order_date`, `seat_number`, `cashier_fk`, `branc
 (25, '2018-09-10 13:09:51', '1', 3, 1, 1, 0, '480.00', '', '500.00', '', '0.00', '2018-09-10 21:10:13', NULL, 0.00, 0, 1, 1, '100.00', '0.00'),
 (26, '2018-09-10 13:11:18', '1', 3, 1, 1, 0, '550.00', '', '600.00', '', '0.00', '2018-09-10 21:11:38', NULL, 0.00, 0, 1, 1, '100.00', '0.00'),
 (27, '2018-09-10 13:13:54', '1', 3, 1, 1, 0, '500.00', '', '1000.00', '', '0.00', '2018-09-10 22:48:35', NULL, 0.00, 0, 1, 1, '100.00', '0.00'),
-(28, '2018-09-10 14:48:57', '1', NULL, 1, 1, 0, '0.00', '', '0.00', '', '0.00', NULL, NULL, 0.00, 0, 0, 0, '100.00', '0.00');
+(28, '2018-09-10 14:48:57', '1', 3, 1, 1, 0, '550.00', '', '1000.00', '', '0.00', '2018-09-11 23:45:16', NULL, 0.00, 0, 1, 1, '100.00', '0.00'),
+(29, '2018-09-11 15:44:20', '1', 3, 1, 1, 0, '500.00', '', '500.00', '', '0.00', '2018-09-11 23:46:11', NULL, 0.00, 0, 1, 1, '100.00', '0.00');
 
 -- --------------------------------------------------------
 
@@ -472,7 +474,7 @@ INSERT INTO `product_tbl` (`id`, `name`, `description`, `picture`, `product_code
 (122, 'Ebi Fry', 'no desc', '/common/images/products/default_food_img.jpg', '""', 2, '2018-03-06 10:22:27', 1, 1, '335.00', '670.00', 100, 1),
 (123, 'Kisu Fry', 'no desc', '/common/images/products/default_food_img.jpg', '""', 2, '2018-03-06 10:22:27', 1, 1, '325.00', '650.00', 100, 1),
 (124, 'Kani Fry', 'no desc', '/common/images/products/default_food_img.jpg', '""', 2, '2018-03-06 10:22:27', 1, 1, '315.00', '630.00', 100, 1),
-(125, 'Kani Salad', 'no desc', '/common/images/products/default_food_img.jpg', '""', 1, '2018-03-06 10:22:27', 1, 1, '250.00', '500.00', 100, 1),
+(125, 'Kani Salad', 'no desc', '/common/images/products/default_food_img.jpg', '""', 1, '2018-03-06 10:22:27', 1, 1, '250.00', '500.00', 99, 1),
 (126, 'Tuna Salad', 'no desc', '/common/images/products/default_food_img.jpg', '""', 1, '2018-03-06 10:22:27', 1, 1, '275.00', '550.00', 99, 1),
 (127, 'Miso Soup', 'no desc', '/common/images/products/default_food_img.jpg', '""', 2, '2018-03-06 10:22:27', 1, 1, '250.00', '500.00', 99, 1),
 (128, 'Japanese Salmon Head Miso Soup', 'no desc', '/common/images/products/default_food_img.jpg', '""', 2, '2018-03-06 10:22:27', 1, 1, '275.00', '550.00', 99, 1),

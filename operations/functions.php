@@ -42,6 +42,12 @@ switch($process){
 	case "SetOrderPrinted":{updateOrderPrinted($conn,$data);}break;
 	case "SetOrderVoid":{updateOrderVoid($conn,$data);}break;
 	case "EditSeatID":{updateSeatID($conn,$data);}break;
+	case "OrderReadyToServed":{orderReadyToServed($conn,$data);}break;
+}
+function orderReadyToServed($c,$d){
+	$sql = $c->prepare("UPDATE order_line_tbl SET ready= ? WHERE  id=?");
+	$sql->bind_param('ii',$d->status,$d->orderLineId);
+	$sql->execute();
 }
 function updateSeatID($c,$d){
 	$sql = $c->prepare("UPDATE order_tbl SET seat_number = ? WHERE id = ?");
@@ -108,13 +114,13 @@ function updateProductNotAvailable($c,$d){
 }
 
 function updateOrderServed($c,$d){
-	$sql = $c->prepare("UPDATE order_line_tbl SET served_items=served_items+1 WHERE id = ? AND served_items<quantity"); 
+	$sql = $c->prepare("UPDATE order_line_tbl SET ready=0, served_items=served_items+1 WHERE id = ? AND served_items<quantity"); 
 	$sql->bind_param('i',$d->orderLineID);
 	$msg = ($sql->execute() === TRUE) ? "Updating data in orderline success" : "Error: " . $sql . "<br>" . $c->error;
 	$sql->close();
 }
 function removeFromOrderLine($c,$d){
-	$sql = $c->prepare("UPDATE order_line_tbl SET quantity = quantity-1  WHERE id = ? AND quantity > 0 AND served_items<quantity"); 
+	$sql = $c->prepare("UPDATE order_line_tbl SET ready=0, quantity = quantity-1  WHERE id = ? AND quantity > 0 AND served_items<quantity"); 
 	$sql->bind_param('i',$d->orderLineID);
 	if($sql->execute() === TRUE){
 		$sql = $c->prepare("DELETE FROM `order_line_tbl` WHERE id = ? AND quantity = 0"); 

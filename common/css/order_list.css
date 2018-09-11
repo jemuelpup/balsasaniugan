@@ -4,6 +4,12 @@
   margin-bottom: 2em; }
   .orderList .order:nth-child(2n) {
     background-color: #f8f8f8; }
+  .orderList .order tr {
+    padding: 2px 0; }
+    .orderList .order tr button {
+      background-color: transparent;
+      border: 1px solid #ccc;
+      border-radius: 5px; }
   .orderList .order td:first-child {
     width: 80px;
     padding-right: 10px; }
@@ -32,9 +38,6 @@
       left: 0;
       right: 0;
       margin: auto; }
-
-.ready {
-  background-color: #00df00; }
 
 .paidProduct {
   margin: 0 1em 1em 0; }

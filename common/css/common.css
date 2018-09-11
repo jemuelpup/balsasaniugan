@@ -7,6 +7,12 @@ h1 img {
   width: 100%;
   max-width: 420px; }
 
+button {
+  cursor: pointer; }
+
+.ready {
+  background-color: #b7f999; }
+
 .h4-design, .data-header h4 {
   color: #fff;
   margin: 0; }

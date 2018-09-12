@@ -218,15 +218,14 @@ app.controller("productManagement",function($http,$scope,$timeout,dbOperations){
 	*/
 	// add product to the database
 	$scope.addProduct = function(){
-		$scope.productFields.category_fk = $("select#poductCategory").val();
+		$scope.productFields.category_fk = $("select#productCategory").val();
 		console.log("Nasa add product");
 		console.log($scope.productFields);
-
-		// dbOperations.processData("AddProduct",$scope.productFields).then(function(res){
-		// 	uploadImageSaveToDB(res.data.id,"");
-		// 	getProducts();
-		// 	console.log(res);
-		// });
+		dbOperations.processData("AddProduct",$scope.productFields).then(function(res){
+			uploadImageSaveToDB(res.data.id,"");
+			getProducts();
+			console.log(res);
+		});
 	}
 	// nakuha lang sa youtube yung process na ito... replace this if success in adding in service
 	function uploadImageSaveToDB(productID,oldImg){
@@ -428,13 +427,15 @@ app.controller("buisnessManagement",function($scope,dbOperations){
 	getServiceCharge();
 	getBranches();
 });
-app.controller("reports",function($scope,dbOperations){
+app.controller("reports",function($scope,dbOperations,$timeout){
 	console.log("nasa reports");
 	$scope.fromdateInput = new Date();
 	$scope.todateInput = new Date();
 	$scope.transactions = [];
 	$scope.sales = 0;
 	$scope.productOrderQuantity=[];
+	$scope.showSales=true;
+	$scope.showSoldItems=true;
 	function formatData(){
 		($scope.transactions).forEach(function(e){
 			e.orderDetails.payment = parseFloat(e.orderDetails.payment);
@@ -476,8 +477,28 @@ app.controller("reports",function($scope,dbOperations){
 		}
 	}
 	$scope.printReports = function(){
-		window.print();
+		$scope.showSales=true;
+		$scope.showSoldItems=true;
+		$timeout(function(){
+			window.print();
+		},100);
 	}
+	$scope.printSales = function(){
+		$scope.showSales=true;
+		$scope.showSoldItems=false;
+		$timeout(function(){
+			window.print();
+		},100);
+
+	}
+	$scope.printSoldItems = function(){
+		$scope.showSales=false;
+		$scope.showSoldItems=true;
+		$timeout(function(){
+			window.print();
+		},100);
+	}
+
 	$scope.getProductOrderQuantity();
 	$scope.getTransactionData();
 });

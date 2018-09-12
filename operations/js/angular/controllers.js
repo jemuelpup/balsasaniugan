@@ -1,6 +1,7 @@
-app.controller("operations",function($scope,dbOperations,$timeout,$window){
+app.controller("operations",function($scope,dbOperations,$timeout,$window,$interval){
 	$scope.job = 0;
 	$scope.vat = 12;
+	$scope.itemsReady = 0;
 	dbOperations.views("GetEmployeeAccess",{}).then(function(res){
 		$scope.job = res;
 		console.log(res);
@@ -52,6 +53,20 @@ app.controller("operations",function($scope,dbOperations,$timeout,$window){
 			$scope.categories = res;
 		});
 	}
+	function getUnservedOrders(){
+		dbOperations.views("GetUnservedOrders",{}).then(function(res){
+			// $scope.unservedOrders = res;
+			console.log(res);
+			$scope.itemsReady = res.reduce((x,y)=>{
+				// console.log(y)
+				return y.orderLine.reduce((a,b)=>{
+					return (b.ready=="1" ? 1 : 0) + a;
+				},0) + x;
+			},0);
+			console.log($scope.itemsReady);
+		});
+	}
+	
 	/* Scope functions */
 	$scope.addProductOrder = function(id,name,qty,price,p_code,stock){
 		if(qty==null){
@@ -175,7 +190,10 @@ app.controller("operations",function($scope,dbOperations,$timeout,$window){
 			$window.location.href = "/operations/";
 		}
 	}
-
+	$interval(function(){
+		getUnservedOrders();
+	}, 5000);   
+	getUnservedOrders();
 	getCategories();
 	getProducts();
 

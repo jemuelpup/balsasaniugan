@@ -21,8 +21,11 @@
 				<div class="col s12">
 					<a href="/operations/newOrder.html" class="common btn waves-effect waves-light login-button">NEW ORDER<i class="material-icons right">add</i>
 					</a>
-					<a href="/operations/viewOrders.html" class="common btn waves-effect waves-light login-button">ORDERS<i class="material-icons right">event_note</i>
-					</a>
+					<div class="wrapNotification">
+						<a href="/operations/viewOrders.html" class="common btn waves-effect waves-light login-button">ORDERS<i class="material-icons right">event_note</i>
+						</a>
+						<span class="notificationNum" ng-if="itemsReady">{{itemsReady}}</span>
+					</div>
 					<a href="/operations/productManagement.html" class="common btn waves-effect waves-light login-button" ng-if="job==3">PRODUCT MANAGEMENT<i class="material-icons right">assignment</i>
 					</a>
 					<a href="/operations/cashier.html" class="common btn waves-effect waves-light login-button" ng-if="job==3">Cashier<i class="material-icons right">attach_money</i>

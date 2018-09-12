@@ -13,24 +13,37 @@
 	 	main{
 	 		padding-top: 2em;
 	 	}
-	@media print {
-	 	.hideOnPrint { display: none; }
-		.showOnPrint { display: block; } 
-		table{
-			font-size: 12px;
-		}
-		table th,table td{
-			padding: 0 2px;
-		}
-		h3{
-	 		margin-top: 5px!important;
-	 		margin-bottom: 0!important;
+	 	.flex-container{
+	 		display: -webkit-flex;
+	 		display: -moz-flex;
+	 		display: -ms-flex;
+	 		display: -o-flex;
+	 		display: flex;
+	 		justify-content: space-between;
+	 		-ms-align-items: center;
+	 		align-items: top;
 	 	}
-	 	@page { 
-	 	 	size: auto; /* auto is the initial value */ 
-	 	 	margin: 0; /* this affects the margin in the printer settings */
+	 	.flex-container p{
+	 		margin: 0;
 	 	}
-	}
+		@media print {
+		 	.hideOnPrint { display: none!important; }
+			.showOnPrint { display: block; } 
+			table{
+				font-size: 12px;
+			}
+			table th,table td{
+				padding: 0 2px;
+			}
+			h3{
+		 		margin-top: 5px!important;
+		 		margin-bottom: 0!important;
+		 	}
+		 	@page { 
+		 	 	size: auto; /* auto is the initial value */ 
+		 	 	margin: 0; /* this affects the margin in the printer settings */
+		 	}
+		}
 	</style>
 	<script src="/plugins/angular/angular.min.js"></script>
 </head>
@@ -57,7 +70,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col s12">
+					<div class="col s12" ng-class="showSales ? '':'hideOnPrint'">
 						<h3>Sales</h3>
 						<div class="data-table-container" style="overflow: auto;">
 							<table class="data-clickable">
@@ -89,22 +102,31 @@
 								</tbody>
 							</table>
 						</div>
-						<p><b>Total sales: Php {{sales | number:2}}</b></p>
+						<div class="flex-container hideOnPrint">
+							<p><b>Total sales: Php {{sales | number:2}}</b></p>
+							<button class="waves-effect waves-light btn" ng-click="printSales()">Print sales</button>
+						</div>
 					</div>
-					<div class="col s12">
+					<div class="col s12" ng-class="showSoldItems ? '':'hideOnPrint'">
 						<h3>Sold Items</h3>
-						<table>
-							<tbody>
-								<tr>
-									<th>Product Name</th>
-									<th>Sold Items</th>
-								</tr>
-								<tr ng-repeat="x in productOrderQuantity"">
-									<td>{{x.productName}}</td>
-									<td>{{x.sold}}</td>
-								</tr>
-							</tbody>
-						</table>
+						<div class="data-table-container" style="overflow: auto;">
+							<table>
+								<tbody>
+									<tr>
+										<th>Product Name</th>
+										<th>Sold Items</th>
+									</tr>
+									<tr ng-repeat="x in productOrderQuantity"">
+										<td>{{x.productName}}</td>
+										<td>{{x.sold}}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="flex-container hideOnPrint">
+							<p><b>Total sales: Php {{sales | number:2}}</b></p>
+							<button class="waves-effect waves-light btn" ng-click="printSoldItems()">Print Sold Items</button>
+						</div>
 					</div>
 				</div>
 			</div>
